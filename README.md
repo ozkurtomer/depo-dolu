@@ -8,12 +8,13 @@
 
 **Real-time fuel price alerts for all 81 provinces of Turkey, plus a free open JSON API.**
 
-[**▶ Try it on the web**](https://ozkurtomer.github.io/depo-dolu/) &nbsp;&nbsp; [**Free fuel price API**](#-free-fuel-price-api) &nbsp;&nbsp; [**How it works**](#%EF%B8%8F-how-it-works)
+[**▶ Try it on the web**](https://ozkurtomer.github.io/depo-dolu/) &nbsp;&nbsp; [**Free fuel price API**](#-free-fuel-price-api) &nbsp;&nbsp; [**How it works**](#%EF%B8%8F-how-it-works) &nbsp;&nbsp; [**Telegram channel**](https://t.me/depodolu)
 
 [![Collector](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/collect.yml?label=price%20collector&logo=githubactions&logoColor=white)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/collect.yml)
 [![Last price change](https://img.shields.io/github/last-commit/ozkurtomer/depo-dolu/main?path=data&label=last%20price%20change&color=F2B705)](data/)
 [![CI](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/ci.yml?label=tests&logo=dotnet)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/ci.yml)
 [![MIT](https://img.shields.io/badge/license-MIT-0E3B4A)](LICENSE)
+[![Telegram](https://img.shields.io/badge/Telegram-%40depodolu-26A5E4?logo=telegram&logoColor=white)](https://t.me/depodolu)
 [![Stars](https://img.shields.io/github/stars/ozkurtomer/depo-dolu?style=social)](https://github.com/ozkurtomer/depo-dolu/stargazers)
 
 </div>
@@ -52,6 +53,8 @@ This table updates itself. Whenever a price changes, the collector rewrites it.
 1. **Pick your province.** All 81 of them, with Istanbul's European and Asian sides listed separately.
 2. **Pick your fuel.** Gasoline, diesel or LPG.
 3. **Turn on alerts.** That's it.
+
+No Android phone? Follow **[@depodolu on Telegram](https://t.me/depodolu)**: every price change across Turkey is posted there automatically, as one short summary.
 
 When the price changes, you get a notification like this (the app is in Turkish):
 
@@ -221,7 +224,7 @@ dotnet test collector/DepoDolu.sln
 
 - [ ] Publish the Android app on Google Play
 - [ ] **Early warning:** notify about announced price hikes before they hit the pump
-- [x] Telegram channel: every change is posted as one summary message (active once the channel is set up)
+- [x] Telegram channel: every change is posted to [@depodolu](https://t.me/depodolu) as one summary message
 - [ ] X (Twitter) bot
 - [ ] Add Opet and Shell prices and show the cheapest distributor per province
 - [ ] District-level prices
