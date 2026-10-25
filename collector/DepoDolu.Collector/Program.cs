@@ -56,10 +56,14 @@ try
     bool wrote = store.Save(previous, current, changes, now);
 
     // Veri değiştiyse README'deki canlı tabloyu da güncelle.
-    if (readmePath is not null && (wrote || args.Contains("--force-readme")) && ReadmeUpdater.Update(readmePath, dataDir, now))
+    if (readmePath is not null && (wrote || args.Contains("--force-readme")))
     {
-        Console.WriteLine("✓ README tablosu güncellendi.");
-        wrote = true;
+        int updated = ReadmeUpdater.UpdateAll(readmePath, dataDir, now);
+        if (updated > 0)
+        {
+            Console.WriteLine($"✓ README tablosu güncellendi ({updated} dosya).");
+            wrote = true;
+        }
     }
 
     if (previous is null)

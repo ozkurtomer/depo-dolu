@@ -34,6 +34,45 @@ public class ReadmeUpdaterTests
     }
 
     [Fact]
+    public void Ingilizce_tablo()
+    {
+        var changes = new List<ChangeEntry>
+        {
+            new() { At = Now.AddHours(-2), City = "bursa", Name = "Bursa", Fuel = "motorin", Old = 97.80m, New = 99.10m }
+        };
+
+        var md = ReadmeUpdater.Render(Latest(), changes, Now, english: true);
+
+        Assert.Contains("| Province | Gasoline | Diesel | LPG |", md);
+        Assert.Contains("| **Bursa** | 77.40 | 🔺 99.10 | 40.60 |", md);
+        Assert.Contains("Oct 25, 2026, 21:30 (Turkey time)", md);
+        Assert.Contains("🔺 Oct 25, 2026, 19:30: **Bursa** diesel 97.80 → 99.10 ₺ (+1.30)", md);
+    }
+
+    [Fact]
+    public void Ingilizce_ve_turkce_readme_birlikte_guncellenir()
+    {
+        var dir = Path.Combine(Path.GetTempPath(), "dd-readme2-" + Guid.NewGuid().ToString("N"));
+        Directory.CreateDirectory(dir);
+        try
+        {
+            new PriceStore(dir).Save(null, [new CityPrices("bursa", "Bursa", 77.40m, 97.80m, 40.60m)], [], Now);
+            var en = Path.Combine(dir, "README.md");
+            var tr = Path.Combine(dir, "README.tr.md");
+            File.WriteAllText(en, $"{ReadmeUpdater.Start}\n{ReadmeUpdater.End}\n");
+            File.WriteAllText(tr, $"{ReadmeUpdater.Start}\n{ReadmeUpdater.End}\n");
+
+            Assert.Equal(2, ReadmeUpdater.UpdateAll(en, dir, Now));
+            Assert.Contains("| **Bursa** | 77.40 | 97.80 | 40.60 |", File.ReadAllText(en));
+            Assert.Contains("| **Bursa** | 77,40 | 97,80 | 40,60 |", File.ReadAllText(tr));
+        }
+        finally
+        {
+            Directory.Delete(dir, true);
+        }
+    }
+
+    [Fact]
     public void Eski_degisiklik_tabloda_isaretlenmez()
     {
         var changes = new List<ChangeEntry>
@@ -64,7 +103,7 @@ public class ReadmeUpdaterTests
             Assert.StartsWith("# Başlık\n", text);
             Assert.EndsWith($"{ReadmeUpdater.End}\nAlt kısım\n", text);
             Assert.DoesNotContain("eski", text);
-            Assert.Contains("| **Bursa** | 77,40 | 97,80 | 40,60 |", text);
+            Assert.Contains("| **Bursa** | 77.40 | 97.80 | 40.60 |", text);
 
             Assert.False(ReadmeUpdater.Update(readme, dir, Now)); // aynı içerik → yazma yok
         }
