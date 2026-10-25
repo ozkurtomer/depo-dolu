@@ -4,13 +4,6 @@ using System.Text;
 
 namespace DepoDolu.Collector;
 
-/// <summary>
-/// Fiyat değişikliklerini bir Telegram kanalına tek bir özet mesaj olarak gönderir.
-/// Uygulaması olmayanlar da (web, iPhone) kanalı takip ederek zamdan haberdar olur.
-///
-/// Ulusal bir zamda 82 bölgenin hepsi aynı anda değişir; 82 ayrı mesaj yerine
-/// yakıt ve yön başına tek satır özet + büyük illerin fiyatı gönderilir.
-/// </summary>
 public sealed class TelegramNotifier(HttpClient http, string? botToken, string? chatId)
 {
     public bool IsDryRun => string.IsNullOrWhiteSpace(botToken) || string.IsNullOrWhiteSpace(chatId);
@@ -41,7 +34,7 @@ public sealed class TelegramNotifier(HttpClient http, string? botToken, string? 
         if (res.IsSuccessStatusCode)
             Console.WriteLine("  ✓ Telegram kanalına gönderildi.");
         else
-            Console.Error.WriteLine($"  ! Telegram hata {(int)res.StatusCode}: {await res.Content.ReadAsStringAsync(ct)}");
+            throw new HttpRequestException($"Telegram gönderilemedi (HTTP {(int)res.StatusCode}).");
     }
 
     public static string BuildMessage(IReadOnlyList<PriceChange> changes)
@@ -63,7 +56,6 @@ public sealed class TelegramNotifier(HttpClient http, string? botToken, string? 
                 ? $", litre başına ortalama {(g.Key.Up ? "+" : "−")}{FcmNotifier.Money(avg)} ₺"
                 : "");
 
-            // Önce büyük iller, sonra kalanlardan birkaçı; en fazla 6 satır.
             var shown = list.OrderBy(c => Array.IndexOf(Featured, c.Slug) is var i && i >= 0 ? i : 99)
                             .ThenBy(c => c.CityName, StringComparer.Ordinal)
                             .Take(6)
@@ -76,7 +68,7 @@ public sealed class TelegramNotifier(HttpClient http, string? botToken, string? 
         }
 
         sb.Append("Tüm iller: github.com/ozkurtomer/depo-dolu");
-        return sb.ToString();
+        return sb.ToString().Replace("\r\n", "\n");
     }
 
     private static string Indent(string s) => "    " + s.Replace("\n", "\n    ");

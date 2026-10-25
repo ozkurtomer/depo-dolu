@@ -13,6 +13,13 @@
       <span class="logo" aria-hidden="true">Depo Dolu</span>
     </header>
 
+    @if (prices.offline()) {
+      <p class="banner" role="status">Bağlantı kurulamadı. Son kaydedilen fiyatları görüyorsun.</p>
+    }
+    @if (prices.error(); as err) {
+      <p class="banner error" role="alert">{{ err }} <button type="button" (click)="prices.loadLatest()">Tekrar dene</button></p>
+    }
+
     <div class="tabs" role="tablist" aria-label="Yakıt">
       @for (f of fuels; track f.key) {
         <button
@@ -84,9 +91,9 @@
           <strong>{{ settings().notify ? 'Bildirimler açık' : 'Zam gelince haber verelim mi?' }}</strong>
           <span>
             @if (settings().notify) {
-              {{ city()?.name }} {{ fuelLabel(settings().fuel).toLocaleLowerCase('tr-TR') }} fiyatı değişince ilk sen bileceksin.
+              {{ city()?.name }} {{ fuelLabel(settings().fuel).toLocaleLowerCase('tr-TR') }} fiyatındaki zam ve indirimleri takip ediyorsun.
             } @else {
-              Fiyat değiştiği dakika telefonuna bildirim gelsin.
+              Fiyatlar 15 dakikalık aralıklarla kontrol edilir.
             }
           </span>
         </div>
@@ -127,7 +134,11 @@
             >{{ l }} L</button>
           }
         </div>
-        <p class="total">{{ tlWhole(tank()) }} <small>₺</small></p>
+        @if (tank(); as total) {
+          <p class="total">{{ tlWhole(total) }} <small>₺</small></p>
+        } @else {
+          <p class="hint">Hesaplamak için fiyat bilgisi gerekiyor.</p>
+        }
       </div>
     </section>
 
@@ -153,15 +164,16 @@
       </section>
     }
 
-    @if (prices.error(); as err) {
-      <p class="banner error" role="alert">{{ err }}</p>
-    }
-    @if (prices.offline()) {
-      <p class="banner">İnternet yok. Son kaydedilen fiyatları görüyorsun.</p>
-    }
+    <button class="share-btn" type="button" [disabled]="price() == null" (click)="sharePrice()">↗ Bu fiyatı paylaş</button>
+    <button class="copy-btn" type="button" [disabled]="price() == null" (click)="sharePrice(true)">Bağlantıyı kopyala</button>
+    @if (shareMessage(); as message) { <p class="share-status" role="status">{{ message }}</p> }
 
     <footer>
       Fiyatlar Petrol Ofisi'nin il liste fiyatıdır, KDV dahil. İstasyonlar arasında küçük farklar olabilir.
+      @if (prices.latest(); as latest) {
+        <span class="data-date">Verinin son güncellenmesi: {{ ago(latest.updatedAt) }}. Bu tarih son başarılı kontrolü göstermez.</span>
+      }
+      <a [href]="sourceUrl()" target="_blank" rel="noopener">Fiyat kaynağını gör</a>
       <a [href]="repoUrl" target="_blank" rel="noopener">Açık kaynak, GitHub'da</a>
     </footer>
   </main>

@@ -358,6 +358,20 @@ h2 {
   }
 }
 
+.share-btn {
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--dd-brand);
+  border-radius: 1rem;
+  background: var(--dd-surface);
+  color: var(--dd-brand);
+  font-weight: 600;
+  &:disabled { opacity: 0.5; cursor: default; }
+}
+
+.share-status { margin: 0 0.5rem; color: var(--dd-brand); font-size: 0.9rem; }
+.copy-btn { border: 0; padding: 0.4rem; background: none; color: var(--dd-brand); text-decoration: underline; }
+.data-date { display: block; margin-top: 0.5rem; }
+
 footer {
   margin: 0.75rem 0.5rem 0;
   font-size: 0.8125rem;

@@ -1,0 +1,20 @@
+name: Feature idea / Özellik önerisi
+description: Help make fuel prices more useful and accessible
+title: "[Idea]: "
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Who needs this, and why? / Kimin hangi sorununu çözüyor?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Suggested behavior / Önerdiğin kullanım
+    validations:
+      required: true
+  - type: textarea
+    id: contribution
+    attributes:
+      label: Would you like to help? / Katkı vermek ister misin?

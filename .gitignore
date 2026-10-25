@@ -21,3 +21,5 @@ GoogleService-Info.plist
 .vscode/
 .idea/
 .DS_Store
+.local-data/
+.local-notifications.json

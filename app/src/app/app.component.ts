@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { PricesService } from './services/prices.service';
 import { SettingsService } from './services/settings.service';
 import { SetupComponent } from './setup/setup.component';
+import { selectionFromUrl } from './share';
 
 @Component({
   selector: 'app-root',
@@ -29,5 +30,8 @@ export class AppComponent implements OnInit {
 
   async ngOnInit() {
     await Promise.all([this.settings.load(), this.prices.loadLatest()]);
+    const latest = this.prices.latest();
+    const shared = latest ? selectionFromUrl(new URL(window.location.href), latest) : null;
+    if (shared) await this.settings.select(shared.city, shared.fuel);
   }
 }

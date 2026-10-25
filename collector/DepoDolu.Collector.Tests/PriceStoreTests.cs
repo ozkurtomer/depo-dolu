@@ -36,7 +36,7 @@ public class PriceStoreTests : IDisposable
         Assert.True(wrote);
         Assert.True(File.Exists(Path.Combine(_dir, "latest.json")));
         Assert.True(File.Exists(Path.Combine(_dir, "history", "bursa.json")));
-        Assert.False(File.Exists(Path.Combine(_dir, "changes.json")));
+        Assert.Equal("[]", File.ReadAllText(Path.Combine(_dir, "changes.json")).Trim());
     }
 
     [Fact]
@@ -127,5 +127,43 @@ public class PriceStoreTests : IDisposable
     {
         var change = new PriceChange("bursa", "Bursa", Fuel.Motorin, 97.80m, 99.10m);
         PriceStore.Validate(Country(), [change]); // hata fırlatmamalı
+    }
+
+    [Theory]
+    [InlineData(Fuel.Benzin)]
+    [InlineData(Fuel.Motorin)]
+    [InlineData(Fuel.Lpg)]
+    public void Eksik_yakit_fiyati_reddedilir(Fuel fuel)
+    {
+        var current = Country((_, c) => fuel switch
+        {
+            Fuel.Benzin => c with { Benzin = null },
+            Fuel.Motorin => c with { Motorin = null },
+            _ => c with { Lpg = null }
+        });
+        Assert.Throws<ValidationException>(() => PriceStore.Validate(current, []));
+    }
+
+    [Fact]
+    public void Ayni_ili_tekrarlamak_il_sayisi_kontrolunu_gecemez()
+    {
+        var duplicates = Enumerable.Repeat(Country()[0], Cities.ExpectedCount).ToList();
+        Assert.Throws<ValidationException>(() => PriceStore.Validate(duplicates, []));
+    }
+
+    [Fact]
+    public void Eskiden_bos_kaydedilen_fiyat_bildirim_uretilmeden_onarilir()
+    {
+        storeWithNull();
+        var store = new PriceStore(_dir);
+        var previous = store.LoadLatest();
+        var current = Country();
+        var changes = PriceStore.Diff(previous, current);
+        Assert.Empty(changes);
+        Assert.True(store.Save(previous, current, changes, T1));
+        Assert.Equal(40.60m, store.LoadLatest()!.Prices["bursa"].Lpg);
+
+        void storeWithNull() => new PriceStore(_dir).Save(null,
+            Country((slug, c) => slug == "bursa" ? c with { Lpg = null } : c), [], T0);
     }
 }

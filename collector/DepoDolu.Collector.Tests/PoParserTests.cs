@@ -69,6 +69,15 @@ public class PoParserTests
     }
 
     [Fact]
+    public void Taninmayan_satir_il_sayilmaz()
+    {
+        Assert.Throws<ParseException>(() => PoParser.Parse("""
+            <table><tr><th>İl</th><th>Kurşunsuz</th><th>Motorin</th><th>LPG</th></tr>
+            <tr><td>TOPLAM</td><td>77.40</td><td>97.80</td><td>40.60</td></tr></table>
+            """));
+    }
+
+    [Fact]
     public void Html_varliklari_ve_etiketler_temizlenir()
     {
         Assert.Equal("Kurşunsuz 95 TL/LT", PoParser.Text("<b>Kur&#351;unsuz</b>&nbsp;95 <i>TL/LT</i>"));

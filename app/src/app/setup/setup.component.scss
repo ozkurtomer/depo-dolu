@@ -150,6 +150,13 @@ h2 {
   padding: 1rem 1.125rem;
 }
 
+.load-error {
+  padding: 1.25rem;
+  border: 1px solid var(--dd-up);
+  border-radius: 1.25rem;
+  background: var(--dd-surface);
+}
+
 .fuels {
   display: grid;
   gap: 0.625rem;

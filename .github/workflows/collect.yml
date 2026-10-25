@@ -37,10 +37,11 @@ jobs:
           dotnet run --project collector/DepoDolu.Collector -c Release --
           --data data
           --readme README.md
-          --pending "$RUNNER_TEMP/pending.json"
+          --pending data/notifications.pending.json
           ${{ inputs.force_readme && '--force-readme' || '' }}
 
       - name: Değişiklikleri kaydet
+        id: persist
         if: steps.collect.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
@@ -50,9 +51,22 @@ jobs:
           git push
 
       - name: Bildirimleri gönder
-        if: steps.collect.outputs.change_count != '0' && steps.collect.outputs.change_count != ''
+        if: hashFiles('data/notifications.pending.json') != ''
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
-        run: dotnet run --project collector/DepoDolu.Collector -c Release --no-build -- --send "$RUNNER_TEMP/pending.json"
+        run: dotnet run --project collector/DepoDolu.Collector -c Release --no-build -- --send data/notifications.pending.json
+
+      - name: Teslim durumunu kaydet
+        if: always() && steps.collect.outcome == 'success' && steps.persist.outcome != 'failure'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -f data/notifications.pending.json ]; then
+            git add data/notifications.pending.json
+          fi
+          if ! git diff --cached --quiet; then
+            git commit -m "🔔 Bildirim teslim durumunu kaydet"
+            git push
+          fi

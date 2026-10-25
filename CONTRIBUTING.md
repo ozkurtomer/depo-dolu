@@ -1,47 +1,44 @@
-# Katkı rehberi
+# Contributing / Katkı rehberi
 
-Depo Dolu'ya katkı vermek istediğin için teşekkürler. Küçük bir yazım düzeltmesi de olur, yeni bir dağıtıcı eklemek de.
+English and Turkish issues and pull requests are welcome. Start with a small reproducible bug, an API example, documentation or an accessibility improvement. See [first contribution ideas](docs/ROADMAP.md#good-first-contributions). These are ideas, not pre-existing issues; open an issue to coordinate larger work.
 
-## Nereden başlamalı?
+## Development
 
-- [`good first issue`](https://github.com/ozkurtomer/depo-dolu/labels/good%20first%20issue) etiketli işler ilk katkı için uygun.
-- Büyük bir değişiklik düşünüyorsan önce bir issue açıp konuşalım, emeğin boşa gitmesin.
-- Bir hata gördüysen: hangi il, hangi yakıt, ne bekliyordun, ne oldu? Bunları yazman yeterli.
-
-## Geliştirme ortamı
-
-İhtiyacın olanlar: .NET 8 SDK ve Node.js 20 veya üstü.
+Use .NET 8 SDK and Node.js 22.18+. Run commands from the indicated directory:
 
 ```bash
-# Toplayıcı testleri
+# Repository root: collector tests on Windows or Linux
 dotnet test collector/DepoDolu.sln
 
-# Toplayıcıyı siteye istek atmadan çalıştır
-dotnet run --project collector/DepoDolu.Collector -- --data /tmp/data \
-  --html collector/DepoDolu.Collector.Tests/Fixtures/po-2026-10-25.html
-
-# Uygulama (http://localhost:4200, yerel data/ klasörünü kullanır)
-cd app && npm install && npm start
+# Repository root: no network request or real notification
+dotnet run --project collector/DepoDolu.Collector -- --data .local-data --html collector/DepoDolu.Collector.Tests/Fixtures/po-2026-10-25.html --dry-run
 ```
 
-## Kurallar
+```bash
+# From app/
+npm ci
+npm test
+npm run build
+npm start
+```
 
-- **Toplayıcı NuGet paketi kullanmaz.** Bu bilinçli bir seçim: GitHub Actions'ta hızlı ve kırılmaz çalışsın. Yeni bir şey gerekiyorsa önce .NET'in kendi kütüphanelerine bak.
-- **Yanlış bildirim, hiç bildirim olmamasından kötüdür.** Toplayıcıya eklenen her veri kaynağı `PriceStore.Validate` kontrolünden geçmeli.
-- **İl anahtarları (`bursa`, `istanbul-avrupa`…) asla değişmez.** Kullanıcıların bildirim aboneliği bunlara bağlı.
-- `data/` klasörünü elle düzenleme; o klasörü sadece toplayıcı yazar.
-- Kod ve commit mesajları Türkçe ya da İngilizce olabilir. Arayüz metinleri Türkçe.
+Development reads local price data at `http://localhost:4200/data/latest.json`. A Firebase account is not required for web work.
 
-## Pull request
+## Expectations / Kurallar
 
-1. Fork'la ve bir dal aç.
-2. Değişikliğini yap, testleri çalıştır.
-3. Pull request açarken ne değiştiğini ve neden değiştiğini kısaca yaz. Arayüz değişikliğiyse ekran görüntüsü ekle.
+- Describe a concrete user problem and keep changes focused. Include screenshots for UI changes.
+- Preserve public province slugs and API fields. Discuss a versioned schema before adding another distributor.
+- Keep runtime collector dependencies in the .NET standard library unless there is a clear reason to change that policy.
+- Validate new source data before saving it. Add regression tests for parsing, notification and data-loss bugs.
+- Do not manually change prices or add credentials. Use `.local-data/` for local collector output.
+- Do not silently ignore notification failures. Delivery progress and failed subscriptions must be recoverable.
+- UI text is Turkish. Code, commits, issues and PRs may be Turkish or English.
+- Follow normal respectful collaboration: explain a disagreement with evidence and avoid personal attacks.
 
-## Yeni bir dağıtıcı eklemek (Opet, Shell…)
+## Hata bildirimi
 
-En çok istenen katkılardan biri. Kabaca şu adımlar gerekiyor:
+Hangi il, hangi yakıt, hangi cihaz/tarayıcı? Ne bekliyordun, ne oldu? Tekrarlama adımlarını ve mümkünse ekran görüntüsünü ekle. Anahtar, token ve kişisel bilgileri çıkar. Güvenlik açığı için [SECURITY.md](SECURITY.md) dosyasına bak.
 
-1. `collector/DepoDolu.Collector/` içine `PoParser` benzeri bir ayrıştırıcı ekle.
-2. Gerçek sayfanın bir kopyasını `Fixtures/` klasörüne koyup testini yaz.
-3. Veri biçimini nasıl genişleteceğimizi (ör. `prices.bursa.opet.benzin`) issue'da birlikte kararlaştıralım. Mevcut API'yi kullananlar bozulmamalı.
+## Yeni dağıtıcı, mobil uygulama veya Chrome eklentisi
+
+Önce [yol haritasını](docs/ROADMAP.md) ve [API sözleşmesini](docs/API.md) oku. Yeni dağıtıcı için örnek kaynak sayfa ve ayrıştırıcı testleri gerekir. Mobil ve Chrome istemcileri aynı kalıcı il/yakıt anahtarlarını kullanmalı; tarayıcı geçmişi gibi gereksiz izinler istememeli. Kapsamlı işe başlamadan önce bir issue aç.

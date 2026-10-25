@@ -17,3 +17,4 @@ export const DATA_BASE_URL = isDevMode() ? '/data' : GITHUB_DATA_URL;
 export const TELEGRAM_URL = 'https://t.me/depodolu';
 
 export const REPO_URL = 'https://github.com/ozkurtomer/depo-dolu';
+export const WEB_URL = 'https://ozkurtomer.github.io/depo-dolu/';

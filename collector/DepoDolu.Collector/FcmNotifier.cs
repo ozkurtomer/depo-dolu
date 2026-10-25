@@ -21,6 +21,7 @@ public sealed class FcmNotifier
 
     public async Task SendAsync(IEnumerable<PriceChange> changes, bool test = false, CancellationToken ct = default)
     {
+        var failures = new List<string>();
         foreach (var change in changes)
         {
             var (title, body) = BuildMessage(change);
@@ -41,8 +42,11 @@ public sealed class FcmNotifier
             {
                 var err = await res.Content.ReadAsStringAsync(ct);
                 Console.Error.WriteLine($"    ! FCM hata {(int)res.StatusCode}: {err}");
+                failures.Add($"{change.Topic}: HTTP {(int)res.StatusCode}");
             }
         }
+        if (failures.Count > 0)
+            throw new HttpRequestException($"FCM gönderilemedi: {string.Join(", ", failures)}");
     }
 
     public static (string Title, string Body) BuildMessage(PriceChange c)

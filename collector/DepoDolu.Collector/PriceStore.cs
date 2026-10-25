@@ -46,8 +46,13 @@ public sealed class PriceStore(string dataDir)
         if (current.Count < minCities)
             throw new ValidationException($"Sadece {current.Count} il okundu (beklenen ≥ {minCities}).");
 
+        if (current.Select(c => c.Slug).Distinct(StringComparer.Ordinal).Count() != current.Count)
+            throw new ValidationException("Tekrarlanan il satırları bulundu.");
+
         foreach (var c in current)
         {
+            if (c.Benzin is null || c.Motorin is null || c.Lpg is null)
+                throw new ValidationException($"{c.Name} için eksik yakıt fiyatı var. Önceki veri korunuyor.");
             if (c.Benzin is < 5 or > 1000 || c.Motorin is < 5 or > 1000 || c.Lpg is < 2 or > 1000)
                 throw new ValidationException($"{c.Name} için mantıksız fiyat: {c}");
         }
@@ -63,9 +68,16 @@ public sealed class PriceStore(string dataDir)
         bool firstRun = previous is null;
         var changedSlugs = changes.Select(c => c.Slug).ToHashSet();
         var newSlugs = current.Where(c => previous?.Prices.ContainsKey(c.Slug) != true).Select(c => c.Slug).ToHashSet();
+        // Eski sürümlerde kaydedilmiş eksik fiyatlar da yeni bir değerle onarılabilsin.
+        var repairedSlugs = current.Where(c => previous?.Prices.TryGetValue(c.Slug, out var old) == true &&
+            Enum.GetValues<Fuel>().Any(f => old.Get(f) is null && c.Get(f) is not null))
+            .Select(c => c.Slug).ToHashSet();
 
-        if (!firstRun && changedSlugs.Count == 0 && newSlugs.Count == 0)
-            return false;
+        bool missingFeed = !File.Exists(ChangesPath);
+        if (missingFeed) Write(ChangesPath, new List<ChangeEntry>());
+
+        if (!firstRun && changedSlugs.Count == 0 && newSlugs.Count == 0 && repairedSlugs.Count == 0)
+            return missingFeed;
 
         Directory.CreateDirectory(Path.Combine(dataDir, "history"));
 
@@ -77,7 +89,7 @@ public sealed class PriceStore(string dataDir)
 
         foreach (var city in current)
         {
-            bool touched = firstRun || changedSlugs.Contains(city.Slug) || newSlugs.Contains(city.Slug);
+            bool touched = firstRun || changedSlugs.Contains(city.Slug) || newSlugs.Contains(city.Slug) || repairedSlugs.Contains(city.Slug);
             var changedAt = !touched && previous!.Prices.TryGetValue(city.Slug, out var old) ? old.ChangedAt : now;
 
             latest.Prices[city.Slug] = new LatestCity

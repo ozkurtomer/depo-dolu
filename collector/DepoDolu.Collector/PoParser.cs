@@ -43,6 +43,8 @@ public static partial class PoParser
 
             var rawName = cells[0].Text;
             if (string.IsNullOrWhiteSpace(rawName)) continue;
+            if (!Cities.IsKnown(rawName))
+                throw new ParseException($"Tanınmayan il satırı: {rawName}. Sayfa yapısını kontrol edin.");
 
             var (slug, name) = Cities.Resolve(rawName);
             result.Add(new CityPrices(

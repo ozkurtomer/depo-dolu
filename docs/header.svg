@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 340" role="img" aria-labelledby="title desc">
+  <title id="title">Depo Dolu</title>
+  <desc id="desc">Türkiye akaryakıt fiyatları. Açık veri, daha kolay takip.</desc>
+  <rect width="1200" height="340" rx="28" fill="#0e3b4a"/>
+  <circle cx="1100" cy="60" r="215" fill="#164a59"/>
+  <circle cx="1125" cy="40" r="155" fill="none" stroke="#286070" stroke-width="2"/>
+  <g transform="translate(76 77)" fill="none" stroke="#f2b705" stroke-width="8" stroke-linejoin="round">
+    <rect x="0" y="0" width="84" height="128" rx="12"/>
+    <path d="M12 153h70M22 27h40v38H22zM84 57h19l15 20v48c0 17 24 17 24 0V52l-19-19"/>
+  </g>
+  <text x="260" y="148" fill="white" font-family="Arial, sans-serif" font-size="76" font-weight="700" letter-spacing="-3">Depo Dolu</text>
+  <text x="263" y="202" fill="#d4e4e8" font-family="Arial, sans-serif" font-size="27">Türkiye akaryakıt fiyatları. Açık veri, daha kolay takip.</text>
+  <text x="263" y="264" fill="#f2b705" font-family="Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="2">81 İL  /  3 YAKIT  /  AÇIK KAYNAK</text>
+</svg>
