@@ -8,12 +8,13 @@
 
 **Türkiye'nin 81 ilinde benzin, motorin ve LPG fiyatı değiştiği an haberin olsun.**
 
-[**▶ Web'de dene**](https://ozkurtomer.github.io/depo-dolu/) &nbsp;&nbsp; [**Ücretsiz fiyat API'si**](#-ücretsiz-akaryakıt-fiyat-apisi) &nbsp;&nbsp; [**Nasıl çalışır?**](#-nasıl-çalışır)
+[**▶ Web'de dene**](https://ozkurtomer.github.io/depo-dolu/) &nbsp;&nbsp; [**Ücretsiz fiyat API'si**](#-ücretsiz-akaryakıt-fiyat-apisi) &nbsp;&nbsp; [**Nasıl çalışır?**](#-nasıl-çalışır) &nbsp;&nbsp; [**Telegram kanalı**](https://t.me/depodolu)
 
 [![Fiyat toplayıcı](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/collect.yml?label=fiyat%20toplay%C4%B1c%C4%B1&logo=githubactions&logoColor=white)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/collect.yml)
 [![Son fiyat güncellemesi](https://img.shields.io/github/last-commit/ozkurtomer/depo-dolu/main?path=data&label=son%20fiyat%20de%C4%9Fi%C5%9Fikli%C4%9Fi&color=F2B705)](data/)
 [![CI](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/ci.yml?label=testler&logo=dotnet)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/ci.yml)
 [![MIT](https://img.shields.io/badge/lisans-MIT-0E3B4A)](LICENSE)
+[![Telegram](https://img.shields.io/badge/Telegram-%40depodolu-26A5E4?logo=telegram&logoColor=white)](https://t.me/depodolu)
 [![Yıldız](https://img.shields.io/github/stars/ozkurtomer/depo-dolu?style=social)](https://github.com/ozkurtomer/depo-dolu/stargazers)
 
 </div>
@@ -48,6 +49,8 @@ Bu tablo kendiliğinden güncellenir. Fiyat değiştiği an toplayıcı burayı 
 1. **İlini seç.** 81 il, İstanbul'un iki yakası ayrı.
 2. **Yakıtını seç.** Benzin, motorin ya da LPG.
 3. **Bildirimi aç.** Hepsi bu. Hesap yok, kayıt yok, reklam yok.
+
+Android telefonun yok mu? **[Telegram'da @depodolu](https://t.me/depodolu)** kanalını takip et: Türkiye'deki her fiyat değişikliği oraya kendiliğinden, tek bir kısa özet olarak düşer.
 
 Fiyat değişince telefonuna şöyle bir bildirim düşer:
 
@@ -214,7 +217,7 @@ dotnet test collector/DepoDolu.sln
 
 - [ ] Android uygulamasını Play Store'a çıkarmak
 - [ ] **Zam öncesi uyarı:** "Bu gece motorine zam geliyor" haberlerini pompaya yansımadan önce bildirmek
-- [x] Telegram kanalı: her zam tek özet mesajla kanala düşer (kanal açılınca etkin)
+- [x] Telegram kanalı: her zam [@depodolu](https://t.me/depodolu) kanalına tek özet mesajla düşer
 - [ ] X (Twitter) botu
 - [ ] Opet ve Shell fiyatlarını eklemek, ildeki en ucuz dağıtıcıyı göstermek
 - [ ] İlçe bazında fiyat
