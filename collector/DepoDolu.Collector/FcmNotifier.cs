@@ -19,11 +19,12 @@ public sealed class FcmNotifier
             _token = new GoogleAccessToken(http, serviceAccountJson, Scope);
     }
 
-    public async Task SendAsync(IEnumerable<PriceChange> changes, CancellationToken ct = default)
+    public async Task SendAsync(IEnumerable<PriceChange> changes, bool test = false, CancellationToken ct = default)
     {
         foreach (var change in changes)
         {
             var (title, body) = BuildMessage(change);
+            if (test) title = "🧪 Test: " + title;
             Console.WriteLine($"  → [{change.Topic}] {title} — {body}");
             if (IsDryRun) continue;
 
