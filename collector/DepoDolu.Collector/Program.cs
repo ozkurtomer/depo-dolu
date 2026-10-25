@@ -37,6 +37,25 @@ if (sendFile is not null)
     return 0;
 }
 
+if (args.Contains("--test"))
+{
+    // Gerçek bildirim zincirini dener: veri klasörüne dokunmaz, mesajlar "Test" etiketlidir.
+    var testCity = Arg("--city") ?? "bursa";
+    var testFuel = Enum.GetValues<Fuel>().FirstOrDefault(f => f.Key() == (Arg("--fuel") ?? "motorin"));
+    var latestNow = new PriceStore(dataDir).LoadLatest();
+    if (latestNow is null || !latestNow.Prices.TryGetValue(testCity, out var testInfo))
+    {
+        Console.Error.WriteLine($"✗ '{testCity}' için fiyat bulunamadı. İl anahtarı doğru mu? (ör. bursa, istanbul-avrupa)");
+        return 1;
+    }
+    var nowPrice = testInfo.Get(testFuel) ?? 50m;
+    var sample = new PriceChange(testCity, testInfo.Name, testFuel, nowPrice - 1.00m, nowPrice);
+    Console.WriteLine($"🧪 Test bildirimi: {testInfo.Name} {testFuel.DisplayName()} (konu: {sample.Topic})");
+    await CreateNotifier().SendAsync([sample], test: true);
+    await CreateTelegram().SendAsync([sample], test: true);
+    return 0;
+}
+
 try
 {
     var html = htmlFile is not null
