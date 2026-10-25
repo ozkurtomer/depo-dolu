@@ -4,11 +4,6 @@ using System.Text.Json;
 
 namespace DepoDolu.Collector;
 
-/// <summary>
-/// Google servis hesabı JSON'undan OAuth2 erişim belirteci (access token) üretir.
-/// Google.Apis.Auth paketinin yaptığını ~50 satırda yapar: RS256 imzalı bir JWT oluşturup
-/// token adresine gönderir. Belirteç 1 saat geçerli; süresi dolmadan önbellekten verilir.
-/// </summary>
 public sealed class GoogleAccessToken
 {
     private readonly HttpClient _http;

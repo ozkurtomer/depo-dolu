@@ -1,22 +1,10 @@
 using DepoDolu.Collector;
 
-// Kullanım:
-//   dotnet run -- [--data data] [--html dosya.html] [--pending degisiklikler.json] [--dry-run]
-//   dotnet run -- --send degisiklikler.json
-//
-//   --data     Fiyat dosyalarının yazılacağı klasör (varsayılan: ./data)
-//   --html     Siteyi çekmek yerine yerel bir HTML dosyası kullan (test için)
-//   --pending  Bildirimleri hemen gönderme, bu dosyaya yaz (GitHub Actions: önce commit, sonra bildirim)
-//   --send     Daha önce --pending ile yazılmış bildirimleri gönder
-//   --dry-run  Bildirim gönderme, sadece ne gönderileceğini yaz
-//
-// Ortam değişkeni:
-//   FIREBASE_SERVICE_ACCOUNT  Firebase servis hesabı JSON içeriği (yoksa otomatik dry-run)
-
 string dataDir = Arg("--data") ?? "data";
 string? htmlFile = Arg("--html");
 string? pendingFile = Arg("--pending");
 string? sendFile = Arg("--send");
+string? readmePath = Arg("--readme");
 bool dryRun = args.Contains("--dry-run");
 
 using var http = new HttpClient { Timeout = TimeSpan.FromSeconds(30) };
@@ -49,6 +37,12 @@ try
     var now = DateTimeOffset.FromUnixTimeSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds()); // saniyeye yuvarla
     bool wrote = store.Save(previous, current, changes, now);
 
+    if (readmePath is not null && (wrote || args.Contains("--force-readme")) && ReadmeUpdater.Update(readmePath, dataDir, now))
+    {
+        Console.WriteLine("✓ README tablosu güncellendi.");
+        wrote = true;
+    }
+
     if (previous is null)
         Console.WriteLine("İlk çalıştırma: başlangıç verisi yazıldı, bildirim gönderilmedi.");
     else if (changes.Count == 0)
@@ -69,7 +63,6 @@ try
         }
     }
 
-    // GitHub Actions bu çıktıya bakarak commit atıp atmayacağına karar verir.
     if (Environment.GetEnvironmentVariable("GITHUB_OUTPUT") is { } output)
         await File.AppendAllTextAsync(output, $"changed={(wrote ? "true" : "false")}\nchange_count={changes.Count}\n");
 

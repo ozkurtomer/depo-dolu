@@ -3,13 +3,6 @@ using System.Text.Json;
 
 namespace DepoDolu.Collector;
 
-/// <summary>
-/// data/ klasörünü yönetir. Bu klasör GitHub'a commit'lenir ve mobil uygulama doğrudan buradan okur:
-///   data/latest.json          → 82 satırın güncel fiyatı
-///   data/history/{il}.json    → o ilin fiyat geçmişi (sadece değişince kayıt)
-///   data/changes.json         → Türkiye geneli son değişiklikler
-/// Fiyat değişmediyse hiçbir dosyaya dokunulmaz, böylece gereksiz commit oluşmaz.
-/// </summary>
 public sealed class PriceStore(string dataDir)
 {
     public const int MaxHistoryPerCity = 400;
@@ -18,7 +11,7 @@ public sealed class PriceStore(string dataDir)
     private static readonly JsonSerializerOptions Json = new()
     {
         WriteIndented = true,
-        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping // "İstanbul" düz yazılsın, İ olmasın
+        Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
     };
 
     private string LatestPath => Path.Combine(dataDir, "latest.json");
@@ -27,7 +20,6 @@ public sealed class PriceStore(string dataDir)
 
     public LatestFile? LoadLatest() => Read<LatestFile>(LatestPath);
 
-    /// <summary>Yeni okunan fiyatları eskileriyle karşılaştırır. İlk çalıştırmada (eski veri yok) boş liste döner.</summary>
     public static List<PriceChange> Diff(LatestFile? previous, IEnumerable<CityPrices> current)
     {
         var changes = new List<PriceChange>();
@@ -48,13 +40,9 @@ public sealed class PriceStore(string dataDir)
         return changes;
     }
 
-    /// <summary>
-    /// Ayrıştırma hatalarına karşı emniyet kemeri. Sayfa bozuk gelirse binlerce kişiye
-    /// yanlış "zam geldi" bildirimi gitmesin diye şüpheli veride çalışmayı durdururuz.
-    /// </summary>
     public static void Validate(IReadOnlyList<CityPrices> current, IReadOnlyList<PriceChange> changes)
     {
-        int minCities = Cities.ExpectedCount - 7; // birkaç il eksik gelebilir, çoğu gelmeli
+        int minCities = Cities.ExpectedCount - 7;
         if (current.Count < minCities)
             throw new ValidationException($"Sadece {current.Count} il okundu (beklenen ≥ {minCities}).");
 
@@ -64,14 +52,12 @@ public sealed class PriceStore(string dataDir)
                 throw new ValidationException($"{c.Name} için mantıksız fiyat: {c}");
         }
 
-        // Tek seferde litre başına %20'den büyük oynama gerçekçi değil → büyük ihtimalle okuma hatası.
         var absurd = changes.FirstOrDefault(ch => Math.Abs(ch.Percent) > 20m);
         if (absurd is not null)
             throw new ValidationException(
                 $"{absurd.CityName} {absurd.Fuel.DisplayName()}: {absurd.OldPrice} → {absurd.NewPrice} (%{absurd.Percent:F1}). Elle kontrol edin.");
     }
 
-    /// <summary>Değişiklik varsa (veya ilk çalıştırmaysa) dosyaları yazar. Bir şey yazıldıysa true döner.</summary>
     public bool Save(LatestFile? previous, IReadOnlyList<CityPrices> current, IReadOnlyList<PriceChange> changes, DateTimeOffset now)
     {
         bool firstRun = previous is null;
@@ -106,7 +92,6 @@ public sealed class PriceStore(string dataDir)
             if (touched) AppendHistory(city, now);
         }
 
-        // İl sayfadan geçici olarak düştüyse eski fiyatını kaybetmeyelim.
         if (previous is not null)
             foreach (var (slug, old) in previous.Prices)
                 latest.Prices.TryAdd(slug, old);
@@ -118,7 +103,12 @@ public sealed class PriceStore(string dataDir)
             var feed = Read<List<ChangeEntry>>(ChangesPath) ?? [];
             feed.InsertRange(0, changes.Select(c => new ChangeEntry
             {
-                At = now, City = c.Slug, Name = c.CityName, Fuel = c.Fuel.Key(), Old = c.OldPrice, New = c.NewPrice
+                At = now,
+                City = c.Slug,
+                Name = c.CityName,
+                Fuel = c.Fuel.Key(),
+                Old = c.OldPrice,
+                New = c.NewPrice
             }));
             Write(ChangesPath, feed.Take(MaxChanges).ToList());
         }

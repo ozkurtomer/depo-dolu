@@ -15,7 +15,6 @@ public class PriceStoreTests : IDisposable
         if (Directory.Exists(_dir)) Directory.Delete(_dir, recursive: true);
     }
 
-    /// <summary>Doğrulamadan geçecek kadar il üretir (Cities.ExpectedCount).</summary>
     private static List<CityPrices> Country(Func<string, CityPrices, CityPrices>? tweak = null)
     {
         var list = new List<CityPrices> { new("bursa", "Bursa", 77.40m, 97.80m, 40.60m) };
@@ -65,7 +64,7 @@ public class PriceStoreTests : IDisposable
 
         var current = Country((slug, c) => slug switch
         {
-            "bursa" => c with { Motorin = 99.10m, Benzin = 77.404m }, // benzin: kuruş altı, değişiklik sayılmaz
+            "bursa" => c with { Motorin = 99.10m, Benzin = 77.404m },
             "il-1" => c with { Lpg = 40.50m },
             _ => c
         });

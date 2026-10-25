@@ -2,7 +2,6 @@ using System.Text.Json.Serialization;
 
 namespace DepoDolu.Collector;
 
-/// <summary>Uygulamanın takip ettiği yakıt tipleri.</summary>
 public enum Fuel
 {
     Benzin,
@@ -12,7 +11,6 @@ public enum Fuel
 
 public static class FuelExtensions
 {
-    /// <summary>JSON anahtarı ve bildirim konusu (topic) için kullanılan kısa ad.</summary>
     public static string Key(this Fuel fuel) => fuel switch
     {
         Fuel.Benzin => "benzin",
@@ -29,7 +27,6 @@ public static class FuelExtensions
         _ => throw new ArgumentOutOfRangeException(nameof(fuel))
     };
 
-    /// <summary>Yönelme hâli: "benzine zam", "motorine zam", "LPG'ye zam".</summary>
     public static string Dative(this Fuel fuel) => fuel switch
     {
         Fuel.Benzin => "Benzine",
@@ -38,7 +35,6 @@ public static class FuelExtensions
         _ => throw new ArgumentOutOfRangeException(nameof(fuel))
     };
 
-    /// <summary>Bulunma hâli: "benzinde indirim", "motorinde indirim", "LPG'de indirim".</summary>
     public static string Locative(this Fuel fuel) => fuel switch
     {
         Fuel.Benzin => "Benzinde",
@@ -48,7 +44,6 @@ public static class FuelExtensions
     };
 }
 
-/// <summary>Bir ilin KDV dahil litre fiyatları (TL).</summary>
 public sealed record CityPrices(string Slug, string Name, decimal? Benzin, decimal? Motorin, decimal? Lpg)
 {
     public decimal? Get(Fuel fuel) => fuel switch
@@ -60,7 +55,6 @@ public sealed record CityPrices(string Slug, string Name, decimal? Benzin, decim
     };
 }
 
-/// <summary>Tek bir il + yakıt için tespit edilen fiyat değişikliği.</summary>
 public sealed record PriceChange(string Slug, string CityName, Fuel Fuel, decimal OldPrice, decimal NewPrice)
 {
     public decimal Delta => NewPrice - OldPrice;
