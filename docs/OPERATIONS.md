@@ -40,3 +40,11 @@ Ionic/Capacitor client code is present, but an Android/iOS package, native notif
 - Add `FIREBASE_SERVICE_ACCOUNT` and/or `TELEGRAM_BOT_TOKEN` as Actions secrets; `TELEGRAM_CHAT_ID` is a repository variable.
 - Create the Android project with `npx cap add android` before placing `google-services.json` inside `app/android/app/`.
 - Configure GitHub Pages to use GitHub Actions. Review permissions and run the workflow manually once before relying on scheduled checks.
+
+## Angular 19 build compatibility
+
+`app/package.json` pins the transitive `schema-utils` 4.x range to 4.3.3 through a scoped npm override. Later schema-utils 4.8.1 requires webpack ^5.112.0, while Angular 19.2.27 pins webpack 5.105.0. npm 10 on Linux otherwise tries to replace the locked webpack and rejects `npm ci` as inconsistent.
+
+Do not remove this override without checking the complete build-tool dependency tree. Revisit it with an Angular/build-tool upgrade. Keep `npm ci` in CI; do not bypass dependency validation with `--force` or an unlocked install.
+
+For this fix, the original failure was reproduced on Linux with Node 22.23.3/npm 10.9.9. The corrected lock is generated and checked with the same versions, including `npm ls schema-utils webpack`, the app tests and the production build.

@@ -10,7 +10,9 @@
   },
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22.18.0" },
+  "engines": {
+    "node": ">=22.18.0"
+  },
   "dependencies": {
     "@angular/common": "^19.2.0",
     "@angular/compiler": "^19.2.0",
@@ -38,5 +40,8 @@
     "@angular/compiler-cli": "^19.2.0",
     "@capacitor/cli": "^7.6.9",
     "typescript": "~5.7.2"
+  },
+  "overrides": {
+    "schema-utils@^4.0.0": "4.3.3"
   }
 }
