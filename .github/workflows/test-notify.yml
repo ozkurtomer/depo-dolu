@@ -1,0 +1,42 @@
+name: Test bildirimi gönder
+
+# Gerçek bildirim zincirini dener (Firebase + Telegram).
+# Veriye dokunmaz; mesajlar "🧪 Test" etiketlidir.
+on:
+  workflow_dispatch:
+    inputs:
+      city:
+        description: 'İl anahtarı (ör. bursa, istanbul-avrupa, ankara)'
+        required: true
+        default: bursa
+      fuel:
+        description: 'Yakıt'
+        type: choice
+        options: [motorin, benzin, lpg]
+        default: motorin
+      telegram:
+        description: 'Telegram kanalına da gönder'
+        type: boolean
+        default: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Test bildirimi gönder
+        env:
+          CITY: ${{ inputs.city }}
+          FUEL: ${{ inputs.fuel }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          TELEGRAM_BOT_TOKEN: ${{ inputs.telegram && secrets.TELEGRAM_BOT_TOKEN || '' }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+        run: >
+          dotnet run --project collector/DepoDolu.Collector -c Release --
+          --data data --test --city "$CITY" --fuel "$FUEL"
