@@ -4,22 +4,14 @@ using System.Net.Http.Json;
 
 namespace DepoDolu.Collector;
 
-/// <summary>
-/// Firebase Cloud Messaging (HTTP v1) ile konu (topic) bildirimi gönderir.
-/// Kullanıcılar uygulamada "bursa_motorin" gibi bir konuya abone olur; sunucu kimin abone
-/// olduğunu bilmez, sadece konuya tek bir mesaj atar. Kullanıcı verisi tutulmaz.
-/// </summary>
 public sealed class FcmNotifier
 {
-    private const string Scope = "https://www.googleapis.com/auth/firebase.messaging";
-    private static readonly CultureInfo Tr = CultureInfo.InvariantCulture;
-
     private readonly HttpClient _http;
-    private readonly GoogleAccessToken? _token;
-
     public bool IsDryRun => _token is null;
+    private readonly GoogleAccessToken? _token;
+    private static readonly CultureInfo Tr = CultureInfo.InvariantCulture;
+    private const string Scope = "https://www.googleapis.com/auth/firebase.messaging";
 
-    /// <param name="serviceAccountJson">Firebase servis hesabı JSON'u. Boşsa bildirim gönderilmez, sadece loglanır.</param>
     public FcmNotifier(HttpClient http, string? serviceAccountJson)
     {
         _http = http;
@@ -47,7 +39,6 @@ public sealed class FcmNotifier
             if (!res.IsSuccessStatusCode)
             {
                 var err = await res.Content.ReadAsStringAsync(ct);
-                // Bir konu başarısız olsa da diğerlerine devam et.
                 Console.Error.WriteLine($"    ! FCM hata {(int)res.StatusCode}: {err}");
             }
         }
@@ -90,12 +81,10 @@ public sealed class FcmNotifier
         }
     };
 
-    /// <summary>97.8 → "97,80" ; 4890 → "4.890" (Türkçe sayı biçimi, kültür bağımsız).</summary>
     public static string Money(decimal value, int decimals = 2)
     {
         var s = Math.Round(value, decimals, MidpointRounding.AwayFromZero)
             .ToString(decimals == 0 ? "#,0" : "#,0.00", Tr);
-        // Invariant: 1,234.50 → Türkçe: 1.234,50
         return s.Replace(",", "\u0001").Replace(".", ",").Replace("\u0001", ".");
     }
 }

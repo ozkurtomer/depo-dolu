@@ -4,14 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace DepoDolu.Collector;
 
-/// <summary>
-/// Petrol Ofisi "Akaryakıt Fiyatları" sayfasındaki 81 il tablosunu okur.
-///
-/// Sayfa yapısına sıkı sıkıya bağlı kalmamak için bilerek esnek yazıldı:
-///  - Başlığında "Kurşunsuz" geçen tabloyu bulur (class adına bakmaz).
-///  - Sütunları başlık metnine göre eşler (sıra değişse de çalışır).
-///  - Hücrede "76.30 63.59 TL/LT +KDV" gibi iki fiyat olur: ilki KDV dahil fiyattır, onu alır.
-/// </summary>
 public static partial class PoParser
 {
     public const string SourceUrl = "https://www.petrolofisi.com.tr/akaryakit-fiyatlari";
@@ -75,7 +67,6 @@ public static partial class PoParser
         return decimal.Parse(match.Value.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
     }
 
-    /// <summary>Etiketleri atar, HTML varlıklarını çözer, boşlukları sadeleştirir.</summary>
     internal static string Text(string html)
     {
         var noScripts = ScriptRegex().Replace(html, " ");
@@ -83,7 +74,6 @@ public static partial class PoParser
         return SpaceRegex().Replace(WebUtility.HtmlDecode(noTags), " ").Trim();
     }
 
-    /// <summary>Türkçe karakterleri sadeleştirip büyük harfe çevirir (başlık eşleştirme için).</summary>
     private static string Fold(string s) => Cities.NormalizeKey(s);
 
     [GeneratedRegex(@"<table\b[^>]*>.*?</table>", RegexOptions.Singleline | RegexOptions.IgnoreCase)]
@@ -104,7 +94,6 @@ public static partial class PoParser
     [GeneratedRegex(@"\s+")]
     private static partial Regex SpaceRegex();
 
-    // "76.30" veya "76,30" — en fazla 4 basamak tam kısım, 2 basamak ondalık.
     [GeneratedRegex(@"\d{1,4}[.,]\d{2}")]
     private static partial Regex PriceRegex();
 }

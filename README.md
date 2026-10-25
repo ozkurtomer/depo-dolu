@@ -1,114 +1,186 @@
-# ⛽ Depo Dolu
+<div align="center">
 
-**İlini ve yakıtını seç, fiyat değiştiği an bildirim al.**
+<img src="docs/banner.png" alt="Depo Dolu: İlini ve yakıtını seç, fiyat değiştiği an telefonuna bildirim gelsin." width="100%">
 
-Benzin, motorin ya da LPG fiyatı senin ilinde değiştiğinde telefonuna anında bildirim gelir:
+# Depo Dolu
+
+**Türkiye'nin 81 ilinde benzin, motorin ve LPG fiyatı değiştiği an haberin olsun.**
+
+[**▶ Web'de dene**](https://ozkurtomer.github.io/depo-dolu/) &nbsp;&nbsp; [**Ücretsiz fiyat API'si**](#-ücretsiz-akaryakıt-fiyat-apisi) &nbsp;&nbsp; [**Nasıl çalışır?**](#-nasıl-çalışır)
+
+[![Fiyat toplayıcı](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/collect.yml?label=fiyat%20toplay%C4%B1c%C4%B1&logo=githubactions&logoColor=white)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/collect.yml)
+[![Son fiyat güncellemesi](https://img.shields.io/github/last-commit/ozkurtomer/depo-dolu/main?path=data&label=son%20fiyat%20de%C4%9Fi%C5%9Fikli%C4%9Fi&color=F2B705)](data/)
+[![CI](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/ci.yml?label=testler&logo=dotnet)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/ci.yml)
+[![MIT](https://img.shields.io/badge/lisans-MIT-0E3B4A)](LICENSE)
+[![Yıldız](https://img.shields.io/github/stars/ozkurtomer/depo-dolu?style=social)](https://github.com/ozkurtomer/depo-dolu/stargazers)
+
+</div>
+
+---
+
+## ⛽ Bugünkü fiyatlar
+
+Bu tablo kendiliğinden güncellenir. Fiyat değiştiği an toplayıcı burayı yeniden yazar.
+
+<!-- FIYATLAR:BASLA -->
+| İl | Benzin | Motorin | LPG |
+|:---|---:|---:|---:|
+| **İstanbul (Avrupa)** | 76,30 | 96,80 | 41,20 |
+| **İstanbul (Anadolu)** | 76,10 | 96,60 | 40,60 |
+| **Ankara** | 77,30 | 97,90 | 41,29 |
+| **İzmir** | 77,50 | 98,10 | 41,20 |
+| **Bursa** | 77,40 | 97,80 | 40,60 |
+| **Antalya** | 78,50 | 99,20 | 41,40 |
+| **Adana** | 78,10 | 98,70 | 41,61 |
+| **Konya** | 78,30 | 99,00 | 41,29 |
+| **Gaziantep** | 78,20 | 98,80 | 41,41 |
+| **Kocaeli** | 76,70 | 97,10 | 40,40 |
+
+<sub>Litre fiyatı, KDV dahil, ₺. 🔺 zam / 🔻 indirim: son 36 saat. Son güncelleme: 25 Ekim 2026, 21:22. [81 ilin tamamı](data/latest.json)</sub>
+<!-- FIYATLAR:BITIR -->
+
+---
+
+## 📱 Ne yapar?
+
+1. **İlini seç.** 81 il, İstanbul'un iki yakası ayrı.
+2. **Yakıtını seç.** Benzin, motorin ya da LPG.
+3. **Bildirimi aç.** Hepsi bu. Hesap yok, kayıt yok, reklam yok.
+
+Fiyat değişince telefonuna şöyle bir bildirim düşer:
 
 > ⛽ **Bursa: Motorine zam**
 > Litre 97,80 → 99,10 ₺ (+1,30 ₺). 50 litrelik depo artık 4.955 ₺.
 
-Hesap yok, kayıt yok, reklam yok. Sunucu da yok: bütün sistem GitHub Actions ve Firebase'in ücretsiz katmanında çalışır.
-
-![Depo Dolu ekranları](docs/ekranlar.png)
-<sub>Ekran görüntülerindeki fiyat geçmişi örnek veridir.</sub>
+<p align="center"><img src="docs/ekranlar.png" alt="Depo Dolu uygulama ekranları: il seçimi, yakıt seçimi, pompa ekranı, fiyat geçmişi" width="100%"></p>
+<p align="center"><sub>Ekran görüntülerindeki fiyat geçmişi örnek veridir.</sub></p>
 
 ---
 
-## Nasıl çalışır?
+## 🔌 Ücretsiz akaryakıt fiyat API'si
 
-```
- Petrol Ofisi             GitHub Actions (15 dk'da bir)                 Telefon
- 81 il fiyat tablosu ──▶  Toplayıcı (.NET 8)                           Depo Dolu
-                          1. Tabloyu okur                              (Ionic + Angular)
-                          2. Önceki fiyatla karşılaştırır
-                          3. data/ klasörüne commit'ler ─────────────▶ Fiyatları GitHub'dan okur
-                          4. Firebase'e "bursa_motorin" konusuna ────▶ Bildirim gelir
-                             tek mesaj atar
-```
+Kendi uygulamanda, botunda ya da Excel'inde kullan. Anahtar yok, kayıt yok, limit yok. Veri her 15 dakikada bir kontrol edilir.
 
-- **Veri kaynağı:** Petrol Ofisi'nin il bazında yayınladığı liste fiyatları (KDV dahil). İstanbul Avrupa ve Anadolu yakası ayrı ayrı takip edilir, toplam 82 bölge.
-- **Bildirim:** Firebase Cloud Messaging konu (topic) aboneliği. Telefon `bursa_motorin` gibi bir konuya abone olur. Sunucu kimin abone olduğunu bilmez, kişisel veri tutulmaz.
-- **Veri deposu:** Reponun kendisi. `data/` klasörü herkese açık bir JSON API'si gibi çalışır:
-
-| Dosya | İçerik |
+| Adres | İçerik |
 |---|---|
-| `data/latest.json` | 82 bölgenin güncel benzin, motorin, LPG fiyatı |
-| `data/history/{il}.json` | O ilin fiyat geçmişi, sadece değişiklik anları |
+| [`data/latest.json`](data/latest.json) | 82 bölgenin güncel benzin, motorin, LPG fiyatı |
+| `data/history/{il}.json` | O ilin fiyat geçmişi, ör. [`bursa.json`](data/history/bursa.json) |
 | `data/changes.json` | Türkiye genelinde son 300 fiyat değişikliği |
 
-### Yanlış bildirime karşı emniyet kemerleri
+Temel adres:
 
-Binlerce kişiye yanlış "zam geldi" bildirimi gitmesin diye toplayıcı şüpheli veride hiçbir şey yazmadan durur:
+```
+https://raw.githubusercontent.com/ozkurtomer/depo-dolu/main/data/
+```
 
-- 75'ten az il okunduysa (sayfa yarım yüklendiyse),
-- bir fiyat tek seferde %20'den fazla oynadıysa (okuma hatası),
-- fiyat tablosu bulunamadıysa (site tasarımı değiştiyse).
+<details>
+<summary><b>curl</b></summary>
 
-İlk çalıştırmada sadece başlangıç verisi yazılır, bildirim gönderilmez. Fiyat değişmediyse hiçbir dosyaya dokunulmaz, gereksiz commit oluşmaz.
+```bash
+curl -s https://raw.githubusercontent.com/ozkurtomer/depo-dolu/main/data/latest.json \
+  | jq '.prices.bursa'
+```
+
+```json
+{
+  "name": "Bursa",
+  "benzin": 77.40,
+  "motorin": 97.80,
+  "lpg": 40.60,
+  "changedAt": "2026-10-25T18:20:00+00:00"
+}
+```
+</details>
+
+<details>
+<summary><b>JavaScript</b></summary>
+
+```js
+const url = 'https://raw.githubusercontent.com/ozkurtomer/depo-dolu/main/data/latest.json';
+const { prices } = await fetch(url).then(r => r.json());
+console.log(`İzmir benzin: ${prices.izmir.benzin} ₺`);
+```
+</details>
+
+<details>
+<summary><b>C#</b></summary>
+
+```csharp
+using System.Net.Http.Json;
+using System.Text.Json;
+
+var url = "https://raw.githubusercontent.com/ozkurtomer/depo-dolu/main/data/latest.json";
+var data = await new HttpClient().GetFromJsonAsync<JsonElement>(url);
+var ankara = data.GetProperty("prices").GetProperty("ankara");
+Console.WriteLine($"Ankara motorin: {ankara.GetProperty("motorin")} ₺");
+```
+</details>
+
+<details>
+<summary><b>Python</b></summary>
+
+```python
+import requests
+
+url = "https://raw.githubusercontent.com/ozkurtomer/depo-dolu/main/data/latest.json"
+prices = requests.get(url).json()["prices"]
+print(f"Antalya LPG: {prices['antalya']['lpg']} ₺")
+```
+</details>
+
+İl anahtarları Türkçe karakter içermez: `istanbul-avrupa`, `istanbul-anadolu`, `sanliurfa`, `canakkale`… Tam liste için `latest.json` içindeki anahtarlara bak. Ayrıntılar [data/README.md](data/README.md) dosyasında.
+
+Bu veriyle bir şey yaptıysan bir issue açıp anlat, buraya ekleyelim.
 
 ---
 
-## Proje yapısı
+## ⚙️ Nasıl çalışır?
+
+Sunucu yok. Bütün sistem GitHub Actions ve Firebase'in ücretsiz katmanında çalışır; aylık maliyeti 0 ₺.
+
+```mermaid
+flowchart LR
+    PO["Petrol Ofisi<br/>81 il fiyat tablosu"] -->|15 dakikada bir| C["Toplayıcı<br/>.NET 8 · GitHub Actions"]
+    C -->|fiyat değiştiyse commit| D[("data/ klasörü<br/>açık JSON API")]
+    C -->|"bursa_motorin konusuna<br/>tek mesaj"| F["Firebase<br/>Cloud Messaging"]
+    D -->|okur| A["📱 Depo Dolu<br/>Ionic + Angular"]
+    F -->|bildirim| A
+```
+
+- **Kişisel veri sıfır.** Telefon `bursa_motorin` gibi bir konuya abone olur. Sunucu kimin abone olduğunu bilmez.
+- **Yanlış alarm yok.** Sayfa yarım gelirse, 75'ten az il okunursa ya da bir fiyat tek seferde %20'den fazla oynarsa toplayıcı hiçbir şey yazmadan durur. Binlerce kişiye yanlış "zam geldi" bildirimi gitmez.
+- **Gereksiz commit yok.** Fiyat değişmediyse hiçbir dosyaya dokunulmaz. Repo geçmişi, Türkiye'nin akaryakıt zam geçmişinin kendisidir.
+
+<details>
+<summary><b>Proje yapısı</b></summary>
 
 ```
 depo-dolu/
 ├── collector/                     .NET 8 toplayıcı (sıfır NuGet bağımlılığı)
-│   ├── DepoDolu.Collector/        PoParser, PriceStore, FcmNotifier, GoogleAccessToken
-│   └── DepoDolu.Collector.Tests/  xUnit testleri + gerçek fiyatlarla test sayfası
+│   ├── DepoDolu.Collector/        PoParser, PriceStore, FcmNotifier, ReadmeUpdater
+│   └── DepoDolu.Collector.Tests/  xUnit testleri, gerçek fiyatlarla test sayfası
 ├── app/                           Ionic 8 + Angular 19 + Capacitor 7 mobil uygulama
-├── data/                          Toplayıcının yazdığı fiyat verisi (uygulama buradan okur)
+├── data/                          Fiyat verisi (açık API)
 ├── tools/                         Test sayfası üretici
-└── .github/workflows/             collect.yml (15 dk'da bir) ve ci.yml
+└── .github/workflows/
+    ├── collect.yml                15 dakikada bir fiyat toplama
+    ├── pages.yml                  Web demosunu yayınlama
+    └── ci.yml                     Testler ve build
 ```
+</details>
 
 ---
 
-## Kurulum
-
-### 1. Repoyu aç
-
-Bu klasörü GitHub'a `depo-dolu` adıyla gönder. Sonra `app/src/app/config.ts` içindeki `KULLANICI_ADI` kısmını kendi GitHub kullanıcı adınla değiştir.
-
-Toplayıcı hemen çalışmaya başlar: **Actions → Fiyatları topla → Run workflow** ile elle de tetikleyebilirsin.
-
-> GitHub, 60 gün hiç commit olmayan repolarda zamanlanmış işleri durdurur. Fiyatlar değiştikçe toplayıcı commit attığı için bu pratikte sorun olmaz.
-
-### 2. Firebase projesi
-
-1. [Firebase konsolunda](https://console.firebase.google.com) yeni proje aç.
-2. **Proje ayarları → Hizmet hesapları → Yeni özel anahtar oluştur** ile bir JSON indir.
-3. GitHub reposunda **Settings → Secrets and variables → Actions → New repository secret**:
-   - Ad: `FIREBASE_SERVICE_ACCOUNT`
-   - Değer: indirdiğin JSON dosyasının tüm içeriği
-
-Bu secret yoksa toplayıcı her şeyi yapar ama bildirim göndermez, sadece loglara yazar.
-
-### 3. Mobil uygulama
+## 🛠 Kendin çalıştır
 
 ```bash
-cd app
-npm install
-npm start                # tarayıcıda dener; yerel data/ klasörünü kullanır
-```
+git clone https://github.com/ozkurtomer/depo-dolu.git
+cd depo-dolu
 
-Android:
+# Mobil uygulama (tarayıcıda)
+cd app && npm install && npm start
 
-```bash
-npx cap add android
-# Firebase konsolunda Android uygulaması ekle (paket adı: capacitor.config.ts → appId)
-# google-services.json dosyasını app/android/app/ içine koy
-npm run cap:sync
-npx cap open android     # Android Studio açılır, telefona yükle
-```
-
-iOS için `npx cap add ios`, `GoogleService-Info.plist` ve Firebase'e APNs anahtarı yüklemek gerekir. Ayrıntılar: [@capacitor-firebase/messaging](https://github.com/capawesome-team/capacitor-firebase/tree/main/packages/messaging).
-
----
-
-## Geliştirme
-
-```bash
-# Toplayıcıyı yerel test sayfasıyla çalıştır (siteye istek atmaz)
+# Toplayıcı (siteye istek atmadan, test sayfasıyla)
 dotnet run --project collector/DepoDolu.Collector -- --data /tmp/data \
   --html collector/DepoDolu.Collector.Tests/Fixtures/po-2026-10-25.html
 
@@ -116,25 +188,46 @@ dotnet run --project collector/DepoDolu.Collector -- --data /tmp/data \
 dotnet test collector/DepoDolu.sln
 ```
 
-Test sayfası, 25 Ekim 2026'nın gerçek fiyatlarıyla `tools/make_fixture.py` tarafından üretilir. Petrol Ofisi sayfası değişirse gerçek sayfayı tarayıcıdan kaydedip `Fixtures/` içine koyarak parser'ı ona karşı test edebilirsin.
+<details>
+<summary><b>Kendi kopyanı kurmak (fork + Firebase + Android)</b></summary>
+
+1. Repoyu fork'la. `app/src/app/config.ts` içindeki kullanıcı adını kendininkiyle değiştir.
+2. **Settings → Actions → General → Workflow permissions** altında **Read and write** seç.
+3. Firebase'de proje aç. **Project settings → Service accounts → Generate new private key** ile JSON indir, içeriğini `FIREBASE_SERVICE_ACCOUNT` adıyla repo secret'ı olarak ekle.
+4. Firebase'e Android uygulaması ekle (paket adı: `app/capacitor.config.ts` içindeki `appId`). `google-services.json` dosyasını `app/android/app/` içine koy.
+5. Şunları çalıştır:
+   ```bash
+   cd app
+   npx cap add android
+   npm run cap:sync
+   npx cap open android
+   ```
+6. Web demosu için: **Settings → Pages → Source: GitHub Actions**.
+</details>
 
 ---
 
-## Yol haritası
+## 🗺 Yol haritası
 
-- [ ] **Zam öncesi uyarı:** "Bu gece motorine zam geliyor" haberlerini takip edip pompaya yansımadan önce bildirmek
-- [ ] Opet ve Shell fiyatlarını da ekleyip ildeki en ucuz dağıtıcıyı göstermek
+- [ ] Android uygulamasını Play Store'a çıkarmak
+- [ ] **Zam öncesi uyarı:** "Bu gece motorine zam geliyor" haberlerini pompaya yansımadan önce bildirmek
+- [ ] Telegram kanalı ve X botu: her zam otomatik paylaşılsın
+- [ ] Opet ve Shell fiyatlarını eklemek, ildeki en ucuz dağıtıcıyı göstermek
 - [ ] İlçe bazında fiyat
 - [ ] Ana ekran widget'ı
 
-Katkıya açık: issue aç ya da pull request gönder.
+## 🤝 Katkı
+
+Her türlü katkıya açığız: yeni dağıtıcı, ilçe desteği, tasarım, çeviri, hata bildirimi. Başlamak için [CONTRIBUTING.md](CONTRIBUTING.md) dosyasına ve [`good first issue`](https://github.com/ozkurtomer/depo-dolu/labels/good%20first%20issue) etiketli işlere bak.
+
+İşine yaradıysa ⭐ vermeyi unutma. Daha çok kişinin görmesini sağlıyor.
 
 ---
 
-## Yasal not
+<sub>Fiyatlar Petrol Ofisi'nin herkese açık sayfasındaki il liste fiyatlarıdır (KDV dahil). İstasyonlar arasında küçük farklar olabilir. Bu proje Petrol Ofisi ile bağlantılı değildir. Lisans: [MIT](LICENSE). Geliştiren: [Ömer Özkurt](https://github.com/ozkurtomer).</sub>
 
-Fiyatlar Petrol Ofisi'nin herkese açık sayfasındaki il liste fiyatlarıdır. İstasyonlar arasında küçük farklar olabilir. Bu proje Petrol Ofisi ile bağlantılı değildir.
+---
 
-## English
+### English
 
-**Depo Dolu** ("tank full") sends a push notification the moment fuel prices change in your Turkish province. A dependency-free .NET 8 collector runs on GitHub Actions every 15 minutes, commits price data to this repo as a static JSON API, and fans out Firebase topic messages. The mobile app is Ionic + Angular + Capacitor. No servers, no accounts, no personal data. MIT licensed.
+**Depo Dolu** ("tank full") pushes a notification the moment fuel prices change in any of Turkey's 81 provinces. A dependency-free .NET 8 collector runs on GitHub Actions every 15 minutes, commits prices to this repo as a **free public JSON API** ([`data/latest.json`](data/latest.json)), keeps the table above live, and fans out Firebase topic messages. The app is Ionic + Angular + Capacitor. No servers, no accounts, no personal data. [Try it on the web](https://ozkurtomer.github.io/depo-dolu/).
