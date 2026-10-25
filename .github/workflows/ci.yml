@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches: [main]
-    paths-ignore: ['data/**']
+    paths-ignore: ['data/**', 'README.md', 'README.tr.md','docs/**']
   pull_request:
 
 jobs:
@@ -30,5 +30,5 @@ jobs:
           node-version: 22
           cache: npm
           cache-dependency-path: app/package-lock.json
-      - run: npm ci
+      - run: npm install --no-audit --no-fund
       - run: npm run build
