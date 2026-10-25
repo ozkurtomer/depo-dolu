@@ -55,7 +55,9 @@ ion-content {
   background: var(--dd-ink);
   border-radius: 1rem;
   padding: 0.75rem 1rem 0.5rem;
-  box-shadow: inset 0 0 0 2px rgb(255 255 255 / 0.06), inset 0 10px 24px rgb(0 0 0 / 0.45);
+  box-shadow:
+    inset 0 0 0 2px rgb(255 255 255 / 0.06),
+    inset 0 10px 24px rgb(0 0 0 / 0.45);
 }
 
 .digits {
@@ -180,7 +182,7 @@ h2 {
   transition: background 0.2s;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0.2rem;
     left: 0.2rem;
