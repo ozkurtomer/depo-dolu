@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { FirebaseMessaging } from '@capacitor-firebase/messaging';
+import { Preferences } from '@capacitor/preferences';
+import { TopicSubscriptions } from '../subscription-state';
 
 export type PushResult = 'ok' | 'denied' | 'unsupported' | 'error';
 
@@ -12,6 +14,19 @@ export type PushResult = 'ok' | 'denied' | 'unsupported' | 'error';
 @Injectable({ providedIn: 'root' })
 export class PushService {
   readonly supported = Capacitor.isNativePlatform();
+  private topics = new TopicSubscriptions({
+    subscribe: async topic => { await FirebaseMessaging.subscribeToTopic({ topic }); },
+    unsubscribe: async topic => { await FirebaseMessaging.unsubscribeFromTopic({ topic }); },
+  }, {
+    read: async () => {
+      const { value } = await Preferences.get({ key: 'depodolu.topics.v1' });
+      const topics: unknown = value ? JSON.parse(value) : [];
+      if (!Array.isArray(topics) || !topics.every(t => typeof t === 'string'))
+        throw new Error('Bildirim kaydı okunamadı');
+      return topics;
+    },
+    write: async topics => { await Preferences.set({ key: 'depodolu.topics.v1', value: JSON.stringify(topics) }); },
+  });
 
   async enable(topic: string, previousTopic?: string | null): Promise<PushResult> {
     if (!this.supported) return 'unsupported';
@@ -31,10 +46,7 @@ export class PushService {
         });
       }
 
-      if (previousTopic && previousTopic !== topic) {
-        await FirebaseMessaging.unsubscribeFromTopic({ topic: previousTopic }).catch(() => {});
-      }
-      await FirebaseMessaging.subscribeToTopic({ topic });
+      await this.topics.reconcile(topic, previousTopic);
       return 'ok';
     } catch (e) {
       console.error('Bildirim aboneliği başarısız', e);
@@ -43,7 +55,7 @@ export class PushService {
   }
 
   async disable(topic: string | null): Promise<void> {
-    if (!this.supported || !topic) return;
-    await FirebaseMessaging.unsubscribeFromTopic({ topic }).catch(() => {});
+    if (!this.supported) return;
+    await this.topics.reconcile(null, topic);
   }
 }

@@ -36,7 +36,7 @@ Tüm fiyatlar **TL/litre, KDV dahildir**. Tarihler ISO 8601 biçiminde ve UTC'di
 | `name` | İlin Türkçe adı |
 | `benzin` | Kurşunsuz 95 |
 | `motorin` | Dizel |
-| `lpg` | Otogaz. Bazı illerde `null` olabilir |
+| `lpg` | Otogaz. Eski kayıtlardaki `null` değerlerini istemci tarafında ele al; yeni eksik fiyatlar reddedilir |
 | `changedAt` | O ilde herhangi bir yakıtın en son değiştiği an |
 
 İl anahtarları küçük harftir ve Türkçe karakter içermez: `istanbul-avrupa`, `istanbul-anadolu`, `ankara`, `izmir`, `sanliurfa`, `canakkale`, `afyon` (Afyonkarahisar)… Anahtarlar kalıcıdır, değişmez.
@@ -54,7 +54,7 @@ Sadece fiyatın değiştiği anlar kaydedilir. Her il için en fazla 400 kayıt 
 
 ## `changes.json`: Türkiye geneli son değişiklikler
 
-En yeni değişiklik en üstte, en fazla 300 kayıt. Henüz hiç değişiklik olmadıysa bu dosya bulunmaz.
+En yeni değişiklik en üstte, en fazla 300 kayıt. Henüz hiç değişiklik olmadıysa boş liste (`[]`) döner.
 
 ```json
 [
@@ -66,5 +66,13 @@ En yeni değişiklik en üstte, en fazla 300 kayıt. Henüz hiç değişiklik ol
 
 - `raw.githubusercontent.com` dosyaları birkaç dakika önbellekte tutar. Daha taze veri için adrese `?t=<zaman>` ekleyebilirsin.
 - CORS açıktır, tarayıcıdan doğrudan `fetch` edebilirsin.
-- Geçmişin tamamına bu klasörün git geçmişinden de ulaşabilirsin: her commit bir fiyat değişikliğidir.
+- Geçmişin tamamına bu klasörün git geçmişinden de ulaşabilirsin: fiyat commitleri değişiklikleri, bildirim commitleri teslim durumlarını kaydeder.
 - Fiyatlar il liste fiyatıdır, istasyonlar arasında küçük farklar olabilir.
+
+## Güncellik ve kapsam
+
+Kontroller 15 dakikalık aralıklarla planlanır, gecikebilir. `updatedAt` son veri yazımını gösterir; son başarılı kontrolü göstermez. GitHub'ın kullanılabilirlik, önbellek ve kullanım sınırları geçerlidir; sınırsız servis veya anlık teslim garantisi yoktur.
+
+Fiyatlar tek dağıtıcının il liste fiyatlarıdır. Uygulamadaki Türkiye ortalaması, bu veri kümesindeki bölgelerin ağırlıksız ortalamasıdır; tüm istasyonların piyasa ortalaması değildir.
+
+`notifications.pending.json` dosyası varsa iç bildirim kuyruğudur; API sözleşmesine dahil değildir. [English API reference](../docs/API.md).

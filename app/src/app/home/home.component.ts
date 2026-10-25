@@ -4,9 +4,10 @@ import { ChangeEntry, FUELS, FuelKey, HistoryEntry, fuelLabel } from '../models'
 import { PricesService } from '../services/prices.service';
 import { PushService } from '../services/push.service';
 import { SettingsService } from '../services/settings.service';
-import { REPO_URL, TELEGRAM_URL } from '../config';
+import { REPO_URL, TELEGRAM_URL, WEB_URL } from '../config';
 import { ago, tl, tlWhole } from '../format';
 import { PriceChartComponent } from './price-chart.component';
+import { priceShareUrl } from '../share';
 
 const TANK_SIZES = [30, 40, 50, 60, 70];
 
@@ -38,6 +39,8 @@ export class HomeComponent {
   readonly feed = signal<ChangeEntry[]>([]);
   readonly pushMessage = signal<string | null>(null);
   readonly busy = signal(false);
+  readonly shareMessage = signal<string | null>(null);
+  readonly sourceUrl = computed(() => this.prices.latest()?.sourceUrl ?? 'https://www.petrolofisi.com.tr/akaryakit-fiyatlari');
 
   readonly city = computed(() => {
     const slug = this.settings().city;
@@ -80,7 +83,10 @@ export class HomeComponent {
     return { avg, diff, rank, total: all.length, cheapest: all[0], priciest: all[all.length - 1] };
   });
 
-  readonly tank = computed(() => (this.price() ?? 0) * this.settings().liters);
+  readonly tank = computed(() => {
+    const price = this.price();
+    return price == null ? null : price * this.settings().liters;
+  });
 
   readonly cityFeed = computed(() => this.feed().filter(c => c.city === this.settings().city).slice(0, 5));
 
@@ -93,17 +99,22 @@ export class HomeComponent {
   }
 
   private async loadHistory(slug: string) {
-    this.history.set(await this.prices.history(slug));
+    this.history.set([]);
+    const history = await this.prices.history(slug);
+    if (this.settings().city === slug) this.history.set(history);
   }
 
   async refresh(event: CustomEvent) {
     const slug = this.settings().city;
-    await Promise.all([
-      this.prices.loadLatest(),
-      slug ? this.loadHistory(slug) : Promise.resolve(),
-      this.prices.changes().then(f => this.feed.set(f)),
-    ]);
-    (event.target as HTMLIonRefresherElement).complete();
+    try {
+      await Promise.all([
+        this.prices.loadLatest(),
+        slug ? this.loadHistory(slug) : Promise.resolve(),
+        this.prices.changes().then(f => this.feed.set(f)),
+      ]);
+    } finally {
+      (event.target as HTMLIonRefresherElement).complete();
+    }
   }
 
   async chooseFuel(fuel: FuelKey) {
@@ -119,13 +130,35 @@ export class HomeComponent {
   async toggleNotify() {
     if (this.busy()) return;
     this.busy.set(true);
-    const result = await this.settingsService.setNotify(!this.settings().notify);
-    this.busy.set(false);
+    try {
+      const result = await this.settingsService.setNotify(!this.settings().notify);
+      this.pushMessage.set(
+        result === 'denied' ? 'Bildirim izni kapalı. Telefonun ayarlarından Depo Dolu için bildirimlere izin ver.'
+        : result === 'error' ? 'Bildirim ayarı değiştirilemedi. Bağlantını kontrol edip tekrar dene.'
+        : null,
+      );
+    } finally {
+      this.busy.set(false);
+    }
+  }
 
-    this.pushMessage.set(
-      result === 'denied' ? 'Bildirim izni kapalı. Telefonun ayarlarından Depo Dolu için bildirimlere izin ver.'
-      : result === 'error' ? 'Bildirim açılamadı. İnternet bağlantını kontrol edip tekrar dene.'
-      : null,
-    );
+  async sharePrice(copyOnly = false) {
+    const s = this.settings();
+    const city = this.city();
+    const price = this.price();
+    if (!s.city || !city || price == null) return;
+    const url = priceShareUrl(WEB_URL, s.city, s.fuel);
+    const text = `${city.name} ${fuelLabel(s.fuel)}: ${tl(price)} ₺/L. Kaynak: Petrol Ofisi il liste fiyatı. Depo Dolu ile takip et.`;
+    try {
+      if (!copyOnly && navigator.share) {
+        await navigator.share({ title: 'Depo Dolu', text, url });
+      } else {
+        await navigator.clipboard.writeText(`${text}\n${url}`);
+        this.shareMessage.set('Fiyat ve bağlantı kopyalandı. İstediğin yerde paylaşabilirsin.');
+      }
+    } catch (error) {
+      if (!(error instanceof DOMException && error.name === 'AbortError'))
+        this.shareMessage.set('Paylaşılamadı. Tarayıcının paylaş menüsünü deneyebilirsin.');
+    }
   }
 }

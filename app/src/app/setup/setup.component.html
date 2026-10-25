@@ -8,7 +8,7 @@
         } @else {
           <p class="hello">Merhaba 👋</p>
           <h1>Hangi ilde yakıt alıyorsun?</h1>
-          <p class="lede">Fiyat orada değiştiği an sana haber verelim.</p>
+          <p class="lede">Benzin, motorin ve LPG fiyatını takip et. Hesap açmadan, ücretsiz.</p>
         }
         <label class="search">
           <span class="visually-hidden">İl ara</span>
@@ -24,8 +24,13 @@
         </label>
       </header>
 
-      @if (cities().length === 0) {
-        <p class="empty">İller yükleniyor…</p>
+      @if (prices.error(); as error) {
+        <div class="load-error" role="alert">
+          <p>{{ error }}</p>
+          <button class="primary" type="button" [disabled]="prices.loading()" (click)="prices.loadLatest()">Tekrar dene</button>
+        </div>
+      } @else if (cities().length === 0) {
+        <p class="empty" role="status">İller yükleniyor…</p>
       }
 
       @if (!query() && popular().length) {
@@ -85,7 +90,7 @@
         <label class="switch-row">
           <span>
             <strong>Fiyat değişince haber ver</strong>
-            <small>Zam da indirim de, aynı dakika içinde.</small>
+            <small>Zam ve indirimler, 15 dakikalık kontrollerle.</small>
           </span>
           <input type="checkbox" role="switch" [checked]="notify()" (change)="notify.set($any($event.target).checked)" />
         </label>

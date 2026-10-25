@@ -50,9 +50,13 @@ export class SettingsService {
     if (!s.city) return 'error';
     const topic = topicFor(s.city, s.fuel);
     if (!on) {
-      await this.push.disable(topic);
-      await this.update({ notify: false });
-      return 'off';
+      try {
+        await this.push.disable(topic);
+        await this.update({ notify: false });
+        return 'off';
+      } catch {
+        return 'error';
+      }
     }
     const result = await this.push.enable(topic);
     await this.update({ notify: result === 'ok' });

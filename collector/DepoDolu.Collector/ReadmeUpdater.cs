@@ -5,10 +5,6 @@ using System.Text.Json;
 
 namespace DepoDolu.Collector;
 
-/// <summary>
-/// README.md (English) and README.tr.md (Türkçe) içindeki canlı fiyat tablosunu günceller.
-/// Sadece &lt;!-- FIYATLAR:BASLA --&gt; ile &lt;!-- FIYATLAR:BITIR --&gt; arası değişir.
-/// </summary>
 public static class ReadmeUpdater
 {
     public const string Start = "<!-- FIYATLAR:BASLA -->";
@@ -26,10 +22,6 @@ public static class ReadmeUpdater
     private static readonly string[] MonthsEn =
         ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    /// <summary>
-    /// Verilen README'yi ve yanındaki README.tr.md'yi (varsa) günceller.
-    /// Dosya adında ".tr." geçiyorsa Türkçe, yoksa İngilizce yazar. Değişen dosya sayısını döner.
-    /// </summary>
     public static int UpdateAll(string readmePath, string dataDir, DateTimeOffset now)
     {
         var paths = new List<string> { readmePath };

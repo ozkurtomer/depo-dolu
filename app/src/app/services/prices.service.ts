@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, timeout } from 'rxjs';
 import { DATA_BASE_URL } from '../config';
 import { ChangeEntry, FuelKey, HistoryEntry, LatestFile, PricePoint } from '../models';
+import { isLatestFile } from '../price-data';
 
 const CACHE_KEY = 'depodolu.latest.v1';
 
@@ -14,23 +15,33 @@ export class PricesService {
   readonly latest = signal<LatestFile | null>(null);
   readonly error = signal<string | null>(null);
   readonly offline = signal(false);
+  readonly loading = signal(false);
 
   /** Güncel fiyatları getirir. İnternet yoksa son kaydedilen veriyi gösterir. */
   async loadLatest(): Promise<void> {
+    this.loading.set(true);
     try {
       const data = await this.get<LatestFile>('latest.json');
+      if (!isLatestFile(data)) throw new Error('Geçersiz fiyat verisi');
       this.latest.set(data);
       this.error.set(null);
       this.offline.set(false);
-      await Preferences.set({ key: CACHE_KEY, value: JSON.stringify(data) });
+      await Preferences.set({ key: CACHE_KEY, value: JSON.stringify(data) }).catch(() => {});
     } catch {
-      const { value } = await Preferences.get({ key: CACHE_KEY });
-      if (value) {
-        this.latest.set(JSON.parse(value));
+      let cached: unknown = null;
+      try {
+        const { value } = await Preferences.get({ key: CACHE_KEY });
+        cached = value ? JSON.parse(value) : null;
+      } catch { /* Önceki başarılı oturumun bellekteki verisini de kullanabiliriz. */ }
+      if (isLatestFile(cached) || this.latest()) {
+        if (isLatestFile(cached)) this.latest.set(cached);
         this.offline.set(true);
+        this.error.set(null);
       } else {
-        this.error.set('Fiyatlar alınamadı. İnternet bağlantını kontrol edip ekranı aşağı çek.');
+        this.error.set('Fiyatlar alınamadı. Bağlantını kontrol edip tekrar dene.');
       }
+    } finally {
+      this.loading.set(false);
     }
   }
 
@@ -65,6 +76,6 @@ export class PricesService {
   private get<T>(path: string): Promise<T> {
     // raw.githubusercontent birkaç dakika önbellekler; dakika damgası her açılışta taze veri sağlar.
     const bust = Math.floor(Date.now() / 60_000);
-    return firstValueFrom(this.http.get<T>(`${DATA_BASE_URL}/${path}?t=${bust}`));
+    return firstValueFrom(this.http.get<T>(`${DATA_BASE_URL}/${path}?t=${bust}`).pipe(timeout(15_000)));
   }
 }

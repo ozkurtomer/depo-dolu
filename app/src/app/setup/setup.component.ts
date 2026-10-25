@@ -20,7 +20,7 @@ const POPULAR = ['istanbul-avrupa', 'istanbul-anadolu', 'ankara', 'izmir', 'burs
   host: { class: 'ion-page' },
 })
 export class SetupComponent {
-  private prices = inject(PricesService);
+  readonly prices = inject(PricesService);
   private settings = inject(SettingsService);
   readonly push = inject(PushService);
 

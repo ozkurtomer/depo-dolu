@@ -1,0 +1,27 @@
+name: Bug report / Hata bildirimi
+description: Report a price, notification or app problem / Bir sorunu bildir
+title: "[Bug]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened? / Ne oldu?
+      description: Include the province, fuel and what you expected. / İl, yakıt ve beklediğin sonucu ekle.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce / Tekrarlama adımları
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Device and browser / Cihaz ve tarayıcı
+      placeholder: "Android 15, Chrome; Windows 11, Edge…"
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshots or logs / Ekran görüntüsü veya kayıt
+      description: Remove tokens, service account keys and other private information.
