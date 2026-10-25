@@ -26,20 +26,20 @@ const PAD = { top: 14, right: 58, bottom: 26, left: 4 };
         <text class="date end" [attr.x]="W - PAD.right" [attr.y]="H - 6">bugün</text>
       </svg>
     } @else {
-      <p class="empty">Fiyat değiştikçe grafik burada oluşacak.</p>
+      <p class="empty">Henüz değişiklik yok. İlk zam ya da indirimde grafik burada çizilecek.</p>
     }
   `,
   styles: `
     :host { display: block; }
     svg { width: 100%; height: auto; display: block; overflow: visible; }
     .grid { stroke: var(--dd-line); stroke-width: 1; stroke-dasharray: 2 4; }
-    .area { fill: var(--dd-petrol); opacity: 0.08; }
-    .step { fill: none; stroke: var(--dd-petrol); stroke-width: 2.5; stroke-linejoin: round; }
-    .now { fill: var(--dd-sign); stroke: var(--dd-ink); stroke-width: 2; }
-    .val { font: 700 14px var(--dd-display); fill: var(--dd-ink); font-variant-numeric: tabular-nums; }
-    .date { font: 500 12px var(--dd-body); fill: var(--dd-ink-soft); }
+    .area { fill: var(--dd-brand); opacity: 0.08; }
+    .step { fill: none; stroke: var(--dd-brand); stroke-width: 2.5; stroke-linejoin: round; }
+    .now { fill: var(--dd-accent); stroke: var(--dd-ink); stroke-width: 2; }
+    .val { font: 700 14px var(--dd-num); fill: var(--dd-ink); font-variant-numeric: tabular-nums; }
+    .date { font: 500 12px var(--dd-body); fill: var(--dd-soft); }
     .date.end { text-anchor: end; }
-    .empty { margin: 0; padding: 1.5rem 0; color: var(--dd-ink-soft); }
+    .empty { margin: 0; padding: 1.5rem 0; color: var(--dd-soft); }
   `,
 })
 export class PriceChartComponent {

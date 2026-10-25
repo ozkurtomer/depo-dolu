@@ -2,15 +2,17 @@
   <div class="setup">
     @if (step() === 'city') {
       <header class="head">
-        @if (canCancel()) {
-          <button class="back" type="button" (click)="cancel.emit()">Vazgeç</button>
+        @if (mode() === 'city') {
+          <button class="link" type="button" (click)="done.emit()">‹ Geri</button>
+          <h1>İlini değiştir</h1>
         } @else {
-          <p class="brand">Depo Dolu</p>
+          <p class="hello">Merhaba 👋</p>
+          <h1>Hangi ilde yakıt alıyorsun?</h1>
+          <p class="lede">Fiyat orada değiştiği an sana haber verelim.</p>
         }
-        <h1>Hangi ilde yakıt alıyorsun?</h1>
-        <p class="lede">Fiyat o ilde değiştiği an haber vereceğiz.</p>
         <label class="search">
           <span class="visually-hidden">İl ara</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5" /><path d="m16 16 4 4" /></svg>
           <input
             type="search"
             inputmode="search"
@@ -23,27 +25,38 @@
       </header>
 
       @if (cities().length === 0) {
-        <p class="empty">İl listesi yükleniyor…</p>
+        <p class="empty">İller yükleniyor…</p>
+      }
+
+      @if (!query() && popular().length) {
+        <h2>Sık seçilenler</h2>
+        <div class="chips">
+          @for (c of popular(); track c!.slug) {
+            <button type="button" class="chip" [class.on]="c!.slug === city()" (click)="pickCity(c!.slug)">{{ c!.name }}</button>
+          }
+        </div>
+        <h2>Tüm iller</h2>
       }
 
       <ul class="cities">
         @for (c of filtered(); track c.slug) {
           <li>
-            <button type="button" [class.current]="c.slug === city()" (click)="pickCity(c.slug)">
+            <button type="button" [class.on]="c.slug === city()" (click)="pickCity(c.slug)">
               {{ c.name }}
+              @if (c.slug === city()) { <span class="tick" aria-label="seçili">✓</span> }
             </button>
           </li>
         } @empty {
           @if (cities().length) {
-            <li class="empty">"{{ query() }}" diye bir il bulamadık.</li>
+            <li class="empty">"{{ query() }}" diye bir il bulamadık. Yazımı kontrol eder misin?</li>
           }
         }
       </ul>
     } @else {
       <header class="head">
-        <button class="back" type="button" (click)="step.set('city')">İli değiştir</button>
-        <h1>{{ cityPrices()?.name }} için hangi yakıt?</h1>
-        <p class="lede">Bugünkü litre fiyatları, KDV dahil.</p>
+        <button class="link" type="button" (click)="step.set('city')">‹ {{ cityPrices()?.name }}</button>
+        <h1>Aracın ne yakıyor?</h1>
+        <p class="lede">{{ cityPrices()?.name }} için bugünkü litre fiyatları.</p>
       </header>
 
       <div class="fuels" role="radiogroup" aria-label="Yakıt tipi">
@@ -56,29 +69,30 @@
             [class.on]="fuel() === f.key"
             (click)="fuel.set(f.key)"
           >
-            <span class="fuel-name">{{ f.label }}</span>
-            <span class="fuel-hint">{{ f.hint }}</span>
+            <span class="radio" aria-hidden="true"></span>
+            <span class="fuel-text">
+              <span class="fuel-name">{{ f.label }}</span>
+              <span class="fuel-hint">{{ f.hint }}</span>
+            </span>
             <span class="fuel-price">
-              @if (cityPrices()?.[f.key]; as p) { {{ tl(p) }} <small>₺</small> } @else { — }
+              @if (cityPrices()?.[f.key]; as p) { {{ tl(p) }} ₺ } @else { — }
             </span>
           </button>
         }
       </div>
 
-      <label class="notify" [class.disabled]="!push.supported">
-        <input type="checkbox" [checked]="notify()" [disabled]="!push.supported" (change)="notify.set($any($event.target).checked)" />
-        <span class="notify-text">
-          <strong>Fiyat değişince bildirim gönder</strong>
-          @if (push.supported) {
-            <span>Zam da indirim de, aynı dakika içinde.</span>
-          } @else {
-            <span>Bildirimler Android ve iOS uygulamasında çalışır.</span>
-          }
-        </span>
-      </label>
+      @if (push.supported) {
+        <label class="switch-row">
+          <span>
+            <strong>Fiyat değişince haber ver</strong>
+            <small>Zam da indirim de, aynı dakika içinde.</small>
+          </span>
+          <input type="checkbox" role="switch" [checked]="notify()" (change)="notify.set($any($event.target).checked)" />
+        </label>
+      }
 
-      <button class="cta" type="button" [disabled]="saving()" (click)="save()">
-        {{ saving() ? 'Kaydediliyor…' : 'Takibe başla' }}
+      <button class="primary" type="button" [disabled]="saving()" (click)="start()">
+        {{ saving() ? 'Hazırlanıyor…' : 'Başla' }}
       </button>
     }
   </div>

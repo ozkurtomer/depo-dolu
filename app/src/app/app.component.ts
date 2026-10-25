@@ -12,9 +12,9 @@ import { SetupComponent } from './setup/setup.component';
     <ion-app>
       @if (settings.loaded()) {
         @if (showSetup()) {
-          <dd-setup [canCancel]="!!settings.settings().city" (done)="editing.set(false)" (cancel)="editing.set(false)" />
+          <dd-setup [mode]="settings.settings().city ? 'city' : 'onboard'" (done)="pickingCity.set(false)" />
         } @else {
-          <dd-home (change)="editing.set(true)" />
+          <dd-home (pickCity)="pickingCity.set(true)" />
         }
       }
     </ion-app>
@@ -24,8 +24,8 @@ export class AppComponent implements OnInit {
   readonly settings = inject(SettingsService);
   private prices = inject(PricesService);
 
-  readonly editing = signal(false);
-  readonly showSetup = computed(() => this.editing() || !this.settings.settings().city);
+  readonly pickingCity = signal(false);
+  readonly showSetup = computed(() => this.pickingCity() || !this.settings.settings().city);
 
   async ngOnInit() {
     await Promise.all([this.settings.load(), this.prices.loadLatest()]);

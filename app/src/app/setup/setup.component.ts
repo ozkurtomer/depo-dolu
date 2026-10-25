@@ -6,9 +6,11 @@ import { PushService } from '../services/push.service';
 import { SettingsService } from '../services/settings.service';
 import { fold, tl, trCompare } from '../format';
 
+const POPULAR = ['istanbul-avrupa', 'istanbul-anadolu', 'ankara', 'izmir', 'bursa', 'antalya'];
+
 /**
- * İlk açılış ve "Değiştir" ekranı: önce il, sonra yakıt.
- * Yakıt adımında seçilen ilin güncel fiyatları da görünür, kullanıcı neyi takip edeceğini görerek seçer.
+ * onboard: ilk açılış. Önce il, sonra yakıt ve bildirim.
+ * city:    ana ekrandan il değiştirme. İl seçilince doğrudan geri döner.
  */
 @Component({
   selector: 'dd-setup',
@@ -22,10 +24,8 @@ export class SetupComponent {
   private settings = inject(SettingsService);
   readonly push = inject(PushService);
 
-  /** "Değiştir" ile açıldıysa geri dönülebilir. */
-  readonly canCancel = input(false);
+  readonly mode = input<'onboard' | 'city'>('onboard');
   readonly done = output<void>();
-  readonly cancel = output<void>();
 
   readonly fuels = FUELS;
   readonly tl = tl;
@@ -45,6 +45,11 @@ export class SetupComponent {
       .sort((a, b) => trCompare(a.name, b.name));
   });
 
+  readonly popular = computed(() => {
+    const all = new Map(this.cities().map(c => [c.slug, c]));
+    return POPULAR.map(s => all.get(s)).filter(c => !!c);
+  });
+
   readonly filtered = computed(() => {
     const q = fold(this.query().trim());
     return q ? this.cities().filter(c => c.key.includes(q)) : this.cities();
@@ -55,28 +60,22 @@ export class SetupComponent {
     return slug ? this.prices.latest()?.prices[slug] ?? null : null;
   });
 
-  pickCity(slug: string) {
+  async pickCity(slug: string) {
     this.city.set(slug);
+    if (this.mode() === 'city') {
+      await this.settings.select(slug, this.settings.settings().fuel);
+      this.done.emit();
+      return;
+    }
     this.step.set('fuel');
   }
 
-  async save() {
+  async start() {
     const city = this.city();
     if (!city || this.saving()) return;
     this.saving.set(true);
-
-    const before = this.settings.settings();
-    const previousTopic = before.notify && before.city ? `${before.city}_${before.fuel}` : null;
-    const topic = `${city}_${this.fuel()}`;
-
-    let notify = false;
-    if (this.notify()) {
-      notify = (await this.push.enable(topic, previousTopic)) === 'ok';
-    } else {
-      await this.push.disable(previousTopic);
-    }
-
-    await this.settings.update({ city, fuel: this.fuel(), notify });
+    await this.settings.update({ city, fuel: this.fuel() });
+    if (this.notify() && this.push.supported) await this.settings.setNotify(true);
     this.saving.set(false);
     this.done.emit();
   }
