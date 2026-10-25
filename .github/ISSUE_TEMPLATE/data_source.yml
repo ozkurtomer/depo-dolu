@@ -1,0 +1,23 @@
+name: Data source / Veri kaynağı
+description: Suggest a public distributor or district-level price source
+title: "[Data]: "
+body:
+  - type: input
+    id: source
+    attributes:
+      label: Public source URL / Herkese açık kaynak adresi
+      description: Link to the distributor's own public price page, without private tokens.
+    validations:
+      required: true
+  - type: textarea
+    id: coverage
+    attributes:
+      label: Coverage and fields / Kapsam ve alanlar
+      description: Which provinces/districts and fuels? Are prices VAT included, and when are they updated?
+    validations:
+      required: true
+  - type: textarea
+    id: contribution
+    attributes:
+      label: How could you help? / Nasıl katkı verebilirsin?
+      description: A source sample, parser, tests or documentation are all useful.

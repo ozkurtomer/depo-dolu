@@ -1,0 +1,15 @@
+{
+  "repository": "ozkurtomer/depo-dolu",
+  "description": "Turkey fuel prices for 81 provinces: open JSON API, price history, tank calculator and alerts. Built with .NET, Angular and Ionic.",
+  "homepage": "https://ozkurtomer.github.io/depo-dolu/",
+  "topics": ["fuel-prices", "turkey", "open-data", "open-source", "dotnet", "csharp", "angular", "typescript", "ionic", "capacitor", "telegram-bot", "github-actions"],
+  "labels": [
+    {"name": "good first issue", "color": "7057ff", "description": "A small, approachable first contribution"},
+    {"name": "help wanted", "color": "008672", "description": "Community contributions are welcome"}
+  ],
+  "issues": [
+    {"title": "Add regression tests for relative dates around midnight", "body_file": ".github/first-contributions/relative-dates.md", "labels": ["good first issue", "help wanted"]},
+    {"title": "Improve keyboard and screen-reader navigation in the province picker", "body_file": ".github/first-contributions/accessibility.md", "labels": ["good first issue", "help wanted"]},
+    {"title": "Add a dependency-free C# example for the public price API", "body_file": ".github/first-contributions/csharp-example.md", "labels": ["good first issue", "help wanted"]}
+  ]
+}
