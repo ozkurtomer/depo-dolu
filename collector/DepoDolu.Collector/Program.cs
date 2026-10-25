@@ -1,5 +1,22 @@
 using DepoDolu.Collector;
 
+// Kullanım:
+//   dotnet run -- [--data data] [--html dosya.html] [--pending degisiklikler.json] [--dry-run]
+//   dotnet run -- --send degisiklikler.json
+//
+//   --data     Fiyat dosyalarının yazılacağı klasör (varsayılan: ./data)
+//   --html     Siteyi çekmek yerine yerel bir HTML dosyası kullan (test için)
+//   --pending  Bildirimleri hemen gönderme, bu dosyaya yaz (GitHub Actions: önce commit, sonra bildirim)
+//   --send     Daha önce --pending ile yazılmış bildirimleri gönder
+//   --readme   Veri değişince bu README'deki canlı fiyat tablosunu güncelle
+//   --force-readme  Veri değişmese de README tablosunu yeniden yaz
+//   --dry-run  Bildirim gönderme, sadece ne gönderileceğini yaz
+//
+// Ortam değişkeni:
+//   FIREBASE_SERVICE_ACCOUNT  Firebase servis hesabı JSON içeriği (yoksa otomatik dry-run)
+//   TELEGRAM_BOT_TOKEN        Telegram bot anahtarı (BotFather'dan)
+//   TELEGRAM_CHAT_ID          Kanal adı, ör. @depodolu (bot kanala yönetici olarak eklenmeli)
+
 string dataDir = Arg("--data") ?? "data";
 string? htmlFile = Arg("--html");
 string? pendingFile = Arg("--pending");
@@ -16,6 +33,7 @@ if (sendFile is not null)
     var pending = System.Text.Json.JsonSerializer.Deserialize<List<PriceChange>>(await File.ReadAllTextAsync(sendFile)) ?? [];
     Console.WriteLine($"{pending.Count} bildirim gönderiliyor:");
     await CreateNotifier().SendAsync(pending);
+    await CreateTelegram().SendAsync(pending);
     return 0;
 }
 
@@ -37,6 +55,7 @@ try
     var now = DateTimeOffset.FromUnixTimeSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds()); // saniyeye yuvarla
     bool wrote = store.Save(previous, current, changes, now);
 
+    // Veri değiştiyse README'deki canlı tabloyu da güncelle.
     if (readmePath is not null && (wrote || args.Contains("--force-readme")) && ReadmeUpdater.Update(readmePath, dataDir, now))
     {
         Console.WriteLine("✓ README tablosu güncellendi.");
@@ -60,9 +79,11 @@ try
         else
         {
             await CreateNotifier().SendAsync(changes);
+            await CreateTelegram().SendAsync(changes);
         }
     }
 
+    // GitHub Actions bu çıktıya bakarak commit atıp atmayacağına karar verir.
     if (Environment.GetEnvironmentVariable("GITHUB_OUTPUT") is { } output)
         await File.AppendAllTextAsync(output, $"changed={(wrote ? "true" : "false")}\nchange_count={changes.Count}\n");
 
@@ -86,6 +107,12 @@ FcmNotifier CreateNotifier()
     if (notifier.IsDryRun) Console.WriteLine("  (dry-run: bildirim gönderilmiyor, sadece yazılıyor)");
     return notifier;
 }
+
+TelegramNotifier CreateTelegram() => dryRun
+    ? new TelegramNotifier(http, null, null)
+    : new TelegramNotifier(http,
+        Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN"),
+        Environment.GetEnvironmentVariable("TELEGRAM_CHAT_ID"));
 
 string? Arg(string name)
 {

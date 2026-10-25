@@ -1,9 +1,9 @@
 ion-content {
-  --background: var(--dd-concrete);
+  --background: var(--dd-bg);
 }
 
 .setup {
-  max-width: 34rem;
+  max-width: 30rem;
   margin: 0 auto;
   padding: calc(env(safe-area-inset-top) + 1.5rem) 1.25rem calc(env(safe-area-inset-bottom) + 2rem);
 }
@@ -12,50 +12,99 @@ ion-content {
   position: sticky;
   top: 0;
   z-index: 1;
-  background: var(--dd-concrete);
-  padding-bottom: 0.75rem;
+  background: var(--dd-bg);
+  padding: 0.25rem 0 1rem;
 }
 
-.brand {
-  font: 700 1.125rem/1 var(--dd-display);
-  color: var(--dd-petrol);
-  margin: 0 0 1.75rem;
+.hello {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+  color: var(--dd-soft);
 }
 
 h1 {
-  font: 700 2.25rem/1.05 var(--dd-display);
-  color: var(--dd-ink);
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.375rem;
+  font: 700 1.875rem/1.15 var(--dd-body);
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
 .lede {
   margin: 0 0 1.25rem;
-  color: var(--dd-ink-soft);
+  color: var(--dd-soft);
 }
 
-.back {
+h2 {
+  margin: 1.25rem 0 0.625rem;
+  font: 600 0.9375rem var(--dd-body);
+  color: var(--dd-soft);
+}
+
+.link {
   appearance: none;
   border: 0;
   background: none;
   padding: 0.5rem 0;
-  margin: 0 0 1rem;
-  font: 600 1rem/1 var(--dd-body);
-  color: var(--dd-petrol);
+  margin-bottom: 0.75rem;
+  font: 600 1rem var(--dd-body);
+  color: var(--dd-brand);
 }
 
-.search input {
-  width: 100%;
-  font: 500 1.125rem var(--dd-body);
-  padding: 0.85rem 1rem;
-  border: 2px solid var(--dd-line);
-  border-radius: 0.75rem;
-  background: var(--dd-paper);
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: 1rem;
+  padding: 0 1rem;
+  border-radius: 1rem;
+  background: var(--dd-surface);
+  border: 1.5px solid var(--dd-line);
+
+  &:focus-within {
+    border-color: var(--dd-brand);
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    fill: none;
+    stroke: var(--dd-soft);
+    stroke-width: 2;
+    stroke-linecap: round;
+    flex: none;
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: none;
+    background: none;
+    padding: 0.875rem 0;
+    font: 500 1.0625rem var(--dd-body);
+    color: var(--dd-ink);
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  appearance: none;
+  border: 1.5px solid var(--dd-line);
+  background: var(--dd-surface);
+  border-radius: 999px;
+  padding: 0.55rem 0.95rem;
+  font: 500 0.9375rem var(--dd-body);
   color: var(--dd-ink);
 
-  &:focus {
-    outline: none;
-    border-color: var(--dd-petrol);
+  &.on {
+    border-color: var(--dd-brand);
+    background: var(--dd-brand);
+    color: #fff;
   }
 }
 
@@ -63,128 +112,148 @@ h1 {
   list-style: none;
   margin: 0;
   padding: 0;
+  background: var(--dd-surface);
+  border-radius: 1.25rem;
+  border: 1px solid var(--dd-line);
+  overflow: hidden;
+
+  li + li button {
+    border-top: 1px solid var(--dd-line);
+  }
 
   button {
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     text-align: left;
     appearance: none;
     border: 0;
-    border-bottom: 1px solid var(--dd-line);
     background: none;
-    padding: 0.95rem 0.25rem;
-    font: 500 1.125rem/1.2 var(--dd-body);
+    padding: 0.95rem 1.125rem;
+    font: 500 1.0625rem var(--dd-body);
     color: var(--dd-ink);
 
-    &.current {
+    &.on {
       font-weight: 700;
-      color: var(--dd-petrol);
+      color: var(--dd-brand);
     }
   }
 }
 
+.tick {
+  color: var(--dd-brand);
+}
+
 .empty {
-  color: var(--dd-ink-soft);
-  padding: 1rem 0.25rem;
+  color: var(--dd-soft);
+  padding: 1rem 1.125rem;
 }
 
 .fuels {
   display: grid;
   gap: 0.625rem;
-  margin: 0.5rem 0 1.5rem;
+  margin-bottom: 1rem;
 }
 
 .fuel {
   appearance: none;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto auto;
-  align-items: baseline;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
   text-align: left;
-  padding: 1rem 1.125rem;
-  border: 2px solid var(--dd-line);
-  border-radius: 0.875rem;
-  background: var(--dd-paper);
+  padding: 1.125rem;
+  border: 1.5px solid var(--dd-line);
+  border-radius: 1.25rem;
+  background: var(--dd-surface);
   color: var(--dd-ink);
+  transition: border-color 0.15s;
 
   &.on {
-    border-color: var(--dd-petrol);
-    background: var(--dd-petrol);
-    color: #fff;
+    border-color: var(--dd-brand);
+    box-shadow: inset 0 0 0 1px var(--dd-brand);
+  }
+}
 
-    .fuel-hint {
-      color: rgb(255 255 255 / 0.7);
-    }
+.radio {
+  width: 1.375rem;
+  height: 1.375rem;
+  border-radius: 50%;
+  border: 2px solid var(--dd-line);
+  flex: none;
+  display: grid;
+  place-items: center;
 
-    .fuel-price {
-      color: var(--dd-sign);
+  .on & {
+    border-color: var(--dd-brand);
+
+    &::after {
+      content: '';
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+      background: var(--dd-brand);
     }
   }
+}
+
+.fuel-text {
+  flex: 1;
+  display: grid;
 }
 
 .fuel-name {
-  font: 700 1.5rem/1 var(--dd-display);
+  font: 600 1.1875rem/1.2 var(--dd-body);
 }
 
 .fuel-hint {
-  grid-row: 2;
   font-size: 0.875rem;
-  color: var(--dd-ink-soft);
-  margin-top: 0.25rem;
+  color: var(--dd-soft);
 }
 
 .fuel-price {
-  grid-row: 1 / span 2;
-  grid-column: 2;
-  align-self: center;
-  font: 700 1.75rem/1 var(--dd-display);
+  font: 700 1.5rem/1 var(--dd-num);
   font-variant-numeric: tabular-nums;
-
-  small {
-    font-size: 1rem;
-  }
 }
 
-.notify {
+.switch-row {
   display: flex;
-  gap: 0.875rem;
-  align-items: flex-start;
-  padding: 1rem 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.125rem;
   margin-bottom: 1.25rem;
-
-  input {
-    width: 1.5rem;
-    height: 1.5rem;
-    margin: 0.1rem 0 0;
-    accent-color: var(--dd-petrol);
-    flex: none;
-  }
-
-  &.disabled {
-    opacity: 0.7;
-  }
-}
-
-.notify-text {
-  display: grid;
-  gap: 0.2rem;
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-line);
+  border-radius: 1.25rem;
 
   span {
-    color: var(--dd-ink-soft);
-    font-size: 0.9375rem;
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  small {
+    color: var(--dd-soft);
+    font-size: 0.875rem;
   }
 }
 
-.cta {
+.primary {
   width: 100%;
   appearance: none;
   border: 0;
-  border-radius: 0.875rem;
-  padding: 1.125rem;
-  background: var(--dd-sign);
-  color: var(--dd-ink);
-  font: 700 1.375rem/1 var(--dd-display);
+  border-radius: 1.125rem;
+  padding: 1.05rem;
+  background: var(--dd-brand);
+  color: #fff;
+  font: 600 1.125rem var(--dd-body);
 
   &:disabled {
     opacity: 0.6;
   }
+}
+
+button:focus-visible {
+  outline: 3px solid var(--dd-accent);
+  outline-offset: 2px;
 }

@@ -203,6 +203,7 @@ dotnet test collector/DepoDolu.sln
    npx cap open android
    ```
 6. Web demosu için: **Settings → Pages → Source: GitHub Actions**.
+7. Telegram kanalı için: BotFather'dan bot aç, botu kanalına yönetici yap. Bot anahtarını `TELEGRAM_BOT_TOKEN` secret'ı, kanal adını (ör. `@depodolu`) `TELEGRAM_CHAT_ID` adlı **variable** olarak ekle.
 </details>
 
 ---
@@ -211,7 +212,8 @@ dotnet test collector/DepoDolu.sln
 
 - [ ] Android uygulamasını Play Store'a çıkarmak
 - [ ] **Zam öncesi uyarı:** "Bu gece motorine zam geliyor" haberlerini pompaya yansımadan önce bildirmek
-- [ ] Telegram kanalı ve X botu: her zam otomatik paylaşılsın
+- [x] Telegram kanalı: her zam tek özet mesajla kanala düşer (kanal açılınca etkin)
+- [ ] X (Twitter) botu
 - [ ] Opet ve Shell fiyatlarını eklemek, ildeki en ucuz dağıtıcıyı göstermek
 - [ ] İlçe bazında fiyat
 - [ ] Ana ekran widget'ı

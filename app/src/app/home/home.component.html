@@ -3,106 +3,166 @@
     <ion-refresher-content />
   </ion-refresher>
 
-  <div class="page">
-    <section class="pump" aria-live="polite">
-      <div class="pump-top">
-        <p class="brand">Depo Dolu</p>
-        <button type="button" class="swap" (click)="change.emit()">Değiştir</button>
-      </div>
+  <main class="page">
+    <header class="top">
+      <button type="button" class="city-btn" (click)="pickCity.emit()" aria-label="İli değiştir">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z" /><circle cx="12" cy="10" r="2.3" /></svg>
+        <span>{{ city()?.name ?? 'İl seç' }}</span>
+        <svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg>
+      </button>
+      <span class="logo" aria-hidden="true">Depo Dolu</span>
+    </header>
 
-      <h1 class="city">{{ city()?.name ?? '…' }}</h1>
-      <p class="fuel">{{ fuelLabel(settings().fuel) }}, litre fiyatı</p>
+    <div class="tabs" role="tablist" aria-label="Yakıt">
+      @for (f of fuels; track f.key) {
+        <button
+          type="button"
+          role="tab"
+          [attr.aria-selected]="settings().fuel === f.key"
+          [class.on]="settings().fuel === f.key"
+          (click)="chooseFuel(f.key)"
+        >{{ f.label }}</button>
+      }
+    </div>
 
-      <div class="window">
-        @if (digits(); as d) {
-        <p class="digits" [attr.aria-label]="tl(price()!) + ' lira'">
-          <span class="int">{{ d[0] }}</span><span class="dec">,{{ d[1] }}</span><span class="unit">₺</span>
+    <section class="price-card" aria-live="polite">
+      <p class="price-label">{{ fuelLabel(settings().fuel) }} litre fiyatı</p>
+      @if (digits(); as d) {
+        <p class="price" [attr.aria-label]="tl(price()!) + ' lira'">
+          {{ d[0] }}<span class="dec">,{{ d[1] }}</span><span class="cur">₺</span>
         </p>
-        } @else {
-        <p class="digits muted">--,--</p>
-        }
-      </div>
+      } @else {
+        <p class="price muted">--,--</p>
+      }
 
       @if (lastMove(); as m) {
-      <p class="move" [class.up]="m.up" [class.down]="!m.up">
-        <span class="arrow" aria-hidden="true">{{ m.up ? '▲' : '▼' }}</span>
-        {{ tl(m.delta < 0 ? -m.delta : m.delta) }} ₺ {{ m.up ? 'zam' : 'indirim' }}, {{ ago(m.at) }} </p>
-          } @else if (city()) {
-          <p class="move">Takibe başladığından beri değişmedi.</p>
-          }
-
-          <ul class="others">
-            @for (o of others(); track o.label) {
-            <li>{{ o.label }} <strong>{{ o.price != null ? tl(o.price) : '—' }} ₺</strong></li>
-            }
-          </ul>
-    </section>
-
-    <section class="block notify-block">
-      <button type="button" class="bell" role="switch" [attr.aria-checked]="settings().notify"
-        [class.on]="settings().notify" (click)="toggleNotify()">
-        <span class="bell-text">
-          <strong>{{ settings().notify ? 'Bildirim açık' : 'Bildirim kapalı' }}</strong>
-          <span>
-            @if (settings().notify) {
-            {{ city()?.name }} {{ fuelLabel(settings().fuel).toLocaleLowerCase('tr-TR') }} fiyatı değişince haber
-            vereceğiz.
-            } @else {
-            Zam ya da indirim gelince haber almak için aç.
-            }
-          </span>
-        </span>
-        <span class="knob" aria-hidden="true"></span>
-      </button>
-      @if (pushMessage(); as msg) {
-      <p class="hint" role="status">{{ msg }}</p>
+        <p class="pill" [class.up]="m.up" [class.down]="!m.up">
+          {{ m.up ? '▲' : '▼' }} {{ tl(m.delta) }} ₺ {{ m.up ? 'zam' : 'indirim' }}, {{ ago(m.at) }}
+        </p>
+      } @else if (city()) {
+        <p class="pill">Takipteyiz. Fiyat değişince burada göreceksin.</p>
       }
     </section>
 
-    <section class="block">
-      <h2>Depoyu doldurmak</h2>
+    @if (country(); as c) {
+      <section class="card compare">
+        <p class="compare-main">
+          @if (c.diff <= -0.005) {
+            <span class="good">Türkiye ortalamasından {{ tl(-c.diff) }} ₺ ucuz</span>
+          } @else if (c.diff >= 0.005) {
+            <span class="bad">Türkiye ortalamasından {{ tl(c.diff) }} ₺ pahalı</span>
+          } @else {
+            Türkiye ortalamasıyla aynı
+          }
+        </p>
+        <div class="compare-row">
+          <div>
+            <small>En ucuz</small>
+            <strong>{{ c.cheapest.name }}</strong>
+            <span>{{ tl(c.cheapest.price) }} ₺</span>
+          </div>
+          <div>
+            <small>Ortalama</small>
+            <strong>{{ c.total }} bölge</strong>
+            <span>{{ tl(c.avg) }} ₺</span>
+          </div>
+          <div>
+            <small>En pahalı</small>
+            <strong>{{ c.priciest.name }}</strong>
+            <span>{{ tl(c.priciest.price) }} ₺</span>
+          </div>
+        </div>
+      </section>
+    }
+
+    <section class="card notify" [class.on]="settings().notify">
+      <div class="bell" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15L6 16Z" /><path d="M10 20.5a2 2 0 0 0 4 0" /></svg>
+      </div>
+      @if (push.supported) {
+        <div class="notify-text">
+          <strong>{{ settings().notify ? 'Bildirimler açık' : 'Zam gelince haber verelim mi?' }}</strong>
+          <span>
+            @if (settings().notify) {
+              {{ city()?.name }} {{ fuelLabel(settings().fuel).toLocaleLowerCase('tr-TR') }} fiyatı değişince ilk sen bileceksin.
+            } @else {
+              Fiyat değiştiği dakika telefonuna bildirim gelsin.
+            }
+          </span>
+        </div>
+        <button type="button" class="notify-btn" [disabled]="busy()" (click)="toggleNotify()">
+          {{ settings().notify ? 'Kapat' : 'Aç' }}
+        </button>
+      } @else {
+        <div class="notify-text">
+          <strong>Zam gelince haber al</strong>
+          <span>
+            @if (telegramUrl) {
+              Bildirimler mobil uygulamada. Şimdilik her zamı Telegram kanalımızdan takip edebilirsin.
+            } @else {
+              Anlık bildirimler Android uygulamasında. Uygulama çok yakında mağazada.
+            }
+          </span>
+        </div>
+        @if (telegramUrl) {
+          <a class="notify-btn" [href]="telegramUrl" target="_blank" rel="noopener">Telegram</a>
+        }
+      }
+    </section>
+    @if (pushMessage(); as msg) {
+      <p class="hint" role="status">{{ msg }}</p>
+    }
+
+    <section class="card">
+      <h2>Depoyu doldurmak kaça?</h2>
       <div class="tank">
-        <div class="stepper" role="group" aria-label="Litre">
-          <button type="button" (click)="stepLiters(-5)" aria-label="5 litre azalt">−</button>
-          <output>{{ settings().liters }} L</output>
-          <button type="button" (click)="stepLiters(5)" aria-label="5 litre artır">+</button>
+        <div class="sizes" role="radiogroup" aria-label="Depo litresi">
+          @for (l of tanks; track l) {
+            <button
+              type="button"
+              role="radio"
+              [attr.aria-checked]="settings().liters === l"
+              [class.on]="settings().liters === l"
+              (click)="setLiters(l)"
+            >{{ l }} L</button>
+          }
         </div>
         <p class="total">{{ tlWhole(tank()) }} <small>₺</small></p>
       </div>
     </section>
 
-    <section class="block">
+    <section class="card">
       <h2>Fiyat geçmişi</h2>
       <dd-price-chart [points]="series()" />
     </section>
 
     @if (cityFeed().length) {
-    <section class="block">
-      <h2>{{ city()?.name }} son değişiklikler</h2>
-      <ul class="feed">
-        @for (c of cityFeed(); track c.at + c.fuel) {
-        <li>
-          <span class="feed-fuel">{{ fuelLabel(c.fuel) }}</span>
-          <span class="feed-delta" [class.up]="c.new > c.old" [class.down]="c.new < c.old">
-            {{ c.new > c.old ? '+' : '−' }}{{ tl(c.new > c.old ? c.new - c.old : c.old - c.new) }} ₺
-          </span>
-          <span class="feed-when">{{ ago(c.at) }}</span>
-        </li>
-        }
-      </ul>
-    </section>
+      <section class="card">
+        <h2>{{ city()?.name }} son değişiklikler</h2>
+        <ul class="feed">
+          @for (c of cityFeed(); track c.at + c.fuel) {
+            <li>
+              <span class="feed-fuel">{{ fuelLabel(c.fuel) }}</span>
+              <span class="feed-delta" [class.up]="c.new > c.old" [class.down]="c.new < c.old">
+                {{ c.new > c.old ? '+' : '−' }}{{ tl(c.new > c.old ? c.new - c.old : c.old - c.new) }} ₺
+              </span>
+              <span class="feed-when">{{ ago(c.at) }}</span>
+            </li>
+          }
+        </ul>
+      </section>
     }
 
     @if (prices.error(); as err) {
-    <p class="banner error" role="alert">{{ err }}</p>
+      <p class="banner error" role="alert">{{ err }}</p>
     }
     @if (prices.offline()) {
-    <p class="banner">İnternet yok. Son kaydedilen fiyatları görüyorsun.</p>
+      <p class="banner">İnternet yok. Son kaydedilen fiyatları görüyorsun.</p>
     }
 
     <footer>
-      Fiyatlar {{ prices.latest()?.source ?? 'Petrol Ofisi' }}'nin il liste fiyatıdır, KDV dahil.
-      İstasyonlar arasında küçük farklar olabilir.
+      Fiyatlar Petrol Ofisi'nin il liste fiyatıdır, KDV dahil. İstasyonlar arasında küçük farklar olabilir.
+      <a [href]="repoUrl" target="_blank" rel="noopener">Açık kaynak, GitHub'da</a>
     </footer>
-  </div>
+  </main>
 </ion-content>

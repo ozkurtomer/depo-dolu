@@ -3,31 +3,32 @@
 @import '@ionic/angular/css/normalize.css';
 @import '@ionic/angular/css/structure.css';
 
-/* Barlow: karayolu tabelalarından türetilmiş yazı ailesi — istasyon dili için doğal seçim. */
+/* Barlow: karayolu tabelalarından türetilmiş yazı ailesi. Rakamlar için dar (condensed) kesimi. */
 @import '@fontsource/barlow/400.css';
 @import '@fontsource/barlow/500.css';
 @import '@fontsource/barlow/600.css';
+@import '@fontsource/barlow/700.css';
 @import '@fontsource/barlow-condensed/700.css';
 
 :root {
-  /* İstasyon paleti */
-  --dd-petrol: #0e3b4a;     /* kanopi / pompa gövdesi */
-  --dd-sign: #f2b705;       /* tabela sarısı, pompa rakamları */
-  --dd-ink: #16242a;        /* pompa ekranı, metin */
-  --dd-ink-soft: #55656b;
-  --dd-concrete: #eceeea;   /* zemin */
-  --dd-paper: #f8f9f6;
-  --dd-line: #d3d8d2;
-  --dd-up: #c8273b;         /* zam */
-  --dd-down: #23875a;       /* indirim */
+  --dd-bg: #f2f5f4;        /* ferah zemin */
+  --dd-surface: #ffffff;   /* kartlar */
+  --dd-track: #e4eae8;     /* sekme zemini */
+  --dd-line: #e2e8e6;
+  --dd-ink: #182a2f;
+  --dd-soft: #627378;
+  --dd-brand: #0e3b4a;     /* petrol mavisi */
+  --dd-accent: #f2b705;    /* tabela sarısı */
+  --dd-up: #c9314a;        /* zam */
+  --dd-down: #1d8657;      /* indirim */
 
-  --dd-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
   --dd-body: 'Barlow', system-ui, sans-serif;
+  --dd-num: 'Barlow Condensed', 'Arial Narrow', sans-serif;
 
   --ion-font-family: var(--dd-body);
-  --ion-background-color: var(--dd-concrete);
+  --ion-background-color: var(--dd-bg);
   --ion-text-color: var(--dd-ink);
-  --ion-color-primary: var(--dd-petrol);
+  --ion-color-primary: var(--dd-brand);
 }
 
 html,
@@ -36,14 +37,55 @@ body {
   font-size: 16px;
   line-height: 1.45;
   color: var(--dd-ink);
-  background: var(--dd-concrete);
+  background: var(--dd-bg);
   -webkit-font-smoothing: antialiased;
 }
 
-button {
+button,
+a {
   cursor: pointer;
   font-family: inherit;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* iOS tarzı anahtar */
+input[type='checkbox'][role='switch'] {
+  appearance: none;
+  flex: none;
+  width: 3.1rem;
+  height: 1.85rem;
+  margin: 0;
+  border-radius: 999px;
+  background: var(--dd-track);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0.2rem;
+    left: 0.2rem;
+    width: 1.45rem;
+    height: 1.45rem;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.2);
+    transition: transform 0.2s;
+  }
+
+  &:checked {
+    background: var(--dd-brand);
+
+    &::after {
+      transform: translateX(1.25rem);
+    }
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--dd-accent);
+    outline-offset: 2px;
+  }
 }
 
 .visually-hidden {
