@@ -1,12 +1,17 @@
 name: Fiyatları topla
 
 # Her 15 dakikada bir Petrol Ofisi'nin 81 il fiyat tablosunu okur.
-# Fiyat değiştiyse: data/ klasörünü commit'ler, SONRA bildirim gönderir.
+# Fiyat değiştiyse: data/ ve README'deki canlı tabloyu commit'ler, SONRA bildirim gönderir.
 # (Önce commit: push başarısız olursa bir sonraki çalıştırmada aynı bildirim tekrar gitmesin.)
 on:
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
+    inputs:
+      force_readme:
+        description: 'Fiyat değişmese de README tablosunu yeniden yaz'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -31,19 +36,23 @@ jobs:
         run: >
           dotnet run --project collector/DepoDolu.Collector -c Release --
           --data data
+          --readme README.md
           --pending "$RUNNER_TEMP/pending.json"
+          ${{ inputs.force_readme && '--force-readme' || '' }}
 
       - name: Değişiklikleri kaydet
         if: steps.collect.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data
-          git commit -m "Fiyatlar güncellendi: ${{ steps.collect.outputs.change_count }} değişiklik"
+          git add data README.md README.tr.md
+          git commit -m "⛽ Fiyatlar güncellendi: ${{ steps.collect.outputs.change_count }} değişiklik"
           git push
 
       - name: Bildirimleri gönder
         if: steps.collect.outputs.change_count != '0' && steps.collect.outputs.change_count != ''
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
         run: dotnet run --project collector/DepoDolu.Collector -c Release --no-build -- --send "$RUNNER_TEMP/pending.json"
