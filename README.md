@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/header.svg" alt="Depo Dolu — fuel prices for Turkey, open data and easier tracking" width="100%">
+<img src="docs/social-preview.png" alt="Depo Dolu — fuel prices for Turkey, open data and easier tracking" width="100%">
 
 # Depo Dolu
 
@@ -8,7 +8,7 @@
 
 **Fuel prices for all 81 provinces of Turkey. Check a price, calculate a tank, share it, or build with the open JSON API.**
 
-[Try the web app](https://ozkurtomer.github.io/depo-dolu/) · [Use the API](docs/API.md) · [Telegram alerts](https://t.me/depodolu) · [Contribute](CONTRIBUTING.md)
+[Try the web app](https://ozkurtomer.github.io/depo-dolu/) · [Use the API](docs/API.md) · [Code examples](examples/README.md) · [Telegram alerts](https://t.me/depodolu) · [Contribute](CONTRIBUTING.md)
 
 [![CI](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/ci.yml?label=tests)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/ci.yml)
 [![Collector](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/collect.yml?label=collector)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/collect.yml)
@@ -80,6 +80,8 @@ console.log(prices.bursa.motorin, updatedAt); // TRY per litre, last stored upda
 
 `benzin` = gasoline, `motorin` = diesel, `lpg` = autogas. All prices are TRY per litre, VAT included. Hosting is subject to GitHub availability and usage limits. See [API fields, timestamps and sharing links](docs/API.md).
 
+**Ready-to-run examples:** [Python and Node.js](examples/README.md), including an offline mode using the bundled data. No third-party packages required.
+
 Built something with this data? [Tell us in an issue](https://github.com/ozkurtomer/depo-dolu/issues/new) so others can discover it.
 
 ## Run locally
@@ -133,7 +135,8 @@ Try it, share a province link, report a reproducible bug, or build an API exampl
 
 - [Contributing guide](CONTRIBUTING.md) — English and Turkish, with checks to run.
 - [Roadmap and first contribution ideas](docs/ROADMAP.md) — Android, Chrome extension and more data sources.
-- [Changelog](CHANGELOG.md) · [Launch checklist](docs/LAUNCH.md).
+- [Help](SUPPORT.md) · [Community guidelines](CODE_OF_CONDUCT.md) · [Changelog](CHANGELOG.md).
+- Maintainers: [GitHub setup](docs/GITHUB_SETUP.md) · [Launch checklist](docs/LAUNCH.md).
 
 ---
 

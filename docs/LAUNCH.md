@@ -10,7 +10,9 @@ Website: `https://ozkurtomer.github.io/depo-dolu/`
 
 Suggested topics: `turkey`, `fuel-prices`, `open-data`, `dotnet`, `angular`, `ionic`, `telegram-bot`, `github-actions`.
 
-Use the existing banner as the repository social preview after checking its text against the current product. About fields, topics and the social preview are GitHub settings; files in this repository do not update them automatically.
+Upload `docs/social-preview.png` as the repository social preview. The app uses a matching card at its public web URL. About fields, topics and the social preview are GitHub settings; files in this repository do not update them automatically.
+
+For exact steps, prepared issue bodies and an optional GitHub CLI setup tool, see [GITHUB_SETUP.md](GITHUB_SETUP.md). Reviewable announcement drafts are in [LAUNCH_COPY.md](LAUNCH_COPY.md).
 
 ## Before announcing
 

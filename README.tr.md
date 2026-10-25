@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/header.svg" alt="Depo Dolu — Türkiye akaryakıt fiyatları, açık veri ve daha kolay takip" width="100%">
+<img src="docs/social-preview.png" alt="Depo Dolu — Türkiye akaryakıt fiyatları, açık veri ve daha kolay takip" width="100%">
 
 # Depo Dolu
 
@@ -8,7 +8,7 @@
 
 **81 ilde akaryakıt fiyatları. Fiyatı gör, depo maliyetini hesapla, paylaş veya açık JSON API ile kendi uygulamanı geliştir.**
 
-[Web'de dene](https://ozkurtomer.github.io/depo-dolu/) · [API'yi kullan](data/README.md) · [Telegram bildirimleri](https://t.me/depodolu) · [Katkı ver](CONTRIBUTING.md)
+[Web'de dene](https://ozkurtomer.github.io/depo-dolu/) · [API'yi kullan](data/README.md) · [Kod örnekleri](examples/README.md) · [Telegram bildirimleri](https://t.me/depodolu) · [Katkı ver](CONTRIBUTING.md)
 
 [![Testler](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/ci.yml?label=testler)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/ci.yml)
 [![Toplayıcı](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/collect.yml?label=toplayici)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/collect.yml)
@@ -80,6 +80,8 @@ console.log(prices.bursa.motorin, updatedAt); // TL/litre, son veri güncellemes
 
 Fiyatlar TL/litre ve KDV dahildir. GitHub'ın erişilebilirlik, önbellek ve kullanım sınırları geçerlidir. [Türkçe veri rehberi](data/README.md) · [English API reference](docs/API.md).
 
+**Hazır kullanım örnekleri:** [Python ve Node.js](examples/README.md). Ek paket gerektirmez; yerel JSON dosyasıyla internete çıkmadan da çalışır.
+
 Bu veriyle bir şey geliştirdiysen [issue açıp anlat](https://github.com/ozkurtomer/depo-dolu/issues/new); başkaları da keşfetsin.
 
 ## Yerel çalıştırma
@@ -133,7 +135,8 @@ Uygulamayı dene, bir ilin fiyat bağlantısını paylaş, tekrarlanabilir bir h
 
 - [Katkı rehberi](CONTRIBUTING.md) — Türkçe ve İngilizce başlangıç bilgileri.
 - [Yol haritası ve ilk katkı fikirleri](docs/ROADMAP.md) — Android, Chrome eklentisi ve yeni kaynaklar.
-- [Değişiklikler](CHANGELOG.md) · [Tanıtım kontrol listesi](docs/LAUNCH.md).
+- [Yardım](SUPPORT.md) · [Topluluk ilkeleri](CODE_OF_CONDUCT.md) · [Değişiklikler](CHANGELOG.md).
+- Bakımcılar: [GitHub ayarları](docs/GITHUB_SETUP.md) · [Tanıtım kontrol listesi](docs/LAUNCH.md).
 
 ---
 

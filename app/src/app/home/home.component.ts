@@ -134,8 +134,8 @@ export class HomeComponent {
       const result = await this.settingsService.setNotify(!this.settings().notify);
       this.pushMessage.set(
         result === 'denied' ? 'Bildirim izni kapalı. Telefonun ayarlarından Depo Dolu için bildirimlere izin ver.'
-        : result === 'error' ? 'Bildirim ayarı değiştirilemedi. Bağlantını kontrol edip tekrar dene.'
-        : null,
+          : result === 'error' ? 'Bildirim ayarı değiştirilemedi. Bağlantını kontrol edip tekrar dene.'
+            : null,
       );
     } finally {
       this.busy.set(false);

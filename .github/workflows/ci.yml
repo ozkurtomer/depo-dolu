@@ -39,3 +39,7 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npm test
       - run: npm run build
+      - name: API örneklerini yerel veriyle dene
+        run: |
+          node ../examples/prices.mjs --file ../data/latest.json --city bursa --fuel motorin
+          python ../examples/prices.py --file ../data/latest.json --city izmir --fuel benzin

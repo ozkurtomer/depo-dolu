@@ -26,7 +26,7 @@ export class PricesService {
       this.latest.set(data);
       this.error.set(null);
       this.offline.set(false);
-      await Preferences.set({ key: CACHE_KEY, value: JSON.stringify(data) }).catch(() => {});
+      await Preferences.set({ key: CACHE_KEY, value: JSON.stringify(data) }).catch(() => { });
     } catch {
       let cached: unknown = null;
       try {

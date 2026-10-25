@@ -44,3 +44,7 @@ Valid fuels are `benzin`, `motorin`, `lpg`. Unknown provinces and fuels are igno
 ## Compatibility
 
 Existing province slugs and fuel names are public identifiers. New distributors or breaking schema changes need an explicit versioning plan. Prefer reading only the fields you need and ignoring additional fields.
+
+## Runnable clients
+
+See [examples/README.md](../examples/README.md) for dependency-free Python and Node clients with local-file mode, HTTP error handling and timestamp output.

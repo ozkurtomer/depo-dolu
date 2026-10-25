@@ -42,3 +42,7 @@ Hangi il, hangi yakıt, hangi cihaz/tarayıcı? Ne bekliyordun, ne oldu? Tekrarl
 ## Yeni dağıtıcı, mobil uygulama veya Chrome eklentisi
 
 Önce [yol haritasını](docs/ROADMAP.md) ve [API sözleşmesini](docs/API.md) oku. Yeni dağıtıcı için örnek kaynak sayfa ve ayrıştırıcı testleri gerekir. Mobil ve Chrome istemcileri aynı kalıcı il/yakıt anahtarlarını kullanmalı; tarayıcı geçmişi gibi gereksiz izinler istememeli. Kapsamlı işe başlamadan önce bir issue aç.
+
+## Examples and community
+
+[Python/Node clients](examples/README.md) show the public API without dependencies. Follow [community guidelines](CODE_OF_CONDUCT.md) and use [SUPPORT.md](SUPPORT.md) for usage questions. Maintainers can use the prepared first-contribution issue drafts in `.github/first-contributions/`.

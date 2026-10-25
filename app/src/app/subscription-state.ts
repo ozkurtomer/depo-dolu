@@ -21,7 +21,7 @@ export class TopicSubscriptions {
 
   reconcile(topic: string | null, previousTopic?: string | null): Promise<void> {
     const operation = this.queue.then(() => this.apply(topic, previousTopic));
-    this.queue = operation.catch(() => {});
+    this.queue = operation.catch(() => { });
     return operation;
   }
 
