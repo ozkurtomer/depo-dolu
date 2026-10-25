@@ -14,6 +14,6 @@ export const DATA_BASE_URL = isDevMode() ? '/data' : GITHUB_DATA_URL;
  * Telegram kanalının adresi, ör. 'https://t.me/depodolu'.
  * Doluysa web sürümünde "Telegram'dan takip et" düğmesi görünür.
  */
-export const TELEGRAM_URL = '';
+export const TELEGRAM_URL = 'https://t.me/depodolu';
 
 export const REPO_URL = 'https://github.com/ozkurtomer/depo-dolu';
