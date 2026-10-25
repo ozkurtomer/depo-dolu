@@ -17,10 +17,11 @@ public sealed class TelegramNotifier(HttpClient http, string? botToken, string? 
 
     private static readonly string[] Featured = ["istanbul-avrupa", "ankara", "izmir", "bursa", "antalya"];
 
-    public async Task SendAsync(IReadOnlyList<PriceChange> changes, CancellationToken ct = default)
+    public async Task SendAsync(IReadOnlyList<PriceChange> changes, bool test = false, CancellationToken ct = default)
     {
         if (changes.Count == 0) return;
         var text = BuildMessage(changes);
+        if (test) text = "🧪 <b>Test mesajı</b>: bu gerçek bir fiyat değişikliği değil.\n\n" + text;
 
         if (IsDryRun)
         {
