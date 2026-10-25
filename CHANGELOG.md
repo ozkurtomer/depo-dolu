@@ -13,6 +13,7 @@
 - Windows and Linux collector checks, API documentation and contribution templates.
 
 ### Fixed
+- Pin schema-utils 4.x to an Angular 19-compatible version to fix Linux npm CI/Pages installs.
 - Regenerate the npm lockfile with npm 10 to resolve clean-install failures in GitHub CI and Pages.
 - Missing fuel prices and duplicate province rows no longer pass collector validation.
 - Previously stored missing prices can recover without generating a false price alert.
