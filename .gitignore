@@ -1,0 +1,23 @@
+# .NET
+bin/
+obj/
+*.user
+TestResults/
+
+# Node / Angular
+node_modules/
+app/dist/
+app/.angular/
+
+# Capacitor native projeleri: Firebase yapılandırma dosyaları herkese açık repoya girmesin
+google-services.json
+GoogleService-Info.plist
+
+# Sırlar
+*.serviceaccount.json
+.env
+
+# Editör / işletim sistemi
+.vscode/
+.idea/
+.DS_Store

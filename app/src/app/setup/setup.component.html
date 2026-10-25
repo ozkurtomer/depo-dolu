@@ -1,0 +1,85 @@
+<ion-content>
+  <div class="setup">
+    @if (step() === 'city') {
+      <header class="head">
+        @if (canCancel()) {
+          <button class="back" type="button" (click)="cancel.emit()">Vazgeç</button>
+        } @else {
+          <p class="brand">Depo Dolu</p>
+        }
+        <h1>Hangi ilde yakıt alıyorsun?</h1>
+        <p class="lede">Fiyat o ilde değiştiği an haber vereceğiz.</p>
+        <label class="search">
+          <span class="visually-hidden">İl ara</span>
+          <input
+            type="search"
+            inputmode="search"
+            autocomplete="off"
+            placeholder="İl ara"
+            [value]="query()"
+            (input)="query.set($any($event.target).value)"
+          />
+        </label>
+      </header>
+
+      @if (cities().length === 0) {
+        <p class="empty">İl listesi yükleniyor…</p>
+      }
+
+      <ul class="cities">
+        @for (c of filtered(); track c.slug) {
+          <li>
+            <button type="button" [class.current]="c.slug === city()" (click)="pickCity(c.slug)">
+              {{ c.name }}
+            </button>
+          </li>
+        } @empty {
+          @if (cities().length) {
+            <li class="empty">"{{ query() }}" diye bir il bulamadık.</li>
+          }
+        }
+      </ul>
+    } @else {
+      <header class="head">
+        <button class="back" type="button" (click)="step.set('city')">İli değiştir</button>
+        <h1>{{ cityPrices()?.name }} için hangi yakıt?</h1>
+        <p class="lede">Bugünkü litre fiyatları, KDV dahil.</p>
+      </header>
+
+      <div class="fuels" role="radiogroup" aria-label="Yakıt tipi">
+        @for (f of fuels; track f.key) {
+          <button
+            type="button"
+            role="radio"
+            class="fuel"
+            [attr.aria-checked]="fuel() === f.key"
+            [class.on]="fuel() === f.key"
+            (click)="fuel.set(f.key)"
+          >
+            <span class="fuel-name">{{ f.label }}</span>
+            <span class="fuel-hint">{{ f.hint }}</span>
+            <span class="fuel-price">
+              @if (cityPrices()?.[f.key]; as p) { {{ tl(p) }} <small>₺</small> } @else { — }
+            </span>
+          </button>
+        }
+      </div>
+
+      <label class="notify" [class.disabled]="!push.supported">
+        <input type="checkbox" [checked]="notify()" [disabled]="!push.supported" (change)="notify.set($any($event.target).checked)" />
+        <span class="notify-text">
+          <strong>Fiyat değişince bildirim gönder</strong>
+          @if (push.supported) {
+            <span>Zam da indirim de, aynı dakika içinde.</span>
+          } @else {
+            <span>Bildirimler Android ve iOS uygulamasında çalışır.</span>
+          }
+        </span>
+      </label>
+
+      <button class="cta" type="button" [disabled]="saving()" (click)="save()">
+        {{ saving() ? 'Kaydediliyor…' : 'Takibe başla' }}
+      </button>
+    }
+  </div>
+</ion-content>

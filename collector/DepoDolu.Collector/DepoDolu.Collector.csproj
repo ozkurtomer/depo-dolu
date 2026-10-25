@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!-- Bilerek sıfır NuGet bağımlılığı: HTML okuma ve Firebase kimlik doğrulaması .NET'in kendi kütüphaneleriyle. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <RootNamespace>DepoDolu.Collector</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="DepoDolu.Collector.Tests" />
+  </ItemGroup>
+
+</Project>

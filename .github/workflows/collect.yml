@@ -1,0 +1,49 @@
+name: Fiyatları topla
+
+# Her 15 dakikada bir Petrol Ofisi'nin 81 il fiyat tablosunu okur.
+# Fiyat değiştiyse: data/ klasörünü commit'ler, SONRA bildirim gönderir.
+# (Önce commit: push başarısız olursa bir sonraki çalıştırmada aynı bildirim tekrar gitmesin.)
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Fiyatları çek ve karşılaştır
+        id: collect
+        run: >
+          dotnet run --project collector/DepoDolu.Collector -c Release --
+          --data data
+          --pending "$RUNNER_TEMP/pending.json"
+
+      - name: Değişiklikleri kaydet
+        if: steps.collect.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git commit -m "Fiyatlar güncellendi: ${{ steps.collect.outputs.change_count }} değişiklik"
+          git push
+
+      - name: Bildirimleri gönder
+        if: steps.collect.outputs.change_count != '0' && steps.collect.outputs.change_count != ''
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: dotnet run --project collector/DepoDolu.Collector -c Release --no-build -- --send "$RUNNER_TEMP/pending.json"
