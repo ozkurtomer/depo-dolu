@@ -1,0 +1,65 @@
+/* Ionic temel stilleri */
+@import '@ionic/angular/css/core.css';
+@import '@ionic/angular/css/normalize.css';
+@import '@ionic/angular/css/structure.css';
+
+/* Barlow: karayolu tabelalarından türetilmiş yazı ailesi — istasyon dili için doğal seçim. */
+@import '@fontsource/barlow/400.css';
+@import '@fontsource/barlow/500.css';
+@import '@fontsource/barlow/600.css';
+@import '@fontsource/barlow-condensed/700.css';
+
+:root {
+  /* İstasyon paleti */
+  --dd-petrol: #0e3b4a;     /* kanopi / pompa gövdesi */
+  --dd-sign: #f2b705;       /* tabela sarısı, pompa rakamları */
+  --dd-ink: #16242a;        /* pompa ekranı, metin */
+  --dd-ink-soft: #55656b;
+  --dd-concrete: #eceeea;   /* zemin */
+  --dd-paper: #f8f9f6;
+  --dd-line: #d3d8d2;
+  --dd-up: #c8273b;         /* zam */
+  --dd-down: #23875a;       /* indirim */
+
+  --dd-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --dd-body: 'Barlow', system-ui, sans-serif;
+
+  --ion-font-family: var(--dd-body);
+  --ion-background-color: var(--dd-concrete);
+  --ion-text-color: var(--dd-ink);
+  --ion-color-primary: var(--dd-petrol);
+}
+
+html,
+body {
+  font-family: var(--dd-body);
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--dd-ink);
+  background: var(--dd-concrete);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
