@@ -48,18 +48,26 @@ This table is maintained by the collector. Its date is the last stored update, n
 <!-- FIYATLAR:BASLA -->
 | Province | Gasoline | Diesel | LPG |
 |:---|---:|---:|---:|
-| **İstanbul (Avrupa)** | 76.30 | 96.80 | 41.20 |
-| **İstanbul (Anadolu)** | 76.10 | 96.60 | 40.60 |
-| **Ankara** | 77.30 | 97.90 | 41.29 |
-| **İzmir** | 77.50 | 98.10 | 41.20 |
-| **Bursa** | 77.40 | 97.80 | 40.60 |
-| **Antalya** | 78.50 | 99.20 | 41.40 |
-| **Adana** | 78.10 | 98.70 | 41.61 |
-| **Konya** | 78.30 | 99.00 | 41.29 |
-| **Gaziantep** | 78.20 | 98.80 | 41.41 |
-| **Kocaeli** | 76.70 | 97.10 | 40.40 |
+| **İstanbul (Avrupa)** | 76.30 | 🔺 96.90 | 41.20 |
+| **İstanbul (Anadolu)** | 🔺 76.20 | 🔺 96.70 | 40.60 |
+| **Ankara** | 77.30 | 🔺 98.00 | 41.29 |
+| **İzmir** | 🔺 77.60 | 🔺 98.30 | 41.20 |
+| **Bursa** | 🔺 77.50 | 🔺 97.90 | 40.60 |
+| **Antalya** | 🔺 78.60 | 🔺 99.30 | 41.40 |
+| **Adana** | 🔺 78.20 | 🔺 98.80 | 41.61 |
+| **Konya** | 🔺 78.40 | 🔺 99.10 | 41.29 |
+| **Gaziantep** | 🔺 78.30 | 🔺 98.90 | 41.41 |
+| **Kocaeli** | 🔺 76.80 | 🔺 97.20 | 40.40 |
 
-<sub>Price per liter in Turkish lira (₺), VAT included. 🔺 increase / 🔻 decrease in the last 36 hours. Last update: Oct 25, 2026, 21:22 (Turkey time). [All 81 provinces](data/latest.json)</sub>
+<sub>Price per liter in Turkish lira (₺), VAT included. 🔺 increase / 🔻 decrease in the last 36 hours. Last update: Oct 28, 2026, 01:56 (Turkey time). [All 81 provinces](data/latest.json)</sub>
+
+**Latest price changes**
+
+- 🔺 Oct 28, 2026, 01:56: **İstanbul (Avrupa)** diesel 96.80 → 96.90 ₺ (+0.10)
+- 🔺 Oct 28, 2026, 01:56: **İstanbul (Anadolu)** gasoline 76.10 → 76.20 ₺ (+0.10)
+- 🔺 Oct 28, 2026, 01:56: **İstanbul (Anadolu)** diesel 96.60 → 96.70 ₺ (+0.10)
+- 🔺 Oct 28, 2026, 01:56: **Ankara** diesel 97.90 → 98.00 ₺ (+0.10)
+- 🔺 Oct 28, 2026, 01:56: **İzmir** gasoline 77.50 → 77.60 ₺ (+0.10)
 <!-- FIYATLAR:BITIR -->
 
 ## Build with the data
