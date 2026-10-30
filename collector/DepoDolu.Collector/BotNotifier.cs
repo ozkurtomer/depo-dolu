@@ -60,6 +60,37 @@ public sealed class BotNotifier(HttpClient http, string? botToken, string? apiUr
         Console.WriteLine($"  ✓ Telegram botu: {sent} gönderildi, {blocked.Count} engellemiş (silindi), {failed} başarısız.");
     }
 
+    /// <summary>
+    /// Deneme: abone listesine erişimi doğrular. chatId verilirse SADECE o sohbete deneme mesajı gönderir;
+    /// gerçek abonelere asla test mesajı gitmez.
+    /// </summary>
+    public async Task<int> TestAsync(IReadOnlyList<PriceChange> sample, long? chatId, CancellationToken ct = default)
+    {
+        if (IsDryRun)
+        {
+            Console.WriteLine("  ✗ Telegram botu ayarlı değil: TELEGRAM_BOT_TOKEN, BOT_API_URL ya da BOT_API_SECRET eksik.");
+            return -1;
+        }
+
+        var subscribers = await FetchSubscribersAsync(ct);
+        var matching = Plan(sample, subscribers).Count;
+        Console.WriteLine($"  ✓ Bot abone listesine erişildi: toplam {subscribers.Count} abone, bu il ve yakıtta {matching} kişi.");
+
+        if (chatId is { } id)
+        {
+            var text = "🧪 <i>Deneme: GitHub Actions'tan gönderildi. Gerçek bir zamda böyle bir mesaj alacaksın.</i>\n\n" + BuildMessage(sample);
+            var result = await SendOneAsync(id, text, ct);
+            if (result != Result.Sent)
+                throw new HttpRequestException($"Test mesajı {id} sohbetine gönderilemedi ({result}). Sohbet kimliği doğru mu, botu engellemedin mi?");
+            Console.WriteLine($"  ✓ Test mesajı {id} sohbetine gönderildi.");
+        }
+        else
+        {
+            Console.WriteLine("  (chat_id verilmedi: sadece bağlantı denendi, mesaj gönderilmedi)");
+        }
+        return subscribers.Count;
+    }
+
     /// <summary>Her aboneye, sadece kendi il ve yakıtındaki değişikliklerden oluşan tek mesaj.</summary>
     public static List<(long ChatId, string Text)> Plan(IReadOnlyList<PriceChange> changes, IEnumerable<Subscriber> subscribers)
     {
