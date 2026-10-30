@@ -1,5 +1,7 @@
 import { Component, computed, effect, inject, output, signal } from '@angular/core';
 import { IonContent, IonRefresher, IonRefresherContent } from '@ionic/angular/standalone';
+import { Capacitor } from '@capacitor/core';
+import { Share } from '@capacitor/share';
 import { ChangeEntry, FUELS, FuelKey, HistoryEntry, fuelLabel } from '../models';
 import { PricesService } from '../services/prices.service';
 import { PushService } from '../services/push.service';
@@ -158,14 +160,19 @@ export class HomeComponent {
     const url = priceShareUrl(WEB_URL, s.city, s.fuel);
     const text = `${city.name} ${fuelLabel(s.fuel)}: ${tl(price)} ₺/L. Kaynak: Petrol Ofisi il liste fiyatı. Depo Dolu ile takip et.`;
     try {
-      if (!copyOnly && navigator.share) {
+      if (!copyOnly && Capacitor.isNativePlatform()) {
+        // Telefonda Android/iOS'un kendi paylaşım menüsü (WhatsApp, Telegram...)
+        await Share.share({ title: 'Depo Dolu', text, url, dialogTitle: 'Fiyatı paylaş' });
+      } else if (!copyOnly && navigator.share) {
         await navigator.share({ title: 'Depo Dolu', text, url });
       } else {
         await navigator.clipboard.writeText(`${text}\n${url}`);
         this.shareMessage.set('Fiyat ve bağlantı kopyalandı. İstediğin yerde paylaşabilirsin.');
       }
     } catch (error) {
-      if (!(error instanceof DOMException && error.name === 'AbortError'))
+      const cancelled = (error instanceof DOMException && error.name === 'AbortError')
+        || (error instanceof Error && /cancel/i.test(error.message));
+      if (!cancelled)
         this.shareMessage.set('Paylaşılamadı. Tarayıcının paylaş menüsünü deneyebilirsin.');
     }
   }

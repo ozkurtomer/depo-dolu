@@ -3,6 +3,11 @@
 ## Unreleased
 
 ### Added
+- Android app (`app/android/`): Capacitor 8 targeting Android 16 / API 36, Depo Dolu icon and splash, white `ic_stat_fuel` notification icon, default `fiyat` channel and FCM metadata.
+- Native share sheet on Android/iOS via `@capacitor/share`.
+- CI builds a debug APK on every push (`depo-dolu-android-debug` artifact); optional `GOOGLE_SERVICES_JSON` secret enables push in that build.
+- `docs/ANDROID.md` (build, Firebase, APK, Google Play) and `docs/PRIVACY.md` for the web and Android app.
+- `app/tools/generate_native_assets.py` and `npm run assets:native` to regenerate native icons.
 - Chrome extension 1.0.0, ready for the Chrome Web Store: store screenshots and promo tiles (`extension/store/`), listing copy, permission justifications and a step-by-step release guide (`extension/STORE.md`).
 - Extension settings link to the Telegram bot with the selected province and fuel (`t.me/depodolu_bot?start=…`).
 - Manifest checks for store limits (name, description, version) and matching version labels.
@@ -30,6 +35,7 @@
 - Telegram message line endings are consistent across Windows and Linux.
 
 ### Changed
+- Upgrade Capacitor and plugins from 7 to 8; Firebase JS SDK 11 → 12 (plugin peer requirement).
 - Extension badge uses a Turkish decimal comma (97,9).
 - Extension 128 px icon follows Chrome Web Store padding guidance (96 px artwork, 16 px transparent margin).
 - Describe scheduled checks accurately instead of promising instant alerts.

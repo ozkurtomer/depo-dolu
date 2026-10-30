@@ -39,7 +39,15 @@ Litre fiyatının kendi depomuz için ne anlama geldiğini görmek daha faydalı
 | İl ve yakıt seçimini taşıyan paylaşım bağlantıları | Angular + Ionic web uygulaması |
 | İline özel Telegram bildirimi ([@depodolu_bot](https://t.me/depodolu_bot)) | FCM konuları, Cloudflare Workers + D1 üzerinde Telegram botu ([bot/](bot/README.md)), kalıcı kuyruk ve testler |
 
-**Mevcut kapsam:** fiyatlar Petrol Ofisi'nin il listesinden alınır. Kontroller 15 dakikalık aralıklarla planlanır; gecikebilir, anlık bildirim garantisi yoktur. [Chrome eklentisi](#chrome-eklentisi) Chrome Web Store'a hazır. Mobil uygulamanın dağıtımı [planlanıyor](docs/ROADMAP.md). Web sürümü push bildirimi almaz.
+**Mevcut kapsam:** fiyatlar Petrol Ofisi'nin il listesinden alınır. Kontroller 15 dakikalık aralıklarla planlanır; gecikebilir, anlık bildirim garantisi yoktur. [Chrome eklentisi](#chrome-eklentisi) Chrome Web Store'a hazır. [Android uygulaması](#android-uygulaması) bu repodan derlenir; Google Play yayını hazırlanıyor. Web sürümü push bildirimi almaz.
+
+## Android uygulaması
+
+Web uygulamasıyla aynı Angular + Ionic kod, Capacitor 8 ile telefonda (Android 16 / API 36 hedefli). İlini ve yakıtını seç, bildirimi aç; o fiyat değişince telefonuna bildirim gelir. Bildirimler Firebase konu aboneliğiyle (`bursa_motorin`) çalışır: hesap yok, sunucu kimin abone olduğunu bilmez.
+
+- **Hemen dene:** `main` dalındaki her CI çalıştırması bir test APK'sı üretir. [Actions → CI](https://github.com/ozkurtomer/depo-dolu/actions/workflows/ci.yml) → son çalıştırma → `depo-dolu-android-debug` dosyasını indir.
+- **Kendin derle:** `cd app && npm install && npm run android` projeyi Android Studio'da açar. [Android rehberi](docs/ANDROID.md) · [Gizlilik](docs/PRIVACY.md)
+- **Google Play:** önce kapalı test; mağaza bağlantısı buraya eklenecek.
 
 ## Chrome eklentisi
 
@@ -156,7 +164,7 @@ Seçimler ve son fiyat önbelleği cihazda tutulur. Bu repo kullanıcı hesabı 
 Uygulamayı dene, bir ilin fiyat bağlantısını paylaş, tekrarlanabilir bir hata bildir veya API örneği yaz. İşine yaradıysa vereceğin ⭐ başka geliştiricilerin projeyi keşfetmesine yardımcı olur.
 
 - [Katkı rehberi](CONTRIBUTING.md) — Türkçe ve İngilizce başlangıç bilgileri.
-- [Yol haritası ve ilk katkı fikirleri](docs/ROADMAP.md) — Android, iOS ve yeni kaynaklar.
+- [Yol haritası ve ilk katkı fikirleri](docs/ROADMAP.md) — iOS, Google Play yayını ve yeni kaynaklar.
 - [Yardım](SUPPORT.md) · [Topluluk ilkeleri](CODE_OF_CONDUCT.md) · [Değişiklikler](CHANGELOG.md).
 - Bakımcılar: [GitHub ayarları](docs/GITHUB_SETUP.md) · [Tanıtım kontrol listesi](docs/LAUNCH.md).
 

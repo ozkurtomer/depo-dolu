@@ -8,7 +8,7 @@
 
 **Fuel prices for all 81 provinces of Turkey. Check a price, calculate a tank, share it, or build with the open JSON API.**
 
-[Try the web app](https://ozkurtomer.github.io/depo-dolu/) · [Chrome extension](#chrome-extension) · [Use the API](docs/API.md) · [Code examples](examples/README.md) · [Telegram alerts](https://t.me/depodolu_bot) · [Contribute](CONTRIBUTING.md)
+[Try the web app](https://ozkurtomer.github.io/depo-dolu/) · [Android app](#android-app) · [Chrome extension](#chrome-extension) · [Use the API](docs/API.md) · [Code examples](examples/README.md) · [Telegram alerts](https://t.me/depodolu_bot) · [Contribute](CONTRIBUTING.md)
 
 [![CI](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/ci.yml?label=tests)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/ci.yml)
 [![Collector](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/collect.yml?label=collector)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/collect.yml)
@@ -39,7 +39,15 @@ Example: [Bursa · diesel](https://ozkurtomer.github.io/depo-dolu/?il=bursa&yaki
 | Shareable province and fuel links | Angular + Ionic web client, ready for further native work |
 | Personal Telegram alerts for your province ([@depodolu_bot](https://t.me/depodolu_bot)) | FCM topics, Telegram bot on Cloudflare Workers + D1 ([bot/](bot/README.md)), retry queue and tests |
 
-**Current scope:** prices come from Petrol Ofisi province lists. Checks are scheduled every 15 minutes, can be delayed, and do not guarantee instant alerts. The [Chrome extension](#chrome-extension) is ready for the Chrome Web Store; native mobile distribution is [planned](docs/ROADMAP.md). The web app does not receive push alerts.
+**Current scope:** prices come from Petrol Ofisi province lists. Checks are scheduled every 15 minutes, can be delayed, and do not guarantee instant alerts. The [Chrome extension](#chrome-extension) is ready for the Chrome Web Store. The [Android app](#android-app) builds from this repository; Google Play release is in progress. The web app does not receive push alerts.
+
+## Android app
+
+The same Angular + Ionic app, packaged with Capacitor 8 (targets Android 16 / API 36). Pick a province and fuel, turn on alerts, and your phone is notified when that price changes. Alerts use Firebase topic messaging (`bursa_motorin`), so there is no account and the server never knows who is subscribed.
+
+- **Try it now:** every CI run on `main` builds a test APK. Open [Actions → CI](https://github.com/ozkurtomer/depo-dolu/actions/workflows/ci.yml), pick the latest run and download `depo-dolu-android-debug`.
+- **Build it yourself:** `cd app && npm install && npm run android` opens the project in Android Studio. [Android guide (Turkish)](docs/ANDROID.md) · [Privacy](docs/PRIVACY.md)
+- **Google Play:** closed testing first; the store link will be added here.
 
 ## Chrome extension
 
@@ -156,7 +164,7 @@ The app stores selections and a last-price cache on the device. This repository 
 Try it, share a province link, report a reproducible bug, or build an API example. A star helps other developers discover the project if you find it useful.
 
 - [Contributing guide](CONTRIBUTING.md) — English and Turkish, with checks to run.
-- [Roadmap and first contribution ideas](docs/ROADMAP.md) — Android, iOS and more data sources.
+- [Roadmap and first contribution ideas](docs/ROADMAP.md) — iOS, Google Play release and more data sources.
 - [Help](SUPPORT.md) · [Community guidelines](CODE_OF_CONDUCT.md) · [Changelog](CHANGELOG.md).
 - Maintainers: [GitHub setup](docs/GITHUB_SETUP.md) · [Launch checklist](docs/LAUNCH.md).
 
