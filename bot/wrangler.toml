@@ -9,7 +9,7 @@ DATA_URL = "https://raw.githubusercontent.com/ozkurtomer/depo-dolu/main/data"
 [[d1_databases]]
 binding = "DB"
 database_name = "depodolu-bot"
-database_id = "BURAYA_D1_ID"
+database_id = "54930088-984f-4508-9f5b-d51697f8e6ec"
 
 # Gizli değerler (repoya girmez), şu komutlarla eklenir:
 #   npx wrangler secret put BOT_TOKEN       BotFather'ın verdiği token
