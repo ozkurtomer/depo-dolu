@@ -4,7 +4,7 @@ import { ChangeEntry, FUELS, FuelKey, HistoryEntry, fuelLabel } from '../models'
 import { PricesService } from '../services/prices.service';
 import { PushService } from '../services/push.service';
 import { SettingsService } from '../services/settings.service';
-import { REPO_URL, TELEGRAM_URL, WEB_URL } from '../config';
+import { REPO_URL, TELEGRAM_BOT_URL, TELEGRAM_URL, WEB_URL } from '../config';
 import { ago, tl, tlWhole } from '../format';
 import { PriceChartComponent } from './price-chart.component';
 import { priceShareUrl } from '../share';
@@ -28,6 +28,14 @@ export class HomeComponent {
   readonly fuels = FUELS;
   readonly tanks = TANK_SIZES;
   readonly telegramUrl = TELEGRAM_URL;
+  readonly hasBot = !!TELEGRAM_BOT_URL;
+
+  /** Seçili il ve yakıtı bota taşır; kullanıcı botta ilini yeniden seçmek zorunda kalmaz. */
+  readonly telegramLink = computed(() => {
+    const s = this.settings();
+    if (!TELEGRAM_BOT_URL) return TELEGRAM_URL;
+    return s.city ? `${TELEGRAM_BOT_URL}?start=${s.city}_${s.fuel}` : TELEGRAM_BOT_URL;
+  });
   readonly repoUrl = REPO_URL;
   readonly tl = tl;
   readonly tlWhole = tlWhole;

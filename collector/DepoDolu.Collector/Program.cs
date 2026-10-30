@@ -16,17 +16,19 @@ if (sendFile is not null)
     var outbox = new NotificationOutbox(sendFile);
     var notifier = CreateNotifier();
     var telegram = CreateTelegram();
+    var bot = CreateBot();
     if (dryRun)
     {
         foreach (var batch in outbox.Load())
         {
             await notifier.SendAsync(batch.Changes);
             await telegram.SendAsync(batch.Changes);
+            await bot.SendAsync(batch.Changes);
         }
         return 0; // Deneme, bekleyen bildirimleri tüketmez.
     }
     // Ayarlanmamış kanallar atlanır; daha sonra kurulduğunda eski uyarılar yağmaz.
-    return await outbox.DispatchAsync(c => notifier.SendAsync([c]), c => telegram.SendAsync(c)) ? 0 : 1;
+    return await outbox.DispatchAsync(c => notifier.SendAsync([c]), c => telegram.SendAsync(c), c => bot.SendAsync(c)) ? 0 : 1;
 }
 
 if (args.Contains("--test"))
@@ -44,6 +46,7 @@ if (args.Contains("--test"))
     Console.WriteLine($"🧪 Test bildirimi: {testInfo.Name} {testFuel.DisplayName()} (konu: {sample.Topic})");
     await CreateNotifier().SendAsync([sample], test: true);
     await CreateTelegram().SendAsync([sample], test: true);
+    // Bot abonelerine test gönderilmez (gerçek kullanıcılar). Botu denemek için bota /test yaz.
     return 0;
 }
 
@@ -93,6 +96,7 @@ try
         {
             await CreateNotifier().SendAsync(changes);
             await CreateTelegram().SendAsync(changes);
+            await CreateBot().SendAsync(changes);
         }
     }
 
@@ -125,6 +129,13 @@ TelegramNotifier CreateTelegram() => dryRun
     : new TelegramNotifier(http,
         Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN"),
         Environment.GetEnvironmentVariable("TELEGRAM_CHAT_ID"));
+
+BotNotifier CreateBot() => dryRun
+    ? new BotNotifier(http, null, null, null)
+    : new BotNotifier(http,
+        Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN"),
+        Environment.GetEnvironmentVariable("BOT_API_URL"),
+        Environment.GetEnvironmentVariable("BOT_API_SECRET"));
 
 string? Arg(string name)
 {

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+  <symbol id="pump" viewBox="0 0 24 24"><path d="M3 21h12M5 21V4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v17M7 6h5v5H7zM14 10h2l2 3v5a2 2 0 0 0 4 0V8l-3-3"/></symbol>
+  <symbol id="refresh" viewBox="0 0 24 24"><path d="M20 6v5h-5M4 18v-5h5M19 11a7 7 0 0 0-12-5L4 9M5 13a7 7 0 0 0 12 5l3-3"/></symbol>
+  <symbol id="pin" viewBox="0 0 24 24"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="chevron" viewBox="0 0 24 24"><path d="m8 10 4 4 4-4"/></symbol>
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+  <symbol id="compare" viewBox="0 0 24 24"><path d="M4 16h4V9H4zM10 16h4V5h-4zM16 16h4v-4h-4zM3 20h18"/></symbol>
+  <symbol id="tank" viewBox="0 0 24 24"><path d="M8 4h8v3l3 2v12H5V9l3-2V4ZM9 12l6 6M15 12l-6 6M10 4V2h4v2"/></symbol>
+  <symbol id="bell" viewBox="0 0 24 24"><path d="M6 16v-6a6 6 0 0 1 12 0v6l2 2H4l2-2ZM10 21h4"/></symbol>
+  <symbol id="share" viewBox="0 0 24 24"><path d="M12 15V3M7 8l5-5 5 5M5 12H3v9h18v-9h-2"/></symbol>
+  <symbol id="history" viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 1 2 7M3 4v7h7M12 7v5l3 2"/></symbol>
+  <symbol id="settings" viewBox="0 0 24 24"><path d="m10 3-1 3-3 1-3 3 2 2-1 4 3 2h3l2 3 3-2 3-1 2-3-1-3 1-3-3-2-3 1-2-3Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="m12 3 8 3v5c0 5-8 10-8 10S4 16 4 11V6l8-3Z"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+</svg>

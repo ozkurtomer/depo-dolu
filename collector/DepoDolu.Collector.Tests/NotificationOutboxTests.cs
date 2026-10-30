@@ -56,6 +56,24 @@ public sealed class NotificationOutboxTests : IDisposable
         Assert.Equal(2, Store.Load().Count);
     }
 
+    [Fact]
+    public async Task Bot_hatasi_diger_kanallari_tekrarlatmaz_bot_sonra_tamamlanir()
+    {
+        Store.Enqueue([Bursa]);
+        int fcm = 0, telegram = 0, bot = 0;
+        Assert.False(await Store.DispatchAsync(_ => { fcm++; return Task.CompletedTask; },
+            _ => { telegram++; return Task.CompletedTask; },
+            _ => throw new HttpRequestException("abone listesi alınamadı")));
+        var batch = Assert.Single(Store.Load());
+        Assert.False(batch.BotDelivered);
+
+        Assert.True(await Store.DispatchAsync(_ => { fcm++; return Task.CompletedTask; },
+            _ => { telegram++; return Task.CompletedTask; },
+            _ => { bot++; return Task.CompletedTask; }));
+        Assert.Equal((1, 1, 1), (fcm, telegram, bot));
+        Assert.Empty(Store.Load());
+    }
+
     public void Dispose()
     {
         if (Directory.Exists(_dir)) Directory.Delete(_dir, recursive: true);
