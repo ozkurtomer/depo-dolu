@@ -23,6 +23,7 @@ GoogleService-Info.plist
 .DS_Store
 .local-data/
 .local-notifications.json
+key.txt
 
 # Local Chrome extension archives
 extension/dist/
