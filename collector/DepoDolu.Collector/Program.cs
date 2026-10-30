@@ -46,7 +46,9 @@ if (args.Contains("--test"))
     Console.WriteLine($"🧪 Test bildirimi: {testInfo.Name} {testFuel.DisplayName()} (konu: {sample.Topic})");
     await CreateNotifier().SendAsync([sample], test: true);
     await CreateTelegram().SendAsync([sample], test: true);
-    // Bot abonelerine test gönderilmez (gerçek kullanıcılar). Botu denemek için bota /test yaz.
+    // Bot: abone listesine erişimi dener; deneme mesajı SADECE --chat ile verilen sohbete gider, gerçek abonelere değil.
+    long? testChat = long.TryParse(Arg("--chat"), out var parsedChat) ? parsedChat : null;
+    await CreateBot().TestAsync([sample], testChat);
     return 0;
 }
 
