@@ -1,7 +1,8 @@
 name: Test bildirimi gönder
 
-# Gerçek bildirim zincirini dener (Firebase + Telegram).
+# Gerçek bildirim zincirini dener (Firebase + Telegram kanalı + Telegram botu).
 # Veriye dokunmaz; mesajlar "🧪 Test" etiketlidir.
+# Bot: abone listesine bağlantı her zaman denenir; deneme mesajı SADECE chat_id verilirse o sohbete gider.
 on:
   workflow_dispatch:
     inputs:
@@ -15,9 +16,13 @@ on:
         options: [motorin, benzin, lpg]
         default: motorin
       telegram:
-        description: 'Telegram kanalına da gönder'
+        description: 'Telegram kanalına da gönder (herkes görür)'
         type: boolean
-        default: true
+        default: false
+      chat_id:
+        description: 'Bot denemesi: kendi Telegram sohbet kimliğin (boş bırakırsan sadece bağlantı denenir)'
+        required: false
+        default: ''
 
 jobs:
   test:
@@ -35,8 +40,11 @@ jobs:
           CITY: ${{ inputs.city }}
           FUEL: ${{ inputs.fuel }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          TELEGRAM_BOT_TOKEN: ${{ inputs.telegram && secrets.TELEGRAM_BOT_TOKEN || '' }}
-          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+          CHAT: ${{ inputs.chat_id }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ inputs.telegram && vars.TELEGRAM_CHAT_ID || '' }}
+          BOT_API_URL: ${{ vars.BOT_API_URL }}
+          BOT_API_SECRET: ${{ secrets.BOT_API_SECRET }}
         run: >
           dotnet run --project collector/DepoDolu.Collector -c Release --
-          --data data --test --city "$CITY" --fuel "$FUEL"
+          --data data --test --city "$CITY" --fuel "$FUEL" --chat "$CHAT"
