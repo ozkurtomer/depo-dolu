@@ -24,7 +24,7 @@ const controller = createController({
   },
   badge: async state => {
     const price = state.current.price;
-    const text = state.settings.badge && typeof price === 'number' ? (price < 100 ? price.toFixed(1) : price.toFixed(0)) : '';
+    const text = state.settings.badge && typeof price === 'number' ? (price < 100 ? price.toFixed(1).replace('.', ',') : price.toFixed(0)) : '';
     await chrome.action.setBadgeText({ text });
     await chrome.action.setBadgeBackgroundColor({ color: state.current.error ? '#627378' : state.settings.mode === 'demo' ? '#9a7300' : '#0e3b4a' });
     const title = state.current.city && price != null

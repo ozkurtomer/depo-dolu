@@ -8,7 +8,7 @@ Türkiye'de akaryakıt fiyatlarını takip etmek ve veriyi başka projelerde kul
 
 81 ilde benzin, motorin ve LPG fiyatını görebiliyor; depo maliyetini hesaplayabiliyor ve seçtiğin ilin fiyatını bağlantısıyla paylaşabiliyorsun. Geliştiriciler için anahtarsız, herkese açık JSON verisi de var.
 
-Teknik tarafta .NET toplayıcı, Angular/Ionic arayüz ve GitHub Actions kullanıyorum. Fiyatlar Petrol Ofisi il listesinden alınıyor; kontroller 15 dakikalık aralıklarla planlanıyor. Mobil uygulama ve Chrome eklentisi sonraki adımlar.
+Teknik tarafta .NET toplayıcı, Angular/Ionic arayüz ve GitHub Actions kullanıyorum. Fiyatlar Petrol Ofisi il listesinden alınıyor; kontroller 15 dakikalık aralıklarla planlanıyor. Chrome eklentisi de var: fiyat araç çubuğunda, zam gelince bildirim. Mobil uygulama sonraki adım.
 
 Demo: https://ozkurtomer.github.io/depo-dolu/
 Kod ve API: https://github.com/ozkurtomer/depo-dolu
@@ -30,7 +30,7 @@ The web app lets you choose gasoline, diesel or LPG, compare region list prices,
 
 The project combines a .NET collector, GitHub Actions, Angular/Ionic and Telegram/FCM delivery. One challenge was handling partial source data and failed notifications; the collector validates snapshots and persists unfinished deliveries for retry.
 
-The source is Petrol Ofisi's public province list. Checks are scheduled every 15 minutes and may be delayed; this is not a market-wide station-price comparison. Native distribution and a Chrome extension are planned.
+The source is Petrol Ofisi's public province list. Checks are scheduled every 15 minutes and may be delayed; this is not a market-wide station-price comparison. A Chrome extension shows the price on the toolbar and can alert on changes; native mobile distribution is planned.
 
 Try it: https://ozkurtomer.github.io/depo-dolu/
 Source and API: https://github.com/ozkurtomer/depo-dolu

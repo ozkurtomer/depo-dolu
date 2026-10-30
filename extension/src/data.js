@@ -1,5 +1,6 @@
 export const DATA_BASE = 'https://raw.githubusercontent.com/ozkurtomer/depo-dolu/main/data';
 export const WEB_URL = 'https://ozkurtomer.github.io/depo-dolu/';
+export const TELEGRAM_BOT_URL = 'https://t.me/depodolu_bot';
 export const FUELS = Object.freeze([{ key: 'benzin', label: 'Benzin' }, { key: 'motorin', label: 'Motorin' }, { key: 'lpg', label: 'LPG' }]);
 export const TANKS = Object.freeze([30, 40, 50, 60, 70]);
 export const POLL_MINUTES = 15;
@@ -46,6 +47,10 @@ export function selectionUrl(city, fuel) {
   if (city) url.searchParams.set('il', city);
   url.searchParams.set('yakit', fuel);
   return url.href;
+}
+
+export function telegramUrl(city, fuel) {
+  return city ? `${TELEGRAM_BOT_URL}?start=${city}_${fuel}` : TELEGRAM_BOT_URL;
 }
 
 export function fold(text) {

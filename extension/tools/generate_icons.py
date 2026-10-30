@@ -14,6 +14,10 @@ draw.line([box((22, 103)), box((84, 103))], fill='#f2b705', width=5 * scale)
 draw.line([box((77, 60)), box((86, 60)), box((94, 70)), box((94, 87))], fill='#f2b705', width=5 * scale)
 draw.arc(box((92, 80, 110, 98)), 0, 180, fill='#f2b705', width=5 * scale)
 draw.line([box((108, 89)), box((108, 44)), box((98, 34))], fill='#f2b705', width=5 * scale)
-for size in [16, 32, 48, 128]:
+for size in [16, 32, 48]:
     image.resize((size, size), Image.Resampling.LANCZOS).save(root / f'icons/icon-{size}.png', optimize=True)
+# Chrome Web Store: 128 px simgede çizim 96x96, her kenarda 16 px şeffaf boşluk.
+store = Image.new('RGBA', (128, 128))
+store.paste(image.resize((96, 96), Image.Resampling.LANCZOS), (16, 16))
+store.save(root / 'icons/icon-128.png', optimize=True)
 print('Generated local 16/32/48/128px PNG icons')

@@ -31,7 +31,7 @@ dotnet test collector/DepoDolu.sln
 
 ## Native app status
 
-Ionic/Capacitor client code is present, but an Android/iOS package, native notification icon, Firebase configuration and real-device verification are still needed. Web users receive no native push permission prompt; they can follow the Telegram channel. The separate Chrome extension is available as a local unpacked beta; see [its setup and test guide](../extension/README.md). It uses Chrome alarms and local notifications rather than Firebase. Store publication remains pending.
+Ionic/Capacitor client code is present, but an Android/iOS package, native notification icon, Firebase configuration and real-device verification are still needed. Web users receive no native push permission prompt; they can follow the Telegram channel. The separate Chrome extension uses Chrome alarms and local notifications rather than Firebase; see [its setup and test guide](../extension/README.md). To publish a new version to the Chrome Web Store, follow the [release guide](../extension/STORE.md).
 
 ## Fork configuration
 

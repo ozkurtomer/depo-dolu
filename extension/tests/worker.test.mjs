@@ -41,7 +41,7 @@ test('service worker wiring: optional permission, alarm, persisted change and cl
   await message('get');
   assert.equal(deliveries.length, 1);
   assert.match(deliveries[0].options.message, /99,10/);
-  assert.ok(badges.some(item => item.text === '99.1'));
+  assert.ok(badges.some(item => item.text === '99,1'));
   await notificationApi.onClicked.fire(deliveries[0].id);
   assert.equal(new URL(tabs[0].url).searchParams.get('il'), 'bursa');
   granted = false;

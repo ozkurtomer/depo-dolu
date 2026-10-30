@@ -1,6 +1,10 @@
 # Depo Dolu · Chrome eklentisi
 
-Manifest V3 tabanlı, derleme ve npm paketi kurulumu gerektirmeyen yerel eklenti. İl/yakıt fiyatı, ülke karşılaştırması, depo maliyeti, geçmiş, paylaşım ve isteğe bağlı fiyat değişikliği bildirimleri içerir. Chrome Web Store'a yayımlanmış değildir.
+Manifest V3 tabanlı, derleme ve npm paketi kurulumu gerektirmeyen eklenti. İl/yakıt fiyatı, ülke karşılaştırması, depo maliyeti, geçmiş, paylaşım, Telegram botu bağlantısı ve isteğe bağlı fiyat değişikliği bildirimleri içerir.
+
+**Sürüm 1.0.0 · Chrome Web Store'a hazır.** Paket, görseller ve mağaza metinleri hazır; yayın adımları [STORE.md](STORE.md) dosyasında. Mağaza bağlantısı yayınlanınca buraya eklenecek.
+
+<p align="center"><img src="store/screenshot-1.png" alt="Depo Dolu Chrome eklentisi" width="100%"></p>
 
 ## Chrome'a yerel yükleme
 
@@ -22,6 +26,7 @@ Gereksinim: Chrome 120+. İlk fiyat yüklemesi için internet gerekir. İstersen
 - Ayarlar'dan bildirimleri aç. Chrome izni ancak bu adımda istenir.
 - “Simge üzerinde fiyat” rozetini istersen kapat. Rozet yuvarlanmıştır; simge üzerinde bekleyince tam fiyat görünür.
 - Fiyat ve bağlantıyı kopyala; link, web uygulamasında aynı il/yakıtı açar.
+- Ayarlar'daki **Telefonuna da gelsin** kartı, seçili il ve yakıtla [@depodolu_bot](https://t.me/depodolu_bot)'u açar. Telegram, Chrome kapalıyken de haber verir.
 
 ## Yerel test senaryoları
 
@@ -53,7 +58,13 @@ Bağımlılık yok; `npm install` veya `npm ci` gerekmez. Testler veri doğrulam
 npm run package
 ```
 
-Çıktı `dist/depo-dolu-chrome-0.1.0.zip` olur. Bu komut yükleme, mağaza yayını, commit veya push yapmaz.
+Çıktı `dist/depo-dolu-chrome-<sürüm>.zip` olur (şu an `1.0.0`). Bu ZIP doğrudan Chrome Web Store'a yüklenir. Komut kendisi yükleme, mağaza yayını, commit veya push yapmaz.
+
+## Chrome Web Store
+
+- Yayın ve güncelleme adımları, mağaza açıklaması, izin gerekçeleri ve gizlilik cevapları: [STORE.md](STORE.md)
+- Mağaza görselleri: [`store/`](store/) (beş adet 1280×800 ekran görüntüsü, 440×280 ve 1400×560 tanıtım görseli)
+- Gizlilik politikası adresi: `https://github.com/ozkurtomer/depo-dolu/blob/main/extension/PRIVACY.md`
 
 ## Kurmadan tasarım önizlemesi
 
