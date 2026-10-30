@@ -3,6 +3,10 @@
 ## Unreleased
 
 ### Added
+- Local Manifest V3 Chrome extension with province/fuel selection, price history, tank calculator and sharing.
+- Optional local desktop alerts and toolbar badge; 15-minute checks only while alerts are enabled.
+- Isolated demo mode with simulated price changes/offline behavior, privacy notes and local ZIP packaging.
+- Dependency-free extension tests and manifest checks; local extension CI job prepared.
 - Repository and web social preview card, sharing metadata and an app sitemap.
 - Dependency-free Python/Node API examples with offline input.
 - Support/community documents and prepared first-contribution issue drafts.
@@ -26,4 +30,4 @@
 - Describe scheduled checks accurately instead of promising instant alerts.
 - Use lockfile-based installs in CI and web deployment.
 
-This section is not a published release. Android distribution and a Chrome extension remain planned.
+This section is not a published release. Android distribution and Chrome Web Store publication remain planned; the extension is available as a local unpacked beta.

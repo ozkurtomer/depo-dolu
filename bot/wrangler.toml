@@ -1,0 +1,17 @@
+name = "depodolu-bot"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+DATA_URL = "https://raw.githubusercontent.com/ozkurtomer/depo-dolu/main/data"
+
+# `npx wrangler d1 create depodolu-bot` komutunun verdiği database_id'yi buraya yaz.
+[[d1_databases]]
+binding = "DB"
+database_name = "depodolu-bot"
+database_id = "BURAYA_D1_ID"
+
+# Gizli değerler (repoya girmez), şu komutlarla eklenir:
+#   npx wrangler secret put BOT_TOKEN       BotFather'ın verdiği token
+#   npx wrangler secret put WEBHOOK_SECRET  Uzun rastgele bir metin (sadece harf, rakam, _ ve -)
+#   npx wrangler secret put API_SECRET      Uzun rastgele bir metin; GitHub'a da BOT_API_SECRET olarak eklenir

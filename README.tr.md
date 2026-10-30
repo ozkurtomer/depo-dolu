@@ -8,7 +8,7 @@
 
 **81 ilde akaryakıt fiyatları. Fiyatı gör, depo maliyetini hesapla, paylaş veya açık JSON API ile kendi uygulamanı geliştir.**
 
-[Web'de dene](https://ozkurtomer.github.io/depo-dolu/) · [API'yi kullan](data/README.md) · [Kod örnekleri](examples/README.md) · [Telegram bildirimleri](https://t.me/depodolu) · [Katkı ver](CONTRIBUTING.md)
+[Web'de dene](https://ozkurtomer.github.io/depo-dolu/) · [API'yi kullan](data/README.md) · [Kod örnekleri](examples/README.md) · [Telegram bildirimleri](https://t.me/depodolu_bot) · [Katkı ver](CONTRIBUTING.md)
 
 [![Testler](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/ci.yml?label=testler)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/ci.yml)
 [![Toplayıcı](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/collect.yml?label=toplayici)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/collect.yml)
@@ -25,7 +25,7 @@ Litre fiyatının kendi depomuz için ne anlama geldiğini görmek daha faydalı
 2. Fiyatı diğer bölgelerle karşılaştır, depo litresini seç.
 3. **“Bu fiyatı paylaş”** düğmesiyle fiyatı ve aynı il/yakıtı açan bağlantıyı paylaş.
 
-Örnek: [Bursa · motorin](https://ozkurtomer.github.io/depo-dolu/?il=bursa&yakit=motorin). Uygulama kurmadan bildirim almak için Telegram'da [@depodolu](https://t.me/depodolu) kanalını takip et.
+Örnek: [Bursa · motorin](https://ozkurtomer.github.io/depo-dolu/?il=bursa&yakit=motorin). Uygulama kurmadan bildirim almak için Telegram'da [@depodolu_bot](https://t.me/depodolu_bot) botunu aç ve ilini yaz: sadece kendi ilin ve yakıtın için mesaj alırsın. [@depodolu](https://t.me/depodolu) kanalı ise Türkiye geneli özeti paylaşır.
 
 <p align="center"><img src="docs/ekranlar.png" alt="İl seçimi, yakıt seçimi, depo maliyeti ve fiyat geçmişi" width="100%"></p>
 <p align="center"><sub>Uygulamanın örnek görünümü; görseldeki fiyat geçmişi örnek veridir. Gerçek birikmiş geçmiş web demosundadır.</sub></p>
@@ -37,9 +37,15 @@ Litre fiyatının kendi depomuz için ne anlama geldiğini görmek daha faydalı
 | 81 il, 82 bölge için benzin, motorin ve LPG | Anahtarsız, hesapsız, herkese açık JSON |
 | Depo maliyeti, bölge karşılaştırması ve fiyat geçmişi | Üretimde NuGet bağımlılığı olmayan .NET toplayıcı |
 | İl ve yakıt seçimini taşıyan paylaşım bağlantıları | Angular + Ionic web uygulaması |
-| Telegram özetleri | FCM konuları, kalıcı bildirim kuyruğu ve testler |
+| İline özel Telegram bildirimi ([@depodolu_bot](https://t.me/depodolu_bot)) | FCM konuları, Cloudflare Workers + D1 üzerinde Telegram botu ([bot/](bot/README.md)), kalıcı kuyruk ve testler |
 
-**Mevcut kapsam:** fiyatlar Petrol Ofisi'nin il listesinden alınır. Kontroller 15 dakikalık aralıklarla planlanır; gecikebilir, anlık bildirim garantisi yoktur. Mobil uygulamanın dağıtımı ve Chrome eklentisi [planlanıyor](docs/ROADMAP.md); henüz yayımlanmış değiller. Web sürümü push bildirimi almaz.
+**Mevcut kapsam:** fiyatlar Petrol Ofisi'nin il listesinden alınır. Kontroller 15 dakikalık aralıklarla planlanır; gecikebilir, anlık bildirim garantisi yoktur. Yerel yüklenebilen [Chrome eklentisi](extension/README.md) beta olarak eklendi. Mobil uygulamanın dağıtımı ve Chrome Web Store yayını [planlanıyor](docs/ROADMAP.md). Web sürümü push bildirimi almaz.
+
+## Chrome eklentisi · yerel beta
+
+`chrome://extensions` → Geliştirici modu → Paketlenmemiş öğe yükle yoluyla `extension/` klasörünü seç. Derleme veya paket kurulumu gerekmez. İl/yakıt seçimi, depo hesabı, geçmiş, isteğe bağlı fiyat rozeti ve masaüstü bildirimleri içerir.
+
+Yerel test panelinde canlı veriyi değiştirmeden zam, indirim ve bağlantı hatası denenebilir. [Yükleme ve test rehberi](extension/README.md) · [Gizlilik](extension/PRIVACY.md). Chrome Web Store'a yayımlanmış değildir.
 
 ## Son kaydedilen fiyatlar
 
@@ -121,13 +127,15 @@ flowchart LR
     C --> Q[Kalıcı bildirim kuyruğu]
     D --> W[Angular / Ionic web uygulaması]
     D -. planlanan .-> E[Chrome eklentisi]
-    Q --> T[Telegram]
+    Q --> T[Telegram kanalı: Türkiye özeti]
+    Q --> B[Telegram botu: sadece abonenin ili]
+    B <--> S[(Cloudflare D1: sohbet kimliği, il, yakıt)]
     Q --> F[Mobil istemciler için FCM konuları]
 ```
 
 Eksik yakıt fiyatı, tekrarlanan veya tanınmayan il satırı, az sayıda satır ve büyük fiyat sıçraması reddedilir. Ayarlanmış kanallarda başarısız olan bildirimler sonraki çalıştırmada tekrar denenir. Bu önlemler fiyat doğruluğunu veya bir mesajın yalnızca bir kez teslimini garanti etmez. [İşletim ve fork kurulumu](docs/OPERATIONS.md).
 
-Seçimler ve son fiyat önbelleği cihazda tutulur. Bu repo kullanıcı hesabı toplamaz; Firebase ve Telegram kendi hizmet verilerini işler. [Güvenlik notları](SECURITY.md).
+Seçimler ve son fiyat önbelleği cihazda tutulur. Bu repo kullanıcı hesabı toplamaz; Firebase ve Telegram kendi hizmet verilerini işler. Telegram botu yalnızca sohbet kimliğini ve seçilen il ile yakıtı Cloudflare D1'de tutar, bu repoya asla yazmaz; `/durdur` kaydı siler. [Güvenlik notları](SECURITY.md).
 
 ## Birlikte büyütelim
 

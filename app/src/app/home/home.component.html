@@ -108,15 +108,17 @@
       <div class="notify-text">
         <strong>Zam gelince haber al</strong>
         <span>
-          @if (telegramUrl) {
+          @if (hasBot) {
+          {{ city()?.name }} {{ fuelLabel(settings().fuel).toLocaleLowerCase('tr-TR') }} fiyatı değişince Telegram'dan sana yazalım. Sadece senin ilin.
+          } @else if (telegramUrl) {
           Bildirimler mobil uygulamada. Şimdilik her zamı Telegram kanalımızdan takip edebilirsin.
           } @else {
           Anlık bildirimler Android uygulamasında. Uygulama çok yakında mağazada.
           }
         </span>
       </div>
-      @if (telegramUrl) {
-      <a class="notify-btn" [href]="telegramUrl" target="_blank" rel="noopener">Telegram</a>
+      @if (hasBot || telegramUrl) {
+      <a class="notify-btn" [href]="telegramLink()" target="_blank" rel="noopener">Telegram</a>
       }
       }
     </section>

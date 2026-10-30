@@ -8,7 +8,7 @@
 
 **Fuel prices for all 81 provinces of Turkey. Check a price, calculate a tank, share it, or build with the open JSON API.**
 
-[Try the web app](https://ozkurtomer.github.io/depo-dolu/) · [Use the API](docs/API.md) · [Code examples](examples/README.md) · [Telegram alerts](https://t.me/depodolu) · [Contribute](CONTRIBUTING.md)
+[Try the web app](https://ozkurtomer.github.io/depo-dolu/) · [Use the API](docs/API.md) · [Code examples](examples/README.md) · [Telegram alerts](https://t.me/depodolu_bot) · [Contribute](CONTRIBUTING.md)
 
 [![CI](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/ci.yml?label=tests)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/ci.yml)
 [![Collector](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/collect.yml?label=collector)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/collect.yml)
@@ -25,7 +25,7 @@ Fuel prices are easier to understand when you can see what they mean for your ow
 2. Compare the price with other regions and choose your tank size.
 3. Use **“Bu fiyatı paylaş”** to share the price and a link that opens the same province and fuel.
 
-Example: [Bursa · diesel](https://ozkurtomer.github.io/depo-dolu/?il=bursa&yakit=motorin). For alerts without installing anything, follow [@depodolu](https://t.me/depodolu) on Telegram.
+Example: [Bursa · diesel](https://ozkurtomer.github.io/depo-dolu/?il=bursa&yakit=motorin). For alerts without installing anything, open [@depodolu_bot](https://t.me/depodolu_bot) on Telegram and type your province: you only hear about your own province and fuel. The [@depodolu](https://t.me/depodolu) channel posts a nationwide summary.
 
 <p align="center"><img src="docs/ekranlar.png" alt="Province selection, fuel selection, tank cost and price history" width="100%"></p>
 <p align="center"><sub>Illustrative app overview; the history shown is sample data. The live demo contains the actual collected history.</sub></p>
@@ -37,9 +37,15 @@ Example: [Bursa · diesel](https://ozkurtomer.github.io/depo-dolu/?il=bursa&yaki
 | Gasoline, diesel and LPG in 81 provinces (82 regions) | Public JSON, no API key or account |
 | Tank cost, region comparison and price history | .NET collector with no production NuGet dependencies |
 | Shareable province and fuel links | Angular + Ionic web client, ready for further native work |
-| Telegram summaries | FCM topic delivery, persisted retry queue and tests |
+| Personal Telegram alerts for your province ([@depodolu_bot](https://t.me/depodolu_bot)) | FCM topics, Telegram bot on Cloudflare Workers + D1 ([bot/](bot/README.md)), retry queue and tests |
 
-**Current scope:** prices come from Petrol Ofisi province lists. Checks are scheduled every 15 minutes, can be delayed, and do not guarantee instant alerts. Native mobile distribution and a Chrome extension are [planned](docs/ROADMAP.md); they are not released products yet. The web app does not receive push alerts.
+**Current scope:** prices come from Petrol Ofisi province lists. Checks are scheduled every 15 minutes, can be delayed, and do not guarantee instant alerts. A [local Chrome extension](extension/README.md) is included as an unpacked beta. Native mobile distribution and Chrome Web Store publication remain [planned](docs/ROADMAP.md). The web app does not receive push alerts.
+
+## Chrome extension · local beta
+
+Load the `extension/` folder through `chrome://extensions` → Developer mode → Load unpacked. No build or dependency install is required. It includes province/fuel selection, tank cost, price history, an optional badge and optional desktop alerts.
+
+The built-in local test panel can simulate price increases, decreases and connection failures without editing live data. [Install and test the extension](extension/README.md) · [Privacy](extension/PRIVACY.md). This is not a Chrome Web Store release.
 
 ## Latest stored prices
 
@@ -121,13 +127,15 @@ flowchart LR
     C --> Q[Persisted notification queue]
     D --> W[Angular / Ionic web app]
     D -. planned .-> E[Chrome extension]
-    Q --> T[Telegram]
+    Q --> T[Telegram channel: nationwide summary]
+    Q --> B[Telegram bot: only the subscriber's province]
+    B <--> S[(Cloudflare D1: chat id, province, fuel)]
     Q --> F[FCM topics for native clients]
 ```
 
 Validation rejects missing fuel values, duplicate or unknown province rows, too few rows and large detected jumps. Failed configured notification deliveries stay queued for retry. This reduces errors; it is not a guarantee of price accuracy or exactly-once delivery. [Operation and fork setup](docs/OPERATIONS.md).
 
-The app stores selections and a last-price cache on the device. This repository does not collect user accounts; Firebase and Telegram process their own service data. [Security notes](SECURITY.md).
+The app stores selections and a last-price cache on the device. This repository does not collect user accounts; Firebase and Telegram process their own service data. The Telegram bot stores only the chat ID and the chosen province and fuel in Cloudflare D1, never in this repository; `/durdur` deletes the record. [Security notes](SECURITY.md).
 
 ## Help it grow
 

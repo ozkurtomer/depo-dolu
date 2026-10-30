@@ -14,7 +14,8 @@ Depo Dolu aims to make Turkish fuel prices easy to check, share and reuse. An un
 ## Next: reach people where they already are
 
 - [ ] **Android app:** package the existing Ionic/Capacitor client, add native assets and Firebase configuration, test on real devices, and prepare a store release.
-- [ ] **Chrome extension:** a small Manifest V3 popup using the same public JSON data and province/fuel preferences. Price checks should use extension alarms, respect hosting limits and show the data timestamp. Avoid browsing-history access and unnecessary permissions.
+- [x] **Local Chrome extension beta:** Manifest V3 popup, optional alerts, price history, local demo scenarios and dependency-free tests. [Load unpacked](../extension/README.md).
+- [ ] **Chrome Web Store publication:** real-profile/device testing, store screenshots and release review. The local beta is not a store release.
 - [ ] **iOS:** validate native notification/topic support and distribution requirements before promising availability.
 - [ ] **Installable web app:** an explicit offline policy and install flow, without presenting cached prices as live.
 

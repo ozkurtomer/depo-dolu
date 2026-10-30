@@ -43,3 +43,18 @@ jobs:
         run: |
           node ../examples/prices.mjs --file ../data/latest.json --city bursa --fuel motorin
           python ../examples/prices.py --file ../data/latest.json --city izmir --fuel benzin
+
+  extension:
+    name: Chrome extension (Manifest V3)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: extension
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # The extension has no npm dependencies and loads directly from source.
+      - run: npm test
+      - run: npm run check
