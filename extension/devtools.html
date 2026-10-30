@@ -1,22 +1,85 @@
 <!doctype html>
 <html lang="tr">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Depo Dolu · Yerel deneme alanı</title><link rel="icon" href="icons/icon-32.png"><link rel="stylesheet" href="styles/popup.css"><link rel="stylesheet" href="styles/devtools.css"><script type="module" src="src/devtools.js"></script></head>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Depo Dolu · Yerel deneme alanı</title>
+  <link rel="icon" href="icons/icon-32.png">
+  <link rel="stylesheet" href="styles/popup.css">
+  <link rel="stylesheet" href="styles/devtools.css">
+  <script type="module" src="src/devtools.js"></script>
+</head>
+
 <body class="dev-page">
   <div class="dev-shell">
-    <header class="dev-header"><a class="brand" href="popup.html"><img src="icons/icon-48.png" width="38" height="38" alt=""><div><strong>Depo Dolu</strong><span>YEREL DENEME ALANI</span></div></a><span class="build-label">CHROME EKLENTİSİ · 0.1.0</span></header>
+    <header class="dev-header"><a class="brand" href="popup.html"><img src="icons/icon-48.png" width="38" height="38"
+          alt="">
+        <div><strong>Depo Dolu</strong><span>YEREL DENEME ALANI</span></div>
+      </a><span class="build-label">CHROME EKLENTİSİ · 0.1.0</span></header>
     <main class="dev-layout">
       <div class="dev-content">
-        <span class="eyebrow">KURCALAMAK SERBEST</span><h1>Kontrol sende.</h1><p class="dev-lede">İlk açılışı, fiyat değişikliklerini ve bağlantı hatalarını canlı fiyatlara dokunmadan dene.</p>
+        <span class="eyebrow">KURCALAMAK SERBEST</span>
+        <h1>Kontrol sende.</h1>
+        <p class="dev-lede">İlk açılışı, fiyat değişikliklerini ve bağlantı hatalarını canlı fiyatlara dokunmadan dene.
+        </p>
         <div id="environment" class="environment" role="status"></div>
-        <section class="control-card"><div class="control-heading"><span class="number">01</span><div><h2>Veri kaynağını seç</h2><p>Örnek fiyatlar her zaman “Deneme” olarak işaretlenir.</p></div></div><div class="control-buttons"><button id="demo-mode" class="primary-button" type="button">Deneme modunu aç</button><button id="live-mode" class="secondary-button" type="button">Canlı verilere dön</button></div><p id="mode-detail" class="control-note"></p></section>
-        <section class="control-card"><div class="control-heading"><span class="number">02</span><div><h2>Bir değişiklik oluştur</h2><p>Sağdaki eklentide seçili il ve yakıt için uygulanır.</p></div></div><div class="control-buttons"><button id="increase" class="scenario-button up" type="button">↗ Zam · +1,30 ₺</button><button id="decrease" class="scenario-button down" type="button">↘ İndirim · −0,50 ₺</button></div><div class="control-buttons"><button id="offline" class="secondary-button" type="button">Bağlantı hatasını benzet</button><button id="reset-demo" class="quiet-button" type="button">Örnek veriyi sıfırla</button></div></section>
-        <section class="control-card"><div class="control-heading"><span class="number">03</span><div><h2>Bildirim akışını dene</h2><p>İlk kontrolde yalnızca başlangıç fiyatı kaydedilir.</p></div></div><div class="control-buttons"><button id="enable-notify" class="secondary-button" type="button">Bildirimleri aç</button><button id="test-notification" class="quiet-button" type="button">Test bildirimi gönder</button></div><p class="control-note">Gerçek Chrome bildirimi için eklentiyi yükle ve izin ver. Windows / macOS bildirim ayarları görünürlüğü etkileyebilir.</p></section>
-        <section class="activity-card"><div class="list-heading"><span>Son teslimler</span><span id="delivery-count">0 kayıt</span></div><ol id="deliveries"></ol><p id="delivery-empty" class="control-note">Bildirimleri açıp örnek bir zam veya indirim oluşturduğunda teslim kaydı burada görünür.</p></section>
+        <section class="control-card">
+          <div class="control-heading"><span class="number">01</span>
+            <div>
+              <h2>Veri kaynağını seç</h2>
+              <p>Örnek fiyatlar her zaman “Deneme” olarak işaretlenir.</p>
+            </div>
+          </div>
+          <div class="control-buttons"><button id="demo-mode" class="primary-button" type="button">Deneme modunu
+              aç</button><button id="live-mode" class="secondary-button" type="button">Canlı verilere dön</button></div>
+          <p id="mode-detail" class="control-note"></p>
+        </section>
+        <section class="control-card">
+          <div class="control-heading"><span class="number">02</span>
+            <div>
+              <h2>Bir değişiklik oluştur</h2>
+              <p>Sağdaki eklentide seçili il ve yakıt için uygulanır.</p>
+            </div>
+          </div>
+          <div class="control-buttons"><button id="increase" class="scenario-button up" type="button">↗ Zam · +1,30
+              ₺</button><button id="decrease" class="scenario-button down" type="button">↘ İndirim · −0,50 ₺</button>
+          </div>
+          <div class="control-buttons"><button id="offline" class="secondary-button" type="button">Bağlantı hatasını
+              benzet</button><button id="reset-demo" class="quiet-button" type="button">Örnek veriyi sıfırla</button>
+          </div>
+        </section>
+        <section class="control-card">
+          <div class="control-heading"><span class="number">03</span>
+            <div>
+              <h2>Bildirim akışını dene</h2>
+              <p>İlk kontrolde yalnızca başlangıç fiyatı kaydedilir.</p>
+            </div>
+          </div>
+          <div class="control-buttons"><button id="enable-notify" class="secondary-button" type="button">Bildirimleri
+              aç</button><button id="test-notification" class="quiet-button" type="button">Test bildirimi
+              gönder</button></div>
+          <p class="control-note">Gerçek Chrome bildirimi için eklentiyi yükle ve izin ver. Windows / macOS bildirim
+            ayarları görünürlüğü etkileyebilir.</p>
+        </section>
+        <section class="activity-card">
+          <div class="list-heading"><span>Son teslimler</span><span id="delivery-count">0 kayıt</span></div>
+          <ol id="deliveries"></ol>
+          <p id="delivery-empty" class="control-note">Bildirimleri açıp örnek bir zam veya indirim oluşturduğunda teslim
+            kaydı burada görünür.</p>
+        </section>
         <p id="dev-message" class="dev-message" role="status">Hazırlanıyor…</p>
-        <footer class="dev-footer">Seçimler ve deneme verileri yalnızca bu cihazda tutulur. Canlı fiyat kaynağına hiçbir yazma işlemi yapılmaz.</footer>
+        <footer class="dev-footer">Seçimler ve deneme verileri yalnızca bu cihazda tutulur. Canlı fiyat kaynağına hiçbir
+          yazma işlemi yapılmaz.</footer>
       </div>
-      <aside class="preview-column"><div class="preview-caption"><span class="status-dot"></span><span>EKLENTİ PENCERESİ</span><span>400 × 600</span></div><iframe src="popup.html" id="popup-frame" title="Depo Dolu eklenti penceresi" width="400" height="600" allow="clipboard-write"></iframe><p>Araç çubuğundaki pencereyle aynı arayüz.<br>Seçimler iki görünümde birlikte güncellenir.</p></aside>
+      <aside class="preview-column">
+        <div class="preview-caption"><span class="status-dot"></span><span>EKLENTİ PENCERESİ</span><span>400 ×
+            600</span></div><iframe src="popup.html" id="popup-frame" title="Depo Dolu eklenti penceresi" width="400"
+          height="600" allow="clipboard-write"></iframe>
+        <p>Araç çubuğundaki pencereyle aynı arayüz.<br>Seçimler iki görünümde birlikte güncellenir.</p>
+      </aside>
     </main>
   </div>
 </body>
+
 </html>
