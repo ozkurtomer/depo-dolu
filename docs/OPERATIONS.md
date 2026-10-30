@@ -31,14 +31,14 @@ dotnet test collector/DepoDolu.sln
 
 ## Native app status
 
-Ionic/Capacitor client code is present, but an Android/iOS package, native notification icon, Firebase configuration and real-device verification are still needed. Web users receive no native push permission prompt; they can follow the Telegram channel. The separate Chrome extension uses Chrome alarms and local notifications rather than Firebase; see [its setup and test guide](../extension/README.md). To publish a new version to the Chrome Web Store, follow the [release guide](../extension/STORE.md).
+The Android project lives in `app/android/` (Capacitor 8, API 36) with icons, notification icon and channel; add `google-services.json` for push and follow [the Android guide](ANDROID.md). iOS is not set up yet. Web users receive no native push permission prompt; they can follow the Telegram channel. The separate Chrome extension uses Chrome alarms and local notifications rather than Firebase; see [its setup and test guide](../extension/README.md). To publish a new version to the Chrome Web Store, follow the [release guide](../extension/STORE.md).
 
 ## Fork configuration
 
 - Change the repository and public web URLs in `app/src/app/config.ts`, and the sharing metadata in `app/src/index.html`.
 - Update the web deployment base path in `.github/workflows/pages.yml`.
 - Add `FIREBASE_SERVICE_ACCOUNT` and/or `TELEGRAM_BOT_TOKEN` as Actions secrets; `TELEGRAM_CHAT_ID` is a repository variable.
-- Create the Android project with `npx cap add android` before placing `google-services.json` inside `app/android/app/`.
+- Place `google-services.json` inside `app/android/app/` (git-ignored). For CI APKs with push, store its content in the `GOOGLE_SERVICES_JSON` secret.
 - Configure GitHub Pages to use GitHub Actions. Review permissions and run the workflow manually once before relying on scheduled checks.
 
 ## Angular 19 build compatibility

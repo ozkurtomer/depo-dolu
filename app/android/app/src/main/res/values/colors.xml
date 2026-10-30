@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Depo Dolu marka renkleri -->
+    <color name="depodolu_brand">#0E3B4A</color>
+    <color name="depodolu_accent">#F2B705</color>
+</resources>

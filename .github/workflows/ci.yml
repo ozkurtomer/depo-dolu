@@ -55,6 +55,45 @@ jobs:
           node ../examples/prices.mjs --file ../data/latest.json --city bursa --fuel motorin
           python ../examples/prices.py --file ../data/latest.json --city izmir --fuel benzin
 
+  android:
+    name: Android (test APK)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: npm ci --no-audit --no-fund
+      - name: Web kodunu derle ve Android projesine kopyala
+        run: npm run cap:sync
+      - name: Firebase yapılandırması (varsa)
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            printf '%s' "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
+            echo "google-services.json eklendi: bu APK'da bildirimler çalışır."
+          else
+            echo "GOOGLE_SERVICES_JSON sırrı yok: APK bildirimsiz derlenecek."
+          fi
+      - name: Debug APK derle
+        working-directory: app/android
+        run: bash ./gradlew assembleDebug --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: depo-dolu-android-debug
+          path: app/android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
+
   extension:
     name: Chrome extension (Manifest V3)
     runs-on: ubuntu-latest
