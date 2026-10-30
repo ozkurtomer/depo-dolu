@@ -39,13 +39,19 @@ Litre fiyatının kendi depomuz için ne anlama geldiğini görmek daha faydalı
 | İl ve yakıt seçimini taşıyan paylaşım bağlantıları | Angular + Ionic web uygulaması |
 | İline özel Telegram bildirimi ([@depodolu_bot](https://t.me/depodolu_bot)) | FCM konuları, Cloudflare Workers + D1 üzerinde Telegram botu ([bot/](bot/README.md)), kalıcı kuyruk ve testler |
 
-**Mevcut kapsam:** fiyatlar Petrol Ofisi'nin il listesinden alınır. Kontroller 15 dakikalık aralıklarla planlanır; gecikebilir, anlık bildirim garantisi yoktur. Yerel yüklenebilen [Chrome eklentisi](extension/README.md) beta olarak eklendi. Mobil uygulamanın dağıtımı ve Chrome Web Store yayını [planlanıyor](docs/ROADMAP.md). Web sürümü push bildirimi almaz.
+**Mevcut kapsam:** fiyatlar Petrol Ofisi'nin il listesinden alınır. Kontroller 15 dakikalık aralıklarla planlanır; gecikebilir, anlık bildirim garantisi yoktur. [Chrome eklentisi](#chrome-eklentisi) Chrome Web Store'a hazır. Mobil uygulamanın dağıtımı [planlanıyor](docs/ROADMAP.md). Web sürümü push bildirimi almaz.
 
-## Chrome eklentisi · yerel beta
+## Chrome eklentisi
 
-`chrome://extensions` → Geliştirici modu → Paketlenmemiş öğe yükle yoluyla `extension/` klasörünü seç. Derleme veya paket kurulumu gerekmez. İl/yakıt seçimi, depo hesabı, geçmiş, isteğe bağlı fiyat rozeti ve masaüstü bildirimleri içerir.
+<p align="center"><img src="extension/store/screenshot-1.png" alt="Depo Dolu Chrome eklentisi: Bursa motorin fiyatı, Türkiye ortalamasıyla karşılaştırma ve araç çubuğundaki fiyat" width="100%"></p>
 
-Yerel test panelinde canlı veriyi değiştirmeden zam, indirim ve bağlantı hatası denenebilir. [Yükleme ve test rehberi](extension/README.md) · [Gizlilik](extension/PRIVACY.md). Chrome Web Store'a yayımlanmış değildir.
+İlinin fiyatı araç çubuğunda, tek tık uzağında. İl ve yakıtı seçersin, litre fiyatı simgenin üstünde görünür. Açılan pencerede depo maliyeti (30–70 L), Türkiye ortalamasıyla karşılaştırma, fiyat geçmişi ve Telegram botu bağlantısı var. İstersen seçtiğin fiyat değişince masaüstü bildirimi gelir.
+
+Hesap yok, reklam yok, analiz yok, sayfalara kod eklenmez. Seçimlerin `chrome.storage.local` içinde kalır; tek ağ isteği bu repodaki herkese açık JSON dosyalarıdır. Manifest V3, derleme yok, npm bağımlılığı yok.
+
+- **Chrome Web Store:** mağaza sayfası incelemede. Yayınlanınca bağlantısı buraya eklenecek.
+- **Şimdi kaynaktan kur:** `chrome://extensions` → Geliştirici modu → **Paketlenmemiş öğe yükle** → `extension/` klasörünü seç.
+- [Eklenti rehberi ve yerel test senaryoları](extension/README.md) · [Gizlilik](extension/PRIVACY.md) · [Mağaza yayın rehberi](extension/STORE.md)
 
 ## Son kaydedilen fiyatlar
 
@@ -134,7 +140,7 @@ flowchart LR
     C --> D[Açık JSON ve fiyat geçmişi]
     C --> Q[Kalıcı bildirim kuyruğu]
     D --> W[Angular / Ionic web uygulaması]
-    D -. planlanan .-> E[Chrome eklentisi]
+    D --> E[Chrome eklentisi: rozet + yerel bildirim]
     Q --> T[Telegram kanalı: Türkiye özeti]
     Q --> B[Telegram botu: sadece abonenin ili]
     B <--> S[(Cloudflare D1: sohbet kimliği, il, yakıt)]
@@ -150,7 +156,7 @@ Seçimler ve son fiyat önbelleği cihazda tutulur. Bu repo kullanıcı hesabı 
 Uygulamayı dene, bir ilin fiyat bağlantısını paylaş, tekrarlanabilir bir hata bildir veya API örneği yaz. İşine yaradıysa vereceğin ⭐ başka geliştiricilerin projeyi keşfetmesine yardımcı olur.
 
 - [Katkı rehberi](CONTRIBUTING.md) — Türkçe ve İngilizce başlangıç bilgileri.
-- [Yol haritası ve ilk katkı fikirleri](docs/ROADMAP.md) — Android, Chrome eklentisi ve yeni kaynaklar.
+- [Yol haritası ve ilk katkı fikirleri](docs/ROADMAP.md) — Android, iOS ve yeni kaynaklar.
 - [Yardım](SUPPORT.md) · [Topluluk ilkeleri](CODE_OF_CONDUCT.md) · [Değişiklikler](CHANGELOG.md).
 - Bakımcılar: [GitHub ayarları](docs/GITHUB_SETUP.md) · [Tanıtım kontrol listesi](docs/LAUNCH.md).
 

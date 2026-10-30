@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { createController } from '../src/controller.js';
-import { STATE_KEY, validLatest, stateFrom, series, selectionUrl, fold } from '../src/data.js';
+import { STATE_KEY, validLatest, stateFrom, series, selectionUrl, fold, telegramUrl } from '../src/data.js';
 
 const fixture = JSON.parse(await readFile(new URL('../fixtures/latest.json', import.meta.url), 'utf8'));
 function harness(initial) {
@@ -156,4 +156,10 @@ test('reopening during the cache interval does not poll the provider again', asy
   const h = harness(); await ready(h); const count = h.fetchCount();
   h.restart(); await h.send('init'); await h.send('refresh'); await h.send('refresh');
   assert.equal(h.fetchCount(), count);
+});
+
+test('Telegram botu bağlantısı seçili il ve yakıtı taşır', () => {
+  assert.equal(telegramUrl('bursa', 'motorin'), 'https://t.me/depodolu_bot?start=bursa_motorin');
+  assert.equal(telegramUrl('istanbul-avrupa', 'lpg'), 'https://t.me/depodolu_bot?start=istanbul-avrupa_lpg');
+  assert.equal(telegramUrl(null, 'benzin'), 'https://t.me/depodolu_bot');
 });

@@ -3,6 +3,9 @@
 ## Unreleased
 
 ### Added
+- Chrome extension 1.0.0, ready for the Chrome Web Store: store screenshots and promo tiles (`extension/store/`), listing copy, permission justifications and a step-by-step release guide (`extension/STORE.md`).
+- Extension settings link to the Telegram bot with the selected province and fuel (`t.me/depodolu_bot?start=…`).
+- Manifest checks for store limits (name, description, version) and matching version labels.
 - Local Manifest V3 Chrome extension with province/fuel selection, price history, tank calculator and sharing.
 - Optional local desktop alerts and toolbar badge; 15-minute checks only while alerts are enabled.
 - Isolated demo mode with simulated price changes/offline behavior, privacy notes and local ZIP packaging.
@@ -27,7 +30,9 @@
 - Telegram message line endings are consistent across Windows and Linux.
 
 ### Changed
+- Extension badge uses a Turkish decimal comma (97,9).
+- Extension 128 px icon follows Chrome Web Store padding guidance (96 px artwork, 16 px transparent margin).
 - Describe scheduled checks accurately instead of promising instant alerts.
 - Use lockfile-based installs in CI and web deployment.
 
-This section is not a published release. Android distribution and Chrome Web Store publication remain planned; the extension is available as a local unpacked beta.
+This section is not a published release. The Chrome extension is packaged for Chrome Web Store review; Android distribution remains planned.

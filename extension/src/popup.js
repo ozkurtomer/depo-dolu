@@ -1,5 +1,5 @@
 import { send, onState, isExtension, requestNotifications, openPage } from './platform.js';
-import { FUELS, TANKS, money, whole, fuelLabel, comparison, series, fold, ago, selectionUrl } from './data.js';
+import { FUELS, TANKS, money, whole, fuelLabel, comparison, series, fold, ago, selectionUrl, telegramUrl } from './data.js';
 
 const $ = id => document.getElementById(id);
 const create = (tag, className, text) => { const node = document.createElement(tag); if (className) node.className = className; if (text != null) node.textContent = text; return node; };
@@ -186,6 +186,8 @@ function render() {
   $('notify-error').hidden = !state.notificationError;
   $('notify-error').textContent = state.notificationError ?? '';
   $('test-notify').hidden = !settings.notify;
+  $('telegram-link').href = telegramUrl(settings.city, settings.fuel);
+  $('telegram-detail').textContent = `${current.city.name} ${fuelLabel(settings.fuel).toLocaleLowerCase('tr-TR').replace('lpg', 'LPG')} için @depodolu_bot · Chrome kapalıyken de`;
   if (view === 'history') renderHistory();
 }
 

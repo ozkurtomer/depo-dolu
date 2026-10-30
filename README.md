@@ -8,7 +8,7 @@
 
 **Fuel prices for all 81 provinces of Turkey. Check a price, calculate a tank, share it, or build with the open JSON API.**
 
-[Try the web app](https://ozkurtomer.github.io/depo-dolu/) · [Use the API](docs/API.md) · [Code examples](examples/README.md) · [Telegram alerts](https://t.me/depodolu_bot) · [Contribute](CONTRIBUTING.md)
+[Try the web app](https://ozkurtomer.github.io/depo-dolu/) · [Chrome extension](#chrome-extension) · [Use the API](docs/API.md) · [Code examples](examples/README.md) · [Telegram alerts](https://t.me/depodolu_bot) · [Contribute](CONTRIBUTING.md)
 
 [![CI](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/ci.yml?label=tests)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/ci.yml)
 [![Collector](https://img.shields.io/github/actions/workflow/status/ozkurtomer/depo-dolu/collect.yml?label=collector)](https://github.com/ozkurtomer/depo-dolu/actions/workflows/collect.yml)
@@ -39,13 +39,19 @@ Example: [Bursa · diesel](https://ozkurtomer.github.io/depo-dolu/?il=bursa&yaki
 | Shareable province and fuel links | Angular + Ionic web client, ready for further native work |
 | Personal Telegram alerts for your province ([@depodolu_bot](https://t.me/depodolu_bot)) | FCM topics, Telegram bot on Cloudflare Workers + D1 ([bot/](bot/README.md)), retry queue and tests |
 
-**Current scope:** prices come from Petrol Ofisi province lists. Checks are scheduled every 15 minutes, can be delayed, and do not guarantee instant alerts. A [local Chrome extension](extension/README.md) is included as an unpacked beta. Native mobile distribution and Chrome Web Store publication remain [planned](docs/ROADMAP.md). The web app does not receive push alerts.
+**Current scope:** prices come from Petrol Ofisi province lists. Checks are scheduled every 15 minutes, can be delayed, and do not guarantee instant alerts. The [Chrome extension](#chrome-extension) is ready for the Chrome Web Store; native mobile distribution is [planned](docs/ROADMAP.md). The web app does not receive push alerts.
 
-## Chrome extension · local beta
+## Chrome extension
 
-Load the `extension/` folder through `chrome://extensions` → Developer mode → Load unpacked. No build or dependency install is required. It includes province/fuel selection, tank cost, price history, an optional badge and optional desktop alerts.
+<p align="center"><img src="extension/store/screenshot-1.png" alt="Depo Dolu Chrome extension: Bursa diesel price, comparison with the national average and the price on the toolbar icon" width="100%"></p>
 
-The built-in local test panel can simulate price increases, decreases and connection failures without editing live data. [Install and test the extension](extension/README.md) · [Privacy](extension/PRIVACY.md). This is not a Chrome Web Store release.
+Your province's price on the toolbar, one click away. Pick a province and fuel; the price per litre sits on the icon badge. The popup shows the tank cost (30–70 L), how you compare with the national average, price history and a link to the Telegram bot. Optional desktop alerts fire when your selected price changes.
+
+No account, no ads, no analytics, no content scripts. Choices stay in `chrome.storage.local`; the only network requests are the public JSON files in this repository. Manifest V3, no build step, no npm dependencies.
+
+- **Chrome Web Store:** the listing is under review. The link will be added here once it is published.
+- **Install from source now:** `chrome://extensions` → Developer mode → **Load unpacked** → choose the `extension/` folder.
+- [Extension guide and local test scenarios](extension/README.md) · [Privacy](extension/PRIVACY.md) · [Store release guide](extension/STORE.md)
 
 ## Latest stored prices
 
@@ -134,7 +140,7 @@ flowchart LR
     C --> D[Public JSON and price history]
     C --> Q[Persisted notification queue]
     D --> W[Angular / Ionic web app]
-    D -. planned .-> E[Chrome extension]
+    D --> E[Chrome extension: badge + local alerts]
     Q --> T[Telegram channel: nationwide summary]
     Q --> B[Telegram bot: only the subscriber's province]
     B <--> S[(Cloudflare D1: chat id, province, fuel)]
@@ -150,7 +156,7 @@ The app stores selections and a last-price cache on the device. This repository 
 Try it, share a province link, report a reproducible bug, or build an API example. A star helps other developers discover the project if you find it useful.
 
 - [Contributing guide](CONTRIBUTING.md) — English and Turkish, with checks to run.
-- [Roadmap and first contribution ideas](docs/ROADMAP.md) — Android, Chrome extension and more data sources.
+- [Roadmap and first contribution ideas](docs/ROADMAP.md) — Android, iOS and more data sources.
 - [Help](SUPPORT.md) · [Community guidelines](CODE_OF_CONDUCT.md) · [Changelog](CHANGELOG.md).
 - Maintainers: [GitHub setup](docs/GITHUB_SETUP.md) · [Launch checklist](docs/LAUNCH.md).
 

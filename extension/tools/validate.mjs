@@ -21,6 +21,7 @@ for (const file of files) await access(join(root, file));
 for (const file of ['popup.html', 'devtools.html']) {
   const html = await readFile(join(root, file), 'utf8');
   assert.ok(!/\son\w+\s*=/i.test(html), `Inline event handler: ${file}`);
+  assert.ok(html.includes(manifest.version), `${file} sürüm etiketi manifest ile aynı olmalı (${manifest.version})`);
   assert.ok(!/<script(?![^>]*\bsrc=)[^>]*>\s*\S/i.test(html), `Inline script: ${file}`);
   for (const [, path] of html.matchAll(/(?:src|href)="([^"#]+)(?:#[^"]*)?"/g)) {
     if (!/^https?:/.test(path)) await access(join(root, path));
@@ -38,4 +39,7 @@ for (const size of [16, 32, 48, 128]) {
   assert.equal(png.readUInt32BE(16), size);
   assert.equal(png.readUInt32BE(20), size);
 }
+assert.ok(manifest.name.length <= 75, 'Mağaza: ad en fazla 75 karakter');
+assert.ok(manifest.description.length <= 132, 'Mağaza: açıklama en fazla 132 karakter');
+assert.match(manifest.version, /^\d+\.\d+\.\d+$/);
 console.log('Manifest V3, permissions, local references, CSP, packaged icons and fixture: OK');
