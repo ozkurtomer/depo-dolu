@@ -6,7 +6,7 @@ permissions:
 on:
   push:
     branches: [main]
-    paths-ignore: ['data/**', 'README.md', 'README.tr.md','docs/**']
+    paths-ignore: ['data/**', 'README.md', 'README.tr.md', 'docs/**', 'bot/README.md']
   pull_request:
 
 jobs:
@@ -22,6 +22,17 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - run: dotnet test collector/DepoDolu.sln --verbosity normal
+
+  bot:
+    name: Telegram botu (Cloudflare Worker)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Bot testleri
+        run: if [ -d bot/test ]; then node --test bot/test/*.test.js; else echo 'bot/ henüz yok'; fi
 
   app:
     name: Mobil uygulama (Ionic + Angular)
