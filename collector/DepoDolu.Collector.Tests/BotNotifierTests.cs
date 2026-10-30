@@ -98,6 +98,28 @@ public sealed class BotNotifierTests
         Assert.False(new BotNotifier(new HttpClient(), "t", "u", "s").IsDryRun);
     }
 
+    [Fact]
+    public async Task Test_sadece_verilen_sohbete_gonderir()
+    {
+        var sentTo = new List<long>();
+        using var http = new HttpClient(new Stub(async req =>
+        {
+            if (req.RequestUri!.AbsolutePath == "/subscribers")
+                return Json(new { subscribers = new[] { new { chat_id = 1, city = "bursa", fuel = "motorin" }, new { chat_id = 2, city = "bursa", fuel = "motorin" } } });
+            var body = await req.Content!.ReadAsStringAsync();
+            sentTo.Add(JsonDocument.Parse(body).RootElement.GetProperty("chat_id").GetInt64());
+            Assert.Contains("Deneme", body);
+            return Json(new { ok = true });
+        }));
+        var bot = new BotNotifier(http, "token", "https://bot.test", "api") { Pace = TimeSpan.Zero };
+
+        Assert.Equal(2, await bot.TestAsync([BursaMotorin], chatId: 99));
+        Assert.Equal(new long[] { 99 }, sentTo);
+
+        Assert.Equal(2, await bot.TestAsync([BursaMotorin], chatId: null));
+        Assert.Single(sentTo);
+    }
+
     private static HttpResponseMessage Json(object o) =>
         new(HttpStatusCode.OK) { Content = new StringContent(JsonSerializer.Serialize(o), System.Text.Encoding.UTF8, "application/json") };
 
