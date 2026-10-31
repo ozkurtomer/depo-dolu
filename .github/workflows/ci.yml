@@ -54,6 +54,8 @@ jobs:
         run: node tools/prerender.mjs --dist dist/browser --data ../data
       - name: npm istemci paketi testleri
         run: node --test ../packages/depodolu/test/*.test.mjs
+      - name: Veri sağlığı kontrolü testleri
+        run: node --test ../tools/health_check.test.mjs
       - name: API örneklerini yerel veriyle dene
         run: |
           node ../examples/prices.mjs --file ../data/latest.json --city bursa --fuel motorin

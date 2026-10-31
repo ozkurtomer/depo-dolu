@@ -41,7 +41,9 @@ Example: [Bursa · diesel](https://ozkurtomer.github.io/depo-dolu/bursa/motorin/
 | Monthly fuel budget and the cost of a 1 ₺ increase | [Embeddable price box](docs/WIDGET.md) for news sites and blogs |
 | Sourced "price change expected" notices, kept apart from observed prices | Typed JS client ([packages/depodolu](packages/depodolu/README.md)) and a [Home Assistant sensor](examples/home-assistant.yaml) |
 | Installable web app (add to home screen, offline shell) | Optional X (Twitter) summaries next to Telegram and FCM |
-| Personal Telegram alerts for your province ([@depodolu_bot](https://t.me/depodolu_bot)) | FCM topics, Telegram bot on Cloudflare Workers + D1 ([bot/](bot/README.md)), retry queue and tests |
+| Fuel log: real consumption, monthly spend, several vehicles, CSV export | Per-province share images with the current price and a [price map](https://ozkurtomer.github.io/depo-dolu/harita/) |
+| Price alarm and an Android home screen widget | Hourly data health check, optional cookie-free visit counter |
+| Personal Telegram alerts for your province ([@depodolu_bot](https://t.me/depodolu_bot)); `/fiyat izmir` in groups | FCM topics, Telegram bot on Cloudflare Workers + D1 ([bot/](bot/README.md)), retry queue and tests |
 
 **Current scope:** prices come from Petrol Ofisi province lists. Checks are scheduled every 15 minutes, can be delayed, and do not guarantee instant alerts. The [Chrome extension](#chrome-extension) is ready for the Chrome Web Store. The [Android app](#android-app) builds from this repository; Google Play release is in progress. The web app does not receive push alerts.
 

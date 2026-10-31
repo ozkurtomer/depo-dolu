@@ -3,6 +3,15 @@
 ## Unreleased
 
 ### Added
+- Fuel log: record fill-ups (litres, amount, optional odometer, full tank), see this and last month's spend and real full-to-full consumption, export as CSV. Stored on the device only.
+- Several vehicles, each with its own fuel and consumption; choosing one switches the home screen fuel and the trip/budget consumption.
+- Price alarm ("tell me when diesel drops to 45 ₺"). Android checks hourly in the background and sends one local notification per drop; the web shows it in the app.
+- Android home screen widget with the selected province and fuel price, refreshed hourly by WorkManager (no network use without a widget or alarm).
+- Per-province share images (1200×630) generated at deploy time with Pillow, so chat and X previews show the current price.
+- Price map page (`/harita/`): every province coloured by price class, per fuel, without JavaScript.
+- Optional cookie-free visit counter (GoatCounter) on web pages only, enabled with the `GOATCOUNTER_CODE` repository variable.
+- Hourly data health check (`health.yml`): opens a `veri-sagligi` issue and optionally messages the owner on Telegram when the collector stops succeeding or prices have not changed for a week; closes it on recovery.
+- Telegram bot: `/fiyat <province>` without subscribing, `/fiyat` in groups, and inline mode (`@depodolu_bot izmir` in any chat).
 - Static, indexable page for every province and fuel (`/bursa/motorin/`) with its own title, description, share preview and readable price summary; an all-provinces table at `/fiyatlar/`; generated `sitemap.xml` and `robots.txt`. Pages redeploy four times a day.
 - Share links now open the province page, so chat previews show that province's price. Old `?il=&yakit=` links still work.
 - Installable web app: manifest, app-shell service worker (price data is never cached by it) and an install card with iPhone instructions.

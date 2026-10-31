@@ -4,4 +4,7 @@
     <string name="title_activity_main">Depo Dolu</string>
     <string name="package_name">com.omerozkurt.depodolu</string>
     <string name="custom_url_scheme">com.omerozkurt.depodolu</string>
+    <string name="widget_label">Depo Dolu fiyat</string>
+    <string name="widget_description">Seçtiğin ilin yakıt fiyatı ana ekranında</string>
+    <string name="widget_hint">İl seçmek için dokun</string>
 </resources>

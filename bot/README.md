@@ -17,7 +17,10 @@ Bot:       ⛽ Bursa: Motorine zam
            50 litrelik depo artık 4.955 ₺.
 ```
 
-Komutlar: `/fiyat`, `/degistir`, `/durdur`, `/test`, `/yardim`.
+Komutlar: `/fiyat` (başka il: `/fiyat izmir`), `/degistir`, `/durdur`, `/test`, `/yardim`.
+
+**Gruplarda:** bot bir gruba eklenirse `/fiyat ankara` yazan herkese o ilin fiyatını verir; grupta başka mesajlara cevap vermez.
+**Satır içi mod:** herhangi bir sohbette `@depodolu_bot izmir` yazınca çıkan karta dokunup fiyatı paylaşırsın. Bunun için bir kez BotFather'da `/setinline` → `@depodolu_bot` → yer tutucu metin (ör. `il yaz: izmir`) gerekir; ardından botu yeniden yayınlayıp `/setup` adresini bir kez açarak webhook'un `inline_query` almasını sağla.
 Web uygulamasındaki Telegram düğmesi seçili ili bota taşır (`t.me/depodolu_bot?start=bursa_motorin`), kullanıcı tek dokunuşla abone olur.
 
 ## Nasıl çalışır?

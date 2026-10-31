@@ -134,6 +134,42 @@ test('grup sohbetleri yok sayılır', async () => {
   assert.equal(sent.length, 0);
 });
 
+test('/fiyat <il> abonelik olmadan her ilin fiyatını verir, belirsizse seçenek sunar', async () => {
+  await say('/fiyat İzmir');
+  assert.ok(last().text.includes(`<b>İzmir</b>, litre fiyatları`));
+  assert.ok(last().text.includes(`Motorin: <b>${tr(P.izmir.motorin)} ₺</b>`));
+  assert.equal(row(), undefined, 'fiyat sormak abone etmez');
+  await say('/fiyat istanbul');
+  assert.match(last().text, /^Hangisi\?\n/);
+  assert.match(last().text, /\/fiyat istanbul avrupa/);
+  await say('/fiyat istanbul anadolu');
+  assert.ok(last().text.includes('<b>İstanbul (Anadolu)</b>'), 'önerilen komut doğrudan çalışır');
+  await say('/fiyat atlantis');
+  assert.match(last().text, /bulamadım/);
+});
+
+test('grupta /fiyat çalışır, diğer mesajlar yok sayılır', async () => {
+  const group = text => handleUpdate({ message: { chat: { id: -100, type: 'supergroup' }, text } }, env);
+  await group('merhaba');
+  await group('/durdur');
+  assert.equal(sent.length, 0);
+  await group('/fiyat@depodolu_bot ankara');
+  assert.equal(last().chat_id, -100);
+  assert.ok(last().text.includes(`<b>Ankara</b>`));
+  await group('/fiyat');
+  assert.match(last().text, /Örnek: \/fiyat izmir/);
+});
+
+test('satır içi mod eşleşen illerin fiyat kartlarını döner', async () => {
+  await handleUpdate({ inline_query: { id: 'iq1', query: 'bur', from: { id: 1 } } }, env);
+  const answer = last();
+  assert.equal(answer.method, 'answerInlineQuery');
+  assert.deepEqual(answer.results.map(r => r.id), ['burdur', 'bursa']);
+  assert.ok(answer.results[1].input_message_content.message_text.includes(`LPG: <b>${tr(P.bursa.lpg)} ₺</b>`));
+  await handleUpdate({ inline_query: { id: 'iq2', query: '', from: { id: 1 } } }, env);
+  assert.equal(last().results.length, 6, 'boş aramada sık seçilen iller');
+});
+
 test('HTTP: webhook gizli anahtar ister, abone listesi Bearer ister', async () => {
   const ctx = { waitUntil: p => p };
   let res = await worker.fetch(new Request('https://bot.test/tg', { method: 'POST', body: '{}' }), env, ctx);

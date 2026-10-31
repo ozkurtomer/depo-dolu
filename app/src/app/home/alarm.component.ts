@@ -26,7 +26,7 @@ import { tl } from '../format';
           <p class="sub">Hedefin {{ tl(alarm()!.below) }} ₺. Fiyat bilgisi gelince durumu göreceksin.</p>
         }
         @default {
-          <p class="sub">{{ fuelName() }} fiyatı istediğin seviyeye inince haber verelim.</p>
+          <p class="sub">{{ fuelTitle() }} fiyatı istediğin seviyeye inince haber verelim.</p>
           <div class="fields form">
             <label>Hedef fiyat (₺/L)
               <input type="number" inputmode="decimal" min="1" max="999" step="0.01" [value]="target() ?? ''"
@@ -86,6 +86,7 @@ export class AlarmComponent {
     const slug = this.settings().city;
     return slug ? this.prices.latest()?.prices[slug]?.name ?? '' : '';
   });
+  readonly fuelTitle = computed(() => fuelLabel(this.settings().fuel));
   readonly fuelName = computed(() => {
     const label = fuelLabel(this.settings().fuel);
     return label === 'LPG' ? label : label.toLocaleLowerCase('tr-TR');
