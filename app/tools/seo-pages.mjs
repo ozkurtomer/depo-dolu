@@ -105,7 +105,10 @@ export function cityPage({ latest, history, slug, fuel, baseUrl }) {
     ],
   };
 
-  return { path, url, title, description, body, jsonLd, lastmod: lastChange };
+  // Görsel make_share_images.py ile üretilir; prerender dosya yoksa bu alanı düşürür.
+  const image = { url: `${baseUrl}og/${slug}-${fuel}.png`, alt: `${city.name} ${f.lower} litre fiyatı: ${tl(price)} ₺` };
+
+  return { path, url, title, description, body, jsonLd, image, lastmod: lastChange };
 }
 
 export function homeBody(latest) {
@@ -179,6 +182,7 @@ export function allPricesPage(latest, baseUrl) {
 ${rows}
     </tbody>
   </table>
+  <p><a href="../harita/">Türkiye fiyat haritası</a></p>
   <p>Bu veriyi kendi projende kullanmak için: <a href="https://github.com/ozkurtomer/depo-dolu/blob/main/data/README.md">açık JSON API</a>.</p>
 </main>
 </body>
@@ -186,8 +190,128 @@ ${rows}
 `;
 }
 
+const MAP_W = 1000;
+const MAP_H = 440;
+const MAP_COLORS = ['#1a7f64', '#6cae75', '#d9c24f', '#e8964f', '#c8553d'];
+// İstanbul'un iki yakası haritada üst üste biner; biraz ayır.
+const MAP_NUDGE = { 'istanbul-avrupa': [-7, -5], 'istanbul-anadolu': [7, 5] };
+
+/** Enlem/boylamı harita koordinatına çevirir (39° enleme göre düzeltilmiş eşdikdörtgen izdüşüm). */
+export function project([lat, lon]) {
+  const cos = Math.cos(39 * Math.PI / 180);
+  const k = MAP_W / ((44.9 - 25.6) * cos);
+  return [(lon - 25.6) * cos * k, (42.25 - lat) * k + 10];
+}
+
+/** Fiyatları beş eşit sayılı sınıfa böler: en ucuz %20 ilk renk, en pahalı %20 son renk. */
+export function priceClasses(prices) {
+  const sorted = [...prices].sort((a, b) => a - b);
+  const cuts = [1, 2, 3, 4].map(i => sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * i / 5))]);
+  return { cuts, classOf: p => cuts.filter(c => p >= c).length, min: sorted[0], max: sorted[sorted.length - 1] };
+}
+
+/** 81 ilin fiyatını renkli noktalarla gösteren tek başına sayfa. JavaScript'siz: yakıt seçimi CSS ile. */
+export function mapPage(latest, baseUrl, coords) {
+  const panels = FUELS.map(f => {
+    const { all, avg } = ranking(latest, f.key);
+    const placed = all.filter(c => coords[c.slug]);
+    if (!placed.length) return '';
+    const { cuts, classOf, min, max } = priceClasses(placed.map(c => c.price));
+    const dots = placed.map(c => {
+      const [x, y] = project(coords[c.slug]);
+      const [dx, dy] = MAP_NUDGE[c.slug] ?? [0, 0];
+      return `<a href="../${c.slug}/${f.key}/"><circle cx="${(x + dx).toFixed(1)}" cy="${(y + dy).toFixed(1)}" r="11" fill="${MAP_COLORS[classOf(c.price)]}"><title>${escapeHtml(c.name)}: ${tl(c.price)} ₺</title></circle></a>`;
+    }).join('');
+    // Sınıf sınırları: [en düşük, 4 kesim, en yüksek]. Aynı fiyat çok ilde varsa sınıf boş kalabilir.
+    const bounds = [min, ...cuts, max];
+    const legend = MAP_COLORS.map((color, i) => {
+      const used = placed.some(c => classOf(c.price) === i);
+      return used ? `<li><i style="background:${color}"></i>${tl(bounds[i])}${bounds[i + 1] > bounds[i] ? ` – ${tl(bounds[i + 1])}` : ''}</li>` : '';
+    }).join('');
+    const list = items => items.map(c => `<li><a href="../${c.slug}/${f.key}/">${escapeHtml(c.name)}</a> <b>${tl(c.price)} ₺</b></li>`).join('');
+    return `<section class="panel p-${f.key}">
+    <svg viewBox="0 0 ${MAP_W} ${MAP_H}" role="img" aria-label="Türkiye ${f.lower} fiyat haritası">${dots}</svg>
+    <ul class="legend">${legend}</ul>
+    <p>${f.label} Türkiye ortalaması <b>${tl(avg)} ₺</b>. En ucuz ve en pahalı il arasındaki fark ${tl(max - min)} ₺, 50 litrelik depoda ${whole.format((max - min) * TANK)} ₺.</p>
+    <div class="cols"><div><h2>En ucuz ${f.lower}</h2><ol>${list(all.slice(0, 5))}</ol></div>
+    <div><h2>En pahalı ${f.lower}</h2><ol>${list(all.slice(-5).reverse())}</ol></div></div>
+  </section>`;
+  }).join('\n');
+
+  const title = 'Türkiye akaryakıt fiyat haritası: 81 il benzin, motorin, LPG | Depo Dolu';
+  const description = `Hangi ilde yakıt ucuz, hangisinde pahalı? 81 ilin benzin, motorin ve LPG fiyatları renkli harita üzerinde. Son güncelleme: ${formatDate(latest.updatedAt)}.`;
+  const sel = (fmt) => FUELS.map(f => fmt(f.key)).join(', ');
+  return `<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${escapeHtml(title)}</title>
+<meta name="description" content="${escapeHtml(description)}">
+<link rel="canonical" href="${baseUrl}harita/">
+<meta property="og:title" content="${escapeHtml(title)}">
+<meta property="og:description" content="${escapeHtml(description)}">
+<meta property="og:url" content="${baseUrl}harita/">
+<meta property="og:image" content="${baseUrl}social-preview.png">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E3B4A">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="manifest" href="../manifest.webmanifest">
+<style>
+  :root { color-scheme: light; --ink: #182a2f; --soft: #627378; --brand: #0e3b4a; --line: #e2e8e6; --bg: #f2f5f4; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.45 system-ui, sans-serif; }
+  main { max-width: 56rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+  h1 { font-size: 1.5rem; margin: 0.5rem 0; }
+  h2 { font-size: 1.05rem; margin: 1rem 0 0.25rem; }
+  p { color: var(--soft); }
+  a { color: var(--brand); }
+  .app { display: inline-block; margin: 0.25rem 0 1rem; padding: 0.7rem 1.1rem; border-radius: 999px; background: var(--brand); color: #fff; text-decoration: none; font-weight: 600; }
+  input { position: absolute; opacity: 0; pointer-events: none; }
+  .tabs { display: flex; gap: 0.5rem; margin: 0.5rem 0 0.75rem; }
+  .tabs label { padding: 0.5rem 1rem; border-radius: 999px; background: #fff; border: 1px solid var(--line); cursor: pointer; font-weight: 600; }
+  ${sel(k => `#f-${k}:checked ~ .tabs label[for="f-${k}"]`)} { background: var(--brand); color: #fff; border-color: var(--brand); }
+  ${sel(k => `#f-${k}:focus-visible ~ .tabs label[for="f-${k}"]`)} { outline: 2px solid var(--brand); outline-offset: 2px; }
+  .panel { display: none; }
+  ${sel(k => `#f-${k}:checked ~ .p-${k}`)} { display: block; }
+  svg { display: block; width: 100%; height: auto; background: #fff; border-radius: 1rem; }
+  circle { stroke: #fff; stroke-width: 2; }
+  a:hover circle, a:focus circle { stroke: var(--ink); stroke-width: 3; }
+  .legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; padding: 0; margin: 0.75rem 0; list-style: none; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+  .legend i { display: inline-block; width: 0.8rem; height: 0.8rem; border-radius: 50%; margin-right: 0.35rem; vertical-align: -0.05rem; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
+  ol { padding-left: 1.25rem; margin: 0.25rem 0; }
+  li b { font-variant-numeric: tabular-nums; }
+  @media (max-width: 520px) { .cols { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Türkiye akaryakıt fiyat haritası</h1>
+  <p>Yeşil ucuz, kırmızı pahalı. Bir ile dokununca o ilin sayfası açılır. Petrol Ofisi il liste fiyatı, KDV dahil.
+  Son veri güncellemesi: ${formatDateTime(latest.updatedAt)}.</p>
+  <a class="app" href="../">Depo Dolu uygulamasını aç</a>
+  ${FUELS.map(f => `<input type="radio" name="fuel" id="f-${f.key}"${f.key === 'motorin' ? ' checked' : ''}>`).join('')}
+  <div class="tabs">${FUELS.map(f => `<label for="f-${f.key}">${f.label}</label>`).join('')}</div>
+  ${panels}
+  <p><a href="../fiyatlar/">Tüm illerin fiyat tablosu</a></p>
+</main>
+</body>
+</html>
+`;
+}
+
+/** İsteğe bağlı, çerezsiz ziyaret sayacı (GoatCounter). Kod boşsa sayfa olduğu gibi kalır. */
+export function withAnalytics(html, code) {
+  if (!code) return html;
+  if (!/^[a-z0-9-]{2,50}$/.test(code)) throw new Error(`Geçersiz GoatCounter kodu: ${code}`);
+  if (html.includes('gc.zgo.at')) return html;
+  const tag = `<script data-goatcounter="https://${code}.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>`;
+  return html.replace('</head>', `${tag}\n</head>`);
+}
+
 /** Derlenmiş index.html'in başlık, açıklama ve paylaşım etiketlerini sayfaya göre değiştirir. */
-export function applyHead(html, { title, description, url, jsonLd }) {
+export function applyHead(html, { title, description, url, jsonLd, image }) {
   let out = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)}</title>`);
   const setMeta = (attr, key, value) => {
     const re = new RegExp(`<meta\\s[^>]*${attr}="${key}"[^>]*>`);
@@ -200,6 +324,14 @@ export function applyHead(html, { title, description, url, jsonLd }) {
   setMeta('property', 'og:url', url);
   setMeta('name', 'twitter:title', title);
   setMeta('name', 'twitter:description', description);
+  if (image) {
+    setMeta('property', 'og:image', image.url);
+    setMeta('property', 'og:image:width', '1200');
+    setMeta('property', 'og:image:height', '630');
+    setMeta('property', 'og:image:alt', image.alt);
+    setMeta('name', 'twitter:image', image.url);
+    setMeta('name', 'twitter:image:alt', image.alt);
+  }
   out = out.replace(/<link\s[^>]*rel="canonical"[^>]*>/, `<link rel="canonical" href="${escapeHtml(url)}">`);
   if (jsonLd)
     out = out.replace('</head>', `<script type="application/ld+json">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>\n</head>`);

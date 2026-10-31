@@ -15,13 +15,15 @@ import { TripComponent } from './trip.component';
 import { BudgetComponent } from './budget.component';
 import { AnnouncementComponent } from './announcement.component';
 import { InstallCardComponent } from './install-card.component';
+import { FuelLogComponent } from './fuel-log.component';
+import { AlarmComponent } from './alarm.component';
 
 const TANK_SIZES = [30, 40, 50, 60, 70];
 
 @Component({
   selector: 'dd-home',
   imports: [IonContent, IonRefresher, IonRefresherContent, PriceChartComponent, TripComponent, BudgetComponent,
-    AnnouncementComponent, InstallCardComponent],
+    AnnouncementComponent, InstallCardComponent, FuelLogComponent, AlarmComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   host: { class: 'ion-page' },
@@ -46,6 +48,7 @@ export class HomeComponent {
   });
   readonly repoUrl = REPO_URL;
   readonly allPricesUrl = `${WEB_URL}fiyatlar/`;
+  readonly mapUrl = `${WEB_URL}harita/`;
   readonly tl = tl;
   readonly tlWhole = tlWhole;
   readonly ago = ago;
