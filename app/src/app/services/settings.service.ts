@@ -2,15 +2,19 @@ import { Injectable, inject, signal } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
 import { FuelKey, Settings, topicFor } from '../models';
 import { PushResult, PushService } from './push.service';
+import { WidgetService } from './widget.service';
 
 const KEY = 'depodolu.settings.v1';
 
-const DEFAULTS: Settings = { city: null, fuel: 'benzin', notify: false, liters: 50, consumption: 7, monthlyKm: 1200 };
+const DEFAULTS: Settings = {
+  city: null, fuel: 'benzin', notify: false, liters: 50, consumption: 7, monthlyKm: 1200, alarm: null,
+};
 
 /** Kullanıcının seçimleri. Cihazda saklanır; sunucuya hiçbir şey gönderilmez. */
 @Injectable({ providedIn: 'root' })
 export class SettingsService {
   private push = inject(PushService);
+  private widget = inject(WidgetService);
 
   readonly settings = signal<Settings>(DEFAULTS);
   readonly loaded = signal(false);
@@ -29,6 +33,8 @@ export class SettingsService {
     const next = { ...this.settings(), ...patch };
     this.settings.set(next);
     await Preferences.set({ key: KEY, value: JSON.stringify(next) });
+    // Android ana ekran kutusu ve alarm aynı kaydı okur; değişikliği hemen görsünler.
+    this.widget.refresh();
     return next;
   }
 

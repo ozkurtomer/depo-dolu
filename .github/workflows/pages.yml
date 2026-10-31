@@ -43,7 +43,17 @@ jobs:
       # Tek sayfalık uygulama: bilinmeyen adresler de uygulamayı açsın.
       # (İl sayfaları üretilmeden önce kopyalanır; 404 sayfası ana sayfa özetini taşımaz.)
       - run: cp dist/browser/index.html dist/browser/404.html
-      - name: İl/yakıt sayfaları, tüm iller tablosu ve sitemap
+      # Her il/yakıt için paylaşım görseli: WhatsApp ve X önizlemesinde güncel fiyat görünür.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install --quiet 'pillow>=11,<13'
+      - name: Paylaşım görselleri
+        run: python tools/make_share_images.py --data ../data --out dist/browser/og
+      - name: İl/yakıt sayfaları, tüm iller tablosu, harita ve sitemap
+        env:
+          # İsteğe bağlı çerezsiz ziyaret sayacı: Settings → Variables → GOATCOUNTER_CODE (ör. depodolu).
+          GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
         run: node tools/prerender.mjs --dist dist/browser --data ../data --base https://ozkurtomer.github.io/depo-dolu/
       - uses: actions/upload-pages-artifact@v3
         with:

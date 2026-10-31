@@ -54,6 +54,18 @@ export class PushService {
     }
   }
 
+  /** Fiyat alarmı yerel bildirim gösterir; Android 13+ bunun için de izin ister. */
+  async requestPermission(): Promise<boolean> {
+    if (!this.supported) return false;
+    try {
+      let { receive } = await FirebaseMessaging.checkPermissions();
+      if (receive === 'prompt' || receive === 'prompt-with-rationale') ({ receive } = await FirebaseMessaging.requestPermissions());
+      return receive === 'granted';
+    } catch {
+      return false;
+    }
+  }
+
   async disable(topic: string | null): Promise<void> {
     if (!this.supported) return;
     await this.topics.reconcile(null, topic);

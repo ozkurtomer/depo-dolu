@@ -54,6 +54,14 @@ export interface Settings {
   consumption: number;
   /** Aylık sürüş, km. */
   monthlyKm: number;
+  /** Fiyat alarmı: bu il ve yakıtta fiyat `below` ₺ ya da altına inince haber ver. */
+  alarm: PriceAlarm | null;
+}
+
+export interface PriceAlarm {
+  city: string;
+  fuel: FuelKey;
+  below: number;
 }
 
 /** Bildirim konusu — sunucudaki PriceChange.Topic ile aynı olmalı. */

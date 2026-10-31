@@ -128,6 +128,8 @@
     <p class="hint" role="status">{{ msg }}</p>
     }
 
+    <dd-alarm />
+
     <section class="card">
       <h2>Depoyu doldurmak kaça?</h2>
       <div class="tank">
@@ -144,6 +146,8 @@
         }
       </div>
     </section>
+
+    <dd-fuel-log />
 
     <dd-trip />
 
@@ -203,6 +207,7 @@
         göstermez.</span>
       }
       <a [href]="allPricesUrl" target="_blank" rel="noopener">81 ilin fiyat tablosu</a>
+      <a [href]="mapUrl" target="_blank" rel="noopener">Türkiye fiyat haritası</a>
       <a [href]="sourceUrl()" target="_blank" rel="noopener">Fiyat kaynağını gör</a>
       <a [href]="repoUrl" target="_blank" rel="noopener">Açık kaynak, GitHub'da</a>
     </footer>
