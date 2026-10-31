@@ -22,6 +22,11 @@ Depo Dolu aims to make Turkish fuel prices easy to check, share and reuse. An un
 - [x] **Search and share previews:** a static page per province and fuel (`/bursa/motorin/`), an all-provinces table and a sitemap, rebuilt four times a day.
 - [x] **Trip and budget tools:** trip cost with estimated distance between province centres, where-to-fill-up advice, monthly budget.
 - [x] **More channels:** optional X (Twitter) summaries. WhatsApp Channels have no public posting API; posts there stay manual.
+- [x] **Fuel log and vehicles:** fill-ups, real consumption, monthly spend, CSV export, several vehicles.
+- [x] **Price alarm and Android widget:** hourly background check with one local notification per drop.
+- [x] **Shareable visuals:** per-province share images and a price map page.
+- [x] **Telegram in groups:** `/fiyat <province>` and inline mode.
+- [x] **Operations:** hourly data health check; optional cookie-free web visit counter.
 
 ## More useful data
 
@@ -31,6 +36,9 @@ Depo Dolu aims to make Turkish fuel prices easy to check, share and reuse. An un
 - [x] A small embeddable widget ([WIDGET.md](WIDGET.md)), a typed JS client and a Home Assistant example.
 - [ ] Publish the JS client to npm and submit the API to public lists (drafts in [LAUNCH_COPY.md](LAUNCH_COPY.md)).
 - [ ] Long-range charts against the exchange rate or inflation once a year of history has accumulated.
+- [ ] "Why did the price change?" card (Brent, USD/TRY); needs a keyed data source (TCMB EVDS) and accumulated history.
+- [ ] Electric vehicle charging prices once a reliable public source exists.
+- [ ] English interface.
 
 ## Good first contributions
 

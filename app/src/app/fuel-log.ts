@@ -1,4 +1,4 @@
-import { FUELS, type FuelKey } from './models';
+import type { FuelKey } from './models';
 
 /**
  * Yakıt defteri: kullanıcının araçları ve dolumları. Sadece cihazda saklanır.
@@ -34,7 +34,7 @@ export interface FuelLog {
 
 export const EMPTY_LOG: FuelLog = { vehicles: [], fills: [], activeId: null };
 
-const FUEL_KEYS = FUELS.map(f => f.key);
+const FUEL_KEYS: FuelKey[] = ['benzin', 'motorin', 'lpg'];
 const num = (v: unknown, min: number, max: number) => typeof v === 'number' && Number.isFinite(v) && v >= min && v <= max;
 
 export function isVehicle(v: unknown): v is Vehicle {

@@ -3,6 +3,8 @@
  *
  * Görevleri:
  *  1. Telegram konuşması: /start → il sor → yakıt sor → abone et.
+ *     /fiyat <il> her ilin fiyatını abonelik olmadan verir; gruplarda da çalışır.
+ *     Satır içi mod: herhangi bir sohbette "@depodolu_bot izmir" yazınca fiyat kartı paylaşılır.
  *  2. Abone listesini D1 veritabanında tutmak (chat_id, il, yakıt). Başka kişisel veri yok.
  *  3. Toplayıcıya (GitHub Actions) abone listesini vermek. Bildirimleri toplayıcı gönderir,
  *     böylece Worker'ın istek başına alt istek sınırına takılmayız.
@@ -21,11 +23,12 @@ const FUELS = {
   lpg: { label: 'LPG', dative: "LPG'ye", locative: "LPG'de" },
 };
 const FUEL_KEYS = Object.keys(FUELS);
+const WEB_URL = 'https://ozkurtomer.github.io/depo-dolu/';
 const POPULAR = ['istanbul-avrupa', 'istanbul-anadolu', 'ankara', 'izmir', 'bursa', 'antalya'];
 
 const COMMANDS = [
   { command: 'start', description: 'İl ve yakıt seç, takibe başla' },
-  { command: 'fiyat', description: 'İlinin güncel fiyatları' },
+  { command: 'fiyat', description: 'Güncel fiyatlar (ör. /fiyat izmir)' },
   { command: 'degistir', description: 'İli ya da yakıtı değiştir' },
   { command: 'durdur', description: 'Bildirimleri kapat' },
   { command: 'test', description: 'Örnek bir bildirim gönder' },
@@ -94,7 +97,7 @@ async function setup(env, url) {
   const hook = await tg(env, 'setWebhook', {
     url: `${url.origin}/tg`,
     secret_token: env.WEBHOOK_SECRET,
-    allowed_updates: ['message', 'callback_query'],
+    allowed_updates: ['message', 'callback_query', 'inline_query'],
     drop_pending_updates: true,
   });
   const commands = await tg(env, 'setMyCommands', { commands: COMMANDS });
@@ -117,16 +120,23 @@ function authorized(request, env) {
 
 export async function handleUpdate(update, env) {
   if (update.callback_query) return onCallback(update.callback_query, env);
+  if (update.inline_query) return onInline(update.inline_query, env);
 
   const msg = update.message;
-  if (!msg?.text || msg.chat?.type !== 'private') return;
-  const chatId = msg.chat.id;
+  if (!msg?.text) return;
+  const chatId = msg.chat?.id;
   const text = msg.text.trim();
   const [rawCommand, ...rest] = text.split(/\s+/);
   const command = rawCommand.startsWith('/') ? rawCommand.slice(1).split('@')[0].toLowerCase() : null;
 
+  // Gruplarda sadece "/fiyat izmir" çalışır: abonelik ve sohbet özelden yapılır, grubu meşgul etmeyiz.
+  if (msg.chat?.type !== 'private') {
+    if (command === 'fiyat') return onPrice(chatId, env, rest.join(' '), { group: true });
+    return;
+  }
+
   if (command === 'start') return onStart(chatId, rest.join(' '), env);
-  if (command === 'fiyat') return onPrice(chatId, env);
+  if (command === 'fiyat') return onPrice(chatId, env, rest.join(' '));
   if (command === 'degistir' || command === 'değiştir') return askCity(chatId, env, 'Hangi ile geçelim? İlin adını yaz ya da aşağıdan seç.');
   if (command === 'durdur') return onStop(chatId, env);
   if (command === 'test') return onTest(chatId, env);
@@ -171,12 +181,7 @@ async function searchCity(chatId, query, env) {
   const q = fold(query).replace(/[^a-z0-9 ]/g, ' ').trim();
   if (!q) return send(env, chatId, 'İlinin adını yazar mısın? Örneğin: Bursa');
 
-  const cities = Object.entries(prices.prices).map(([slug, c]) => ({ slug, name: c.name, key: fold(c.name) }));
-  const exact = cities.filter(c => c.key === q || c.key.replace(/[()]/g, '') === q);
-  const starts = cities.filter(c => c.key.startsWith(q));
-  const contains = cities.filter(c => c.key.includes(q));
-  const matches = exact.length ? exact : starts.length ? starts : contains;
-
+  const matches = matchCities(prices, q);
   if (matches.length === 1) return askFuel(chatId, matches[0].slug, env);
   if (matches.length === 0) {
     return send(env, chatId, `"${escape(query)}" diye bir il bulamadım. Yazımı kontrol edip tekrar dener misin? Örneğin: Kahramanmaraş`);
@@ -227,34 +232,73 @@ async function subscribe(chatId, slug, fuel, env, messageId) {
   return messageId ? edit(env, chatId, messageId, text) : send(env, chatId, text);
 }
 
-async function onPrice(chatId, env) {
-  const sub = await getSub(chatId, env);
-  if (!sub) return askCity(chatId, env, 'Önce ilini seçelim. Hangi ilde yakıt alıyorsun?');
+async function onPrice(chatId, env, query = '', { group = false } = {}) {
   const prices = await getPrices(env);
-  const city = prices.prices[sub.city];
-  if (!city) return send(env, chatId, 'Bu ilin fiyatını şu an bulamadım. Birazdan tekrar dener misin?');
 
+  // "/fiyat izmir": aboneliğe bakmadan istenen ilin fiyatı.
+  const q = fold(query).replace(/[^a-z0-9 ]/g, ' ').trim();
+  if (q) {
+    const matches = matchCities(prices, q);
+    if (matches.length === 1) return send(env, chatId, priceCard(prices, matches[0].slug));
+    if (matches.length === 0) return send(env, chatId, `"${escape(query)}" diye bir il bulamadım. Örnek: /fiyat izmir`);
+    return send(env, chatId, `Hangisi?\n${matches.slice(0, 8).map(c => `/fiyat ${escape(fold(c.name).replace(/[()]/g, ''))}`).join('\n')}`);
+  }
+  if (group) return send(env, chatId, 'Hangi il? Örnek: /fiyat izmir');
+
+  const sub = await getSub(chatId, env);
+  if (!sub) return askCity(chatId, env, 'Önce ilini seçelim. Hangi ilde yakıt alıyorsun?\n\nBaşka bir ile bakmak için: /fiyat izmir');
+  if (!prices.prices[sub.city]) return send(env, chatId, 'Bu ilin fiyatını şu an bulamadım. Birazdan tekrar dener misin?');
+  return send(env, chatId, priceCard(prices, sub.city, sub.fuel));
+}
+
+/** Bir ilin üç yakıt fiyatı; takip edilen yakıt varsa vurgulanır ve Türkiye ortalamasıyla karşılaştırılır. */
+export function priceCard(prices, slug, fuel = null) {
+  const city = prices.prices[slug];
   const lines = FUEL_KEYS.map(f => {
-    const mine = sub.fuel === f;
     const p = city[f] != null ? `${money(city[f])} ₺` : '—';
-    return mine ? `${FUELS[f].label}: <b>${p}</b> ← takip ettiğin` : `${FUELS[f].label}: ${p}`;
+    return fuel === f ? `${FUELS[f].label}: <b>${p}</b> ← takip ettiğin` : `${FUELS[f].label}: <b>${p}</b>`;
   });
 
   let extra = '';
-  if (FUEL_KEYS.includes(sub.fuel) && city[sub.fuel] != null) {
-    const all = Object.values(prices.prices).map(c => c[sub.fuel]).filter(v => v != null);
+  if (FUEL_KEYS.includes(fuel) && city[fuel] != null) {
+    const all = Object.values(prices.prices).map(c => c[fuel]).filter(v => v != null);
     const avg = all.reduce((s, v) => s + v, 0) / all.length;
-    const diff = city[sub.fuel] - avg;
+    const diff = city[fuel] - avg;
     extra = Math.abs(diff) < 0.005
-      ? '\nTürkiye ortalamasıyla aynı.'
-      : `\nTürkiye ortalamasından ${money(Math.abs(diff))} ₺ ${diff < 0 ? 'ucuz' : 'pahalı'}.`;
+      ? '\nTürkiye ortalamasıyla aynı.\n'
+      : `\nTürkiye ortalamasından ${money(Math.abs(diff))} ₺ ${diff < 0 ? 'ucuz' : 'pahalı'}.\n`;
   }
 
-  return send(
-    env,
-    chatId,
-    `<b>${escape(city.name)}</b>, litre fiyatları (KDV dahil)\n\n${lines.join('\n')}\n${extra}\n\nSon değişiklik: ${date(city.changedAt)}`,
-  );
+  return `<b>${escape(city.name)}</b>, litre fiyatları (KDV dahil)\n\n${lines.join('\n')}\n${extra}\n` +
+    `Son değişiklik: ${date(city.changedAt)}\n<a href="${WEB_URL}${slug}/${FUEL_KEYS.includes(fuel) ? fuel : 'benzin'}/">Depo Dolu</a>`;
+}
+
+/** Satır içi mod: "@depodolu_bot izmir" yazınca eşleşen illerin fiyat kartları. */
+async function onInline(iq, env) {
+  const prices = await getPrices(env);
+  const q = fold(iq.query ?? '').replace(/[^a-z0-9 ]/g, ' ').trim();
+  const slugs = q ? matchCities(prices, q).map(c => c.slug) : POPULAR.filter(s => prices.prices[s]);
+  const results = slugs.slice(0, 10).map(slug => {
+    const c = prices.prices[slug];
+    return {
+      type: 'article',
+      id: slug,
+      title: c.name,
+      description: FUEL_KEYS.map(f => `${FUELS[f].label} ${c[f] != null ? money(c[f]) : '—'}`).join(' · '),
+      input_message_content: { message_text: priceCard(prices, slug), parse_mode: 'HTML', link_preview_options: { is_disabled: true } },
+    };
+  });
+  return tg(env, 'answerInlineQuery', { inline_query_id: iq.id, results, cache_time: 300, is_personal: false });
+}
+
+/** İl araması: önce tam eşleşme, sonra baştan, sonra içinde geçen. */
+export function matchCities(prices, foldedQuery) {
+  const q = foldedQuery;
+  const cities = Object.entries(prices.prices).map(([slug, c]) => ({ slug, name: c.name, key: fold(c.name) }));
+  const exact = cities.filter(c => c.key === q || c.key.replace(/[()]/g, '') === q);
+  const starts = cities.filter(c => c.key.startsWith(q));
+  const contains = cities.filter(c => c.key.includes(q));
+  return exact.length ? exact : starts.length ? starts : contains;
 }
 
 async function onStop(chatId, env) {
@@ -279,7 +323,8 @@ async function onHelp(chatId, env) {
     chatId,
     'Petrol Ofisi\'nin 81 il fiyatlarını 15 dakikada bir kontrol ediyorum. ' +
       'Senin ilinde, senin yakıtında fiyat değiştiği an sana yazıyorum. Başka illerle seni yormuyorum.\n\n' +
-      '/start il ve yakıt seç\n/fiyat güncel fiyatlar\n/degistir ili ya da yakıtı değiştir\n/test örnek bildirim\n/durdur bildirimleri kapat\n\n' +
+      '/start il ve yakıt seç\n/fiyat güncel fiyatlar (başka il: /fiyat izmir)\n/degistir ili ya da yakıtı değiştir\n/test örnek bildirim\n/durdur bildirimleri kapat\n\n' +
+      'Gruba ekleyip /fiyat izmir yazabilir ya da herhangi bir sohbette @depodolu_bot izmir yazarak fiyatı paylaşabilirsin.\n\n' +
       'Açık kaynak: github.com/ozkurtomer/depo-dolu',
   );
 }

@@ -35,6 +35,18 @@ dotnet test collector/DepoDolu.sln
 
 The web app is installable (manifest + `public/sw.js`). The service worker caches the app shell only. Price data is never cached by it; when offline the app shows the last stored prices with an explicit banner. Bump `CACHE` in `sw.js` when a non-hashed file such as an icon changes.
 
+Before prerendering, `app/tools/make_share_images.py` (Pillow, the app's Barlow font) writes a 1200×630 share image per province and fuel to `og/`; city pages point `og:image` at it. Without the images the generic cover is used. `/harita/` is a standalone price map built from the province coordinates in `app/src/app/trip.ts`.
+
+Optional visit counter: create a free site on [GoatCounter](https://www.goatcounter.com/) and set the repository variable `GOATCOUNTER_CODE` (for `depodolu.goatcounter.com`, the code is `depodolu`). The next Pages deployment adds the cookie-free counter to web pages only; the Android app never includes it. Remove the variable to turn it off. Keep [PRIVACY.md](PRIVACY.md) in step.
+
+## Data health
+
+`.github/workflows/health.yml` runs `tools/health_check.mjs` hourly. It opens one issue labelled `veri-sagligi` when the collector has not succeeded for three hours, failed three times in a row, or no price has changed for seven days (a likely source-page change), and closes it when things recover. The GitHub mobile app notifies you about the issue. For a Telegram message as well, set the repository variable `TELEGRAM_ADMIN_CHAT_ID` to your own chat ID; it reuses `TELEGRAM_BOT_TOKEN`.
+
+## Android widget and price alarm
+
+`PriceWorker` (WorkManager) runs hourly while the app has a home screen widget or a price alarm, reads the selection the web layer stored in Capacitor Preferences (`depodolu.settings.v1`) and fetches `latest.json`. It updates `PriceWidget` and sends one local notification on the `alarm` channel when the alarm province/fuel reaches the target; it notifies again only after the price has risen above the target. `widget.service.ts` asks the native `DepoDoluWidget` bridge to refresh whenever settings change. Background timing is controlled by Android and can be delayed by battery saving.
+
 ## Price-change announcements
 
 `data/announcements.json` holds upcoming, sourced price announcements, kept separate from observed list prices. Add one from the GitHub mobile app via **Actions → Zam duyurusu ekle → Run workflow** (fuel, TRY/L change, effective time in Turkey time, source, optional HTTPS link, optional Telegram post). `tools/add_announcement.mjs` validates input, replaces a duplicate fuel/time entry and removes entries older than a day. The app shows an announcement as "expected" until the effective time plus three hours, and hides it for a province once that province's price has changed. Only add announcements with a named source.
@@ -49,6 +61,7 @@ The Android project lives in `app/android/` (Capacitor 8, API 36) with icons, no
 - Update the web deployment base path in `.github/workflows/pages.yml`.
 - Add `FIREBASE_SERVICE_ACCOUNT` and/or `TELEGRAM_BOT_TOKEN` as Actions secrets; `TELEGRAM_CHAT_ID` is a repository variable.
 - Optional X (Twitter) summary: add `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN` and `X_ACCESS_SECRET` (OAuth 1.0a user context with write permission) as secrets. All four are required; otherwise X is skipped like any unconfigured channel. A test post is sent only with `--test --x`.
+- Optional: `GOATCOUNTER_CODE` (web visit counter) and `TELEGRAM_ADMIN_CHAT_ID` (data health alerts to you) as repository variables.
 - Place `google-services.json` inside `app/android/app/` (git-ignored). For CI APKs with push, store its content in the `GOOGLE_SERVICES_JSON` secret.
 - Configure GitHub Pages to use GitHub Actions. Review permissions and run the workflow manually once before relying on scheduled checks.
 

@@ -188,6 +188,14 @@ select {
 
 .form {
   margin-bottom: 0.25rem;
+
+  .wide {
+    grid-column: 1 / -1;
+  }
+
+  .note {
+    margin: 0;
+  }
 }
 
 .actions {

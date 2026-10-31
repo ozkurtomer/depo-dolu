@@ -32,6 +32,17 @@
         />
         <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="fiyat" />
 
+        <!-- Ana ekran kutusu. Fiyatı PriceWorker (WorkManager) saatte bir getirir. -->
+        <receiver
+            android:name=".PriceWidget"
+            android:exported="false"
+            android:label="@string/widget_label">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/price_widget_info" />
+        </receiver>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -44,4 +55,6 @@
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Fiyat alarmı yerel bildirimi (Android 13+ çalışma anında sorulur). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 </manifest>
