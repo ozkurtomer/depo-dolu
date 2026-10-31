@@ -5,7 +5,7 @@ import { PushResult, PushService } from './push.service';
 
 const KEY = 'depodolu.settings.v1';
 
-const DEFAULTS: Settings = { city: null, fuel: 'benzin', notify: false, liters: 50 };
+const DEFAULTS: Settings = { city: null, fuel: 'benzin', notify: false, liters: 50, consumption: 7, monthlyKm: 1200 };
 
 /** Kullanıcının seçimleri. Cihazda saklanır; sunucuya hiçbir şey gönderilmez. */
 @Injectable({ providedIn: 'root' })

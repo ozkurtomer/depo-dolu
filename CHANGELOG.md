@@ -3,6 +3,16 @@
 ## Unreleased
 
 ### Added
+- Static, indexable page for every province and fuel (`/bursa/motorin/`) with its own title, description, share preview and readable price summary; an all-provinces table at `/fiyatlar/`; generated `sitemap.xml` and `robots.txt`. Pages redeploy four times a day.
+- Share links now open the province page, so chat previews show that province's price. Old `?il=&yakit=` links still work.
+- Installable web app: manifest, app-shell service worker (price data is never cached by it) and an install card with iPhone instructions.
+- Trip cost calculator (estimated distance between province centres, consumption, round trip, per-person split) with where-to-fill-up advice.
+- Monthly fuel budget and the monthly effect of a 1 ₺/L increase; consumption and monthly distance are stored on the device.
+- Price history ranges (1 month / 3 months / 1 year / all) appear as history accumulates, with the change over the selected range.
+- `data/announcements.json` and the "Zam duyurusu ekle" workflow for sourced, upcoming price changes, shown as "expected" and hidden once the price changes; optional Telegram post.
+- Embeddable price box (`widget.js`, `embed.html`) and `docs/WIDGET.md`.
+- Optional X (Twitter) summaries in the collector (OAuth 1.0a without NuGet) with independent delivery tracking in the queue.
+- Typed, dependency-free JavaScript client in `packages/depodolu` and a Home Assistant REST sensor example.
 - Android app (`app/android/`): Capacitor 8 targeting Android 16 / API 36, Depo Dolu icon and splash, white `ic_stat_fuel` notification icon, default `fiyat` channel and FCM metadata.
 - Native share sheet on Android/iOS via `@capacitor/share`.
 - CI builds a debug APK on every push (`depo-dolu-android-debug` artifact); optional `GOOGLE_SERVICES_JSON` secret enables push in that build.

@@ -17,6 +17,7 @@ if (sendFile is not null)
     var notifier = CreateNotifier();
     var telegram = CreateTelegram();
     var bot = CreateBot();
+    var x = CreateX();
     if (dryRun)
     {
         foreach (var batch in outbox.Load())
@@ -24,11 +25,13 @@ if (sendFile is not null)
             await notifier.SendAsync(batch.Changes);
             await telegram.SendAsync(batch.Changes);
             await bot.SendAsync(batch.Changes);
+            await x.SendAsync(batch.Changes);
         }
         return 0; // Deneme, bekleyen bildirimleri tüketmez.
     }
     // Ayarlanmamış kanallar atlanır; daha sonra kurulduğunda eski uyarılar yağmaz.
-    return await outbox.DispatchAsync(c => notifier.SendAsync([c]), c => telegram.SendAsync(c), c => bot.SendAsync(c)) ? 0 : 1;
+    return await outbox.DispatchAsync(c => notifier.SendAsync([c]), c => telegram.SendAsync(c), c => bot.SendAsync(c),
+        c => x.SendAsync(c)) ? 0 : 1;
 }
 
 if (args.Contains("--test"))
@@ -46,6 +49,8 @@ if (args.Contains("--test"))
     Console.WriteLine($"🧪 Test bildirimi: {testInfo.Name} {testFuel.DisplayName()} (konu: {sample.Topic})");
     await CreateNotifier().SendAsync([sample], test: true);
     await CreateTelegram().SendAsync([sample], test: true);
+    // X: gerçek hesaba gider; sadece --x verilirse (yanlışlıkla herkese açık test gönderisi atılmasın).
+    if (args.Contains("--x")) await CreateX().SendAsync([sample], test: true);
     // Bot: abone listesine erişimi dener; deneme mesajı SADECE --chat ile verilen sohbete gider, gerçek abonelere değil.
     long? testChat = long.TryParse(Arg("--chat"), out var parsedChat) ? parsedChat : null;
     await CreateBot().TestAsync([sample], testChat);
@@ -99,6 +104,7 @@ try
             await CreateNotifier().SendAsync(changes);
             await CreateTelegram().SendAsync(changes);
             await CreateBot().SendAsync(changes);
+            await CreateX().SendAsync(changes);
         }
     }
 
@@ -138,6 +144,14 @@ BotNotifier CreateBot() => dryRun
         Environment.GetEnvironmentVariable("TELEGRAM_BOT_TOKEN"),
         Environment.GetEnvironmentVariable("BOT_API_URL"),
         Environment.GetEnvironmentVariable("BOT_API_SECRET"));
+
+XNotifier CreateX() => dryRun
+    ? new XNotifier(http, null, null, null, null)
+    : new XNotifier(http,
+        Environment.GetEnvironmentVariable("X_API_KEY"),
+        Environment.GetEnvironmentVariable("X_API_SECRET"),
+        Environment.GetEnvironmentVariable("X_ACCESS_TOKEN"),
+        Environment.GetEnvironmentVariable("X_ACCESS_SECRET"));
 
 string? Arg(string name)
 {

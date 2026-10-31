@@ -5,6 +5,7 @@ import { firstValueFrom, timeout } from 'rxjs';
 import { DATA_BASE_URL } from '../config';
 import { ChangeEntry, FuelKey, HistoryEntry, LatestFile, PricePoint } from '../models';
 import { isLatestFile } from '../price-data';
+import { Announcement, upcoming } from '../announcements';
 
 const CACHE_KEY = 'depodolu.latest.v1';
 
@@ -58,6 +59,15 @@ export class PricesService {
       return await this.get<ChangeEntry[]>('changes.json');
     } catch {
       return []; // Henüz hiç değişiklik olmadıysa dosya yoktur.
+    }
+  }
+
+  /** Yaklaşan zam/indirim duyuruları. Dosya yoksa ya da okunamazsa boş liste. */
+  async announcements(): Promise<Announcement[]> {
+    try {
+      return upcoming(await this.get<unknown>('announcements.json'));
+    } catch {
+      return [];
     }
   }
 

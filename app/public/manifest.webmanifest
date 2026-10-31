@@ -1,0 +1,19 @@
+{
+  "name": "Depo Dolu — Akaryakıt fiyatları",
+  "short_name": "Depo Dolu",
+  "description": "81 ilde benzin, motorin ve LPG fiyatları, depo ve yolculuk maliyeti.",
+  "lang": "tr",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F2F5F4",
+  "theme_color": "#0E3B4A",
+  "categories": ["utilities", "travel", "finance"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-1024.png", "sizes": "1024x1024", "type": "image/png", "purpose": "any" },
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

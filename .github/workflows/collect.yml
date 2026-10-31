@@ -58,6 +58,11 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
           BOT_API_URL: ${{ vars.BOT_API_URL }}
           BOT_API_SECRET: ${{ secrets.BOT_API_SECRET }}
+          # İsteğe bağlı X (Twitter) hesabı; dördü de yoksa X atlanır.
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
         run: dotnet run --project collector/DepoDolu.Collector -c Release --no-build -- --send data/notifications.pending.json
 
       - name: Teslim durumunu kaydet

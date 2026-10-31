@@ -25,7 +25,7 @@ Litre fiyatının kendi depomuz için ne anlama geldiğini görmek daha faydalı
 2. Fiyatı diğer bölgelerle karşılaştır, depo litresini seç.
 3. **“Bu fiyatı paylaş”** düğmesiyle fiyatı ve aynı il/yakıtı açan bağlantıyı paylaş.
 
-Örnek: [Bursa · motorin](https://ozkurtomer.github.io/depo-dolu/?il=bursa&yakit=motorin). Uygulama kurmadan bildirim almak için Telegram'da [@depodolu_bot](https://t.me/depodolu_bot) botunu aç ve ilini yaz: sadece kendi ilin ve yakıtın için mesaj alırsın. [@depodolu](https://t.me/depodolu) kanalı ise Türkiye geneli özeti paylaşır.
+Örnek: [Bursa · motorin](https://ozkurtomer.github.io/depo-dolu/bursa/motorin/) · [81 ilin fiyat tablosu](https://ozkurtomer.github.io/depo-dolu/fiyatlar/). Uygulama kurmadan bildirim almak için Telegram'da [@depodolu_bot](https://t.me/depodolu_bot) botunu aç ve ilini yaz: sadece kendi ilin ve yakıtın için mesaj alırsın. [@depodolu](https://t.me/depodolu) kanalı ise Türkiye geneli özeti paylaşır.
 
 <p align="center"><img src="docs/ekranlar.png" alt="İl seçimi, yakıt seçimi, depo maliyeti ve fiyat geçmişi" width="100%"></p>
 <p align="center"><sub>Uygulamanın örnek görünümü; görseldeki fiyat geçmişi örnek veridir. Gerçek birikmiş geçmiş web demosundadır.</sub></p>
@@ -37,6 +37,10 @@ Litre fiyatının kendi depomuz için ne anlama geldiğini görmek daha faydalı
 | 81 il, 82 bölge için benzin, motorin ve LPG | Anahtarsız, hesapsız, herkese açık JSON |
 | Depo maliyeti, bölge karşılaştırması ve fiyat geçmişi | Üretimde NuGet bağımlılığı olmayan .NET toplayıcı |
 | İl ve yakıt seçimini taşıyan paylaşım bağlantıları | Angular + Ionic web uygulaması |
+| Yolculuk maliyeti (km, tüketim, gidiş-dönüş, kişi başı) ve nerede doldurmalı | Her il ve yakıt için arama motorlarına açık statik sayfa ve sitemap |
+| Aylık yakıt bütçesi ve 1 ₺ zamın aylık etkisi | Haber siteleri ve bloglar için [gömülebilir fiyat kutusu](docs/WIDGET.md) |
+| Kaynağı belli "zam bekleniyor" duyuruları, gözlenen fiyattan ayrı | Tipli JS istemcisi ([packages/depodolu](packages/depodolu/README.md)) ve [Home Assistant sensörü](examples/home-assistant.yaml) |
+| Ana ekrana eklenebilen web uygulaması (çevrimdışı açılır) | Telegram ve FCM'nin yanında isteğe bağlı X (Twitter) özeti |
 | İline özel Telegram bildirimi ([@depodolu_bot](https://t.me/depodolu_bot)) | FCM konuları, Cloudflare Workers + D1 üzerinde Telegram botu ([bot/](bot/README.md)), kalıcı kuyruk ve testler |
 
 **Mevcut kapsam:** fiyatlar Petrol Ofisi'nin il listesinden alınır. Kontroller 15 dakikalık aralıklarla planlanır; gecikebilir, anlık bildirim garantisi yoktur. [Chrome eklentisi](#chrome-eklentisi) Chrome Web Store'a hazır. [Android uygulaması](#android-uygulaması) bu repodan derlenir; Google Play yayını hazırlanıyor. Web sürümü push bildirimi almaz.

@@ -11,6 +11,8 @@ public sealed class NotificationBatch
     public bool TelegramDelivered { get; set; }
     /// <summary>Kişisel bot bildirimleri. Abone kimlikleri asla buraya yazılmaz (bu dosya herkese açık).</summary>
     public bool BotDelivered { get; set; }
+    /// <summary>X (Twitter) özeti.</summary>
+    public bool XDelivered { get; set; }
 }
 
 public sealed class NotificationOutbox(string path)
@@ -42,7 +44,8 @@ public sealed class NotificationOutbox(string path)
     public async Task<bool> DispatchAsync(
         Func<PriceChange, Task> sendFcm,
         Func<IReadOnlyList<PriceChange>, Task> sendTelegram,
-        Func<IReadOnlyList<PriceChange>, Task>? sendBot = null)
+        Func<IReadOnlyList<PriceChange>, Task>? sendBot = null,
+        Func<IReadOnlyList<PriceChange>, Task>? sendX = null)
     {
         var batches = Load();
         bool succeeded = true;
@@ -92,9 +95,24 @@ public sealed class NotificationOutbox(string path)
                     succeeded = false;
                 }
             }
+
+            if (!batch.XDelivered)
+            {
+                try
+                {
+                    if (sendX is not null) await sendX(batch.Changes);
+                    batch.XDelivered = true;
+                    Save(batches);
+                }
+                catch (Exception ex) when (ex is HttpRequestException or TaskCanceledException)
+                {
+                    Console.Error.WriteLine($"  ! X: {ex.Message}");
+                    succeeded = false;
+                }
+            }
         }
 
-        batches.RemoveAll(b => b.TelegramDelivered && b.BotDelivered && b.Changes.All(c => b.FcmDelivered.Contains(c.Topic)));
+        batches.RemoveAll(b => b.TelegramDelivered && b.BotDelivered && b.XDelivered && b.Changes.All(c => b.FcmDelivered.Contains(c.Topic)));
         Save(batches);
         return succeeded;
     }

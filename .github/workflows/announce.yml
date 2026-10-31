@@ -1,0 +1,70 @@
+name: Zam duyurusu ekle
+
+# Yaklaşan bir zam/indirim duyurusunu uygulamaya ekler (data/announcements.json).
+# Telefondan: GitHub uygulaması → Actions → "Zam duyurusu ekle" → Run workflow.
+# Sadece kaynağı belli duyurular için kullan; uygulama bunu gözlenen fiyattan ayrı,
+# "bekleniyor" etiketiyle gösterir ve fiyat değişince kendiliğinden gizler.
+on:
+  workflow_dispatch:
+    inputs:
+      fuel:
+        description: 'Yakıt'
+        type: choice
+        options: [motorin, benzin, lpg]
+        required: true
+      change:
+        description: 'Litre başına değişim, ₺ (zam: 1.20, indirim: -0.85)'
+        required: true
+      effective_at:
+        description: 'Yürürlük, Türkiye saati (YYYY-AA-GG SS:DD)'
+        required: true
+      source:
+        description: 'Kaynak (ör. EPDK, şirket açıklaması, haber sitesi)'
+        required: true
+      source_url:
+        description: 'Kaynak bağlantısı (https://, isteğe bağlı)'
+        required: false
+      notify_telegram:
+        description: 'Telegram kanalına da gönder'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collect
+  cancel-in-progress: false
+
+jobs:
+  announce:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Duyuruyu ekle
+        env:
+          FUEL: ${{ inputs.fuel }}
+          CHANGE: ${{ inputs.change }}
+          AT: ${{ inputs.effective_at }}
+          SOURCE: ${{ inputs.source }}
+          SOURCE_URL: ${{ inputs.source_url }}
+          TELEGRAM_BOT_TOKEN: ${{ inputs.notify_telegram && secrets.TELEGRAM_BOT_TOKEN || '' }}
+          TELEGRAM_CHAT_ID: ${{ vars.TELEGRAM_CHAT_ID }}
+        run: >
+          node tools/add_announcement.mjs
+          --fuel "$FUEL" --change "$CHANGE" --at "$AT" --source "$SOURCE" --url "$SOURCE_URL"
+          ${{ inputs.notify_telegram && '--telegram' || '' }}
+      - name: Kaydet
+        env:
+          FUEL: ${{ inputs.fuel }}
+          CHANGE: ${{ inputs.change }}
+          AT: ${{ inputs.effective_at }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/announcements.json
+          git commit -m "📢 Duyuru: $FUEL $CHANGE ₺ ($AT)"
+          git push

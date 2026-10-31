@@ -62,6 +62,20 @@ En yeni değişiklik en üstte, en fazla 300 kayıt. Henüz hiç değişiklik ol
 ]
 ```
 
+## `announcements.json`: beklenen zam/indirim duyuruları
+
+Bakımcının kaynağıyla eklediği yaklaşan değişiklikler. **Gözlenen fiyat değildir**; asıl fiyat her zaman `latest.json`'dadır. Genellikle boş listedir.
+
+```json
+{ "items": [
+  { "id": "motorin-202611012100", "fuel": "motorin", "change": 1.2,
+    "effectiveAt": "2026-11-01T21:00:00+00:00", "source": "EPDK", "sourceUrl": "https://…",
+    "publishedAt": "2026-10-31T18:00:00+00:00" }
+] }
+```
+
+`change` litre başına beklenen değişimdir (₺; indirimde eksi). İl bazında tutar farklı olabilir.
+
 ## Kullanım notları
 
 - `raw.githubusercontent.com` dosyaları birkaç dakika önbellekte tutar. Daha taze veri için adrese `?t=<zaman>` ekleyebilirsin.

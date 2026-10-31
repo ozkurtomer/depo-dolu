@@ -1,0 +1,29 @@
+{
+  "name": "depodolu",
+  "version": "0.1.0",
+  "description": "Türkiye akaryakıt fiyatları (81 il, benzin/motorin/LPG) için bağımlılıksız istemci. Depo Dolu açık JSON verisini okur.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
+  "files": ["index.js", "index.d.ts", "README.md"],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "keywords": ["turkey", "turkiye", "fuel-prices", "akaryakit", "benzin", "motorin", "lpg", "open-data"],
+  "homepage": "https://github.com/ozkurtomer/depo-dolu/tree/main/packages/depodolu",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ozkurtomer/depo-dolu.git",
+    "directory": "packages/depodolu"
+  },
+  "bugs": "https://github.com/ozkurtomer/depo-dolu/issues",
+  "license": "MIT",
+  "author": "Ömer Özkurt"
+}

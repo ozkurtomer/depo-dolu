@@ -29,6 +29,16 @@ dotnet run --project collector/DepoDolu.Collector -- --data .local-data --html c
 dotnet test collector/DepoDolu.sln
 ```
 
+## Static pages and the web deployment
+
+`.github/workflows/pages.yml` builds the app, then `app/tools/prerender.mjs` writes one static page per province and fuel (`bursa/motorin/`), an all-provinces table (`fiyatlar/`), `sitemap.xml` and `robots.txt` from the committed `data/`. Pushes made by the collector with `GITHUB_TOKEN` do not trigger other workflows, so Pages also runs four times a day (00:20, 06:20, 12:20 and 18:20 Turkey time). The app itself always reads live JSON; only the static summaries and share previews can lag behind until the next deployment.
+
+The web app is installable (manifest + `public/sw.js`). The service worker caches the app shell only. Price data is never cached by it; when offline the app shows the last stored prices with an explicit banner. Bump `CACHE` in `sw.js` when a non-hashed file such as an icon changes.
+
+## Price-change announcements
+
+`data/announcements.json` holds upcoming, sourced price announcements, kept separate from observed list prices. Add one from the GitHub mobile app via **Actions → Zam duyurusu ekle → Run workflow** (fuel, TRY/L change, effective time in Turkey time, source, optional HTTPS link, optional Telegram post). `tools/add_announcement.mjs` validates input, replaces a duplicate fuel/time entry and removes entries older than a day. The app shows an announcement as "expected" until the effective time plus three hours, and hides it for a province once that province's price has changed. Only add announcements with a named source.
+
 ## Native app status
 
 The Android project lives in `app/android/` (Capacitor 8, API 36) with icons, notification icon and channel; add `google-services.json` for push and follow [the Android guide](ANDROID.md). iOS is not set up yet. Web users receive no native push permission prompt; they can follow the Telegram channel. The separate Chrome extension uses Chrome alarms and local notifications rather than Firebase; see [its setup and test guide](../extension/README.md). To publish a new version to the Chrome Web Store, follow the [release guide](../extension/STORE.md).
@@ -38,6 +48,7 @@ The Android project lives in `app/android/` (Capacitor 8, API 36) with icons, no
 - Change the repository and public web URLs in `app/src/app/config.ts`, and the sharing metadata in `app/src/index.html`.
 - Update the web deployment base path in `.github/workflows/pages.yml`.
 - Add `FIREBASE_SERVICE_ACCOUNT` and/or `TELEGRAM_BOT_TOKEN` as Actions secrets; `TELEGRAM_CHAT_ID` is a repository variable.
+- Optional X (Twitter) summary: add `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN` and `X_ACCESS_SECRET` (OAuth 1.0a user context with write permission) as secrets. All four are required; otherwise X is skipped like any unconfigured channel. A test post is sent only with `--test --x`.
 - Place `google-services.json` inside `app/android/app/` (git-ignored). For CI APKs with push, store its content in the `GOOGLE_SERVICES_JSON` secret.
 - Configure GitHub Pages to use GitHub Actions. Review permissions and run the workflow manually once before relying on scheduled checks.
 

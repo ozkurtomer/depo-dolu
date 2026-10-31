@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "build:dev": "ng build --configuration development",
+    "build:web": "ng build --base-href /depo-dolu/ && node tools/prerender.mjs --dist dist/browser --data ../data",
     "cap:sync": "ng build && npx cap sync android",
     "android": "ng build && npx cap sync android && npx cap open android",
     "assets:native": "python tools/generate_native_assets.py && npx -y @capacitor/assets@4 generate --android --iconBackgroundColor #0e3b4a --iconBackgroundColorDark #0e3b4a --splashBackgroundColor #0e3b4a --splashBackgroundColorDark #0e3b4a"

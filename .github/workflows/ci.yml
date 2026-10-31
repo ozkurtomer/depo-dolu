@@ -50,6 +50,10 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npm test
       - run: npm run build
+      - name: SEO sayfalarını üret (il/yakıt sayfaları, sitemap)
+        run: node tools/prerender.mjs --dist dist/browser --data ../data
+      - name: npm istemci paketi testleri
+        run: node --test ../packages/depodolu/test/*.test.mjs
       - name: API örneklerini yerel veriyle dene
         run: |
           node ../examples/prices.mjs --file ../data/latest.json --city bursa --fuel motorin
