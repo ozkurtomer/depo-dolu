@@ -11,6 +11,7 @@ No API key or account is required. These are static JSON files hosted by GitHub,
 | `latest.json` | object | Current prices for 82 regions in 81 provinces |
 | `history/{province}.json` | array, oldest first | Snapshots for one province, up to 400 entries |
 | `changes.json` | array, newest first | Up to 300 individual province/fuel changes |
+| `announcements.json` | object | Upcoming, sourced price-change announcements (not observed prices) |
 
 `notifications.pending.json`, when present, is an internal delivery queue. It is not part of the public API contract.
 
@@ -35,11 +36,32 @@ Times use ISO 8601 with an explicit offset. If prices do not change, the collect
 
 The source is [Petrol Ofisi's public province list](https://www.petrolofisi.com.tr/akaryakit-fiyatlari). It is one distributor's list price, not an average across all fuel stations or a guaranteed pump price. The app's “Türkiye ortalaması” is the unweighted mean of available region prices in this dataset.
 
+## Announcements
+
+```json
+{ "items": [
+  { "id": "motorin-202611012100", "fuel": "motorin", "change": 1.2,
+    "effectiveAt": "2026-11-01T21:00:00+00:00", "source": "EPDK", "sourceUrl": "https://…",
+    "publishedAt": "2026-10-31T18:00:00+00:00" }
+] }
+```
+
+`change` is the expected TRY/L change (negative for a cut). An announcement is a maintainer-entered, sourced expectation; it can differ per province and is not a price observation. Treat `latest.json` as the only observed price. The list is usually empty.
+
 ## Open a province in the app
 
-`https://ozkurtomer.github.io/depo-dolu/?il=bursa&yakit=motorin`
+`https://ozkurtomer.github.io/depo-dolu/bursa/motorin/`
 
-Valid fuels are `benzin`, `motorin`, `lpg`. Unknown provinces and fuels are ignored. The link opens the selected price; it does not enable notifications by itself for a new user.
+Each province/fuel has a static page with its own title, description and share preview; the app then opens with that selection. The older form `?il=bursa&yakit=motorin` still works. Valid fuels are `benzin`, `motorin`, `lpg`. A table of all regions is at `/fiyatlar/`. Links do not enable notifications by themselves.
+
+## Embed a price box
+
+```html
+<div data-depodolu-il="bursa" data-depodolu-yakit="motorin"></div>
+<script src="https://ozkurtomer.github.io/depo-dolu/widget.js" async></script>
+```
+
+See [WIDGET.md](WIDGET.md).
 
 ## Compatibility
 
@@ -47,4 +69,4 @@ Existing province slugs and fuel names are public identifiers. New distributors 
 
 ## Runnable clients
 
-See [examples/README.md](../examples/README.md) for dependency-free Python and Node clients with local-file mode, HTTP error handling and timestamp output.
+See [examples/README.md](../examples/README.md) for dependency-free Python and Node clients with local-file mode, HTTP error handling and timestamp output, and a Home Assistant sensor. A typed, dependency-free JavaScript client lives in [packages/depodolu](../packages/depodolu/README.md).

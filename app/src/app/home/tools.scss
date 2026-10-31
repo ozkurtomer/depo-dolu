@@ -1,0 +1,124 @@
+// Yolculuk, bütçe, duyuru ve kurulum kartlarının ortak stili; ana sayfa kartlarıyla aynı dil.
+
+:host {
+  display: block;
+}
+
+.card {
+  background: var(--dd-surface);
+  border: 1px solid var(--dd-line);
+  border-radius: 1.5rem;
+  padding: 1.125rem 1.25rem;
+}
+
+h2 {
+  margin: 0 0 0.875rem;
+  font: 600 1.0625rem var(--dd-body);
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem;
+}
+
+label {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+  font-size: 0.8125rem;
+  color: var(--dd-soft);
+
+  &.wide {
+    grid-column: 1 / -1;
+  }
+}
+
+input,
+select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.6rem 0.7rem;
+  border: 1.5px solid var(--dd-line);
+  border-radius: 0.75rem;
+  background: var(--dd-surface);
+  font: 600 1rem var(--dd-body);
+  color: var(--dd-ink);
+
+  &:focus-visible {
+    outline: 3px solid var(--dd-accent);
+    outline-offset: 1px;
+  }
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--dd-ink);
+
+  input {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--dd-brand);
+  }
+}
+
+.result {
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.big {
+  margin: 0;
+  font: 700 2.5rem/1 var(--dd-num);
+  font-variant-numeric: tabular-nums;
+
+  small {
+    font-size: 1.25rem;
+    color: var(--dd-soft);
+  }
+}
+
+.sub {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--dd-soft);
+}
+
+.note {
+  margin: 0.75rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--dd-soft);
+}
+
+.good {
+  color: var(--dd-down);
+}
+
+.bad {
+  color: var(--dd-up);
+}
+
+.btn {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  padding: 0.6rem 1.1rem;
+  background: var(--dd-brand);
+  color: #fff;
+  font: 600 0.9375rem var(--dd-body);
+
+  &.ghost {
+    background: none;
+    color: var(--dd-soft);
+  }
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--dd-accent);
+  outline-offset: 2px;
+}

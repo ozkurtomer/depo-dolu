@@ -10,12 +10,18 @@ import { REPO_URL, TELEGRAM_BOT_URL, TELEGRAM_URL, WEB_URL } from '../config';
 import { ago, tl, tlWhole } from '../format';
 import { PriceChartComponent } from './price-chart.component';
 import { priceShareUrl } from '../share';
+import { RangeKey, RANGES, availableRanges, seriesChange, sliceSeries } from '../trip';
+import { TripComponent } from './trip.component';
+import { BudgetComponent } from './budget.component';
+import { AnnouncementComponent } from './announcement.component';
+import { InstallCardComponent } from './install-card.component';
 
 const TANK_SIZES = [30, 40, 50, 60, 70];
 
 @Component({
   selector: 'dd-home',
-  imports: [IonContent, IonRefresher, IonRefresherContent, PriceChartComponent],
+  imports: [IonContent, IonRefresher, IonRefresherContent, PriceChartComponent, TripComponent, BudgetComponent,
+    AnnouncementComponent, InstallCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   host: { class: 'ion-page' },
@@ -39,6 +45,7 @@ export class HomeComponent {
     return s.city ? `${TELEGRAM_BOT_URL}?start=${s.city}_${s.fuel}` : TELEGRAM_BOT_URL;
   });
   readonly repoUrl = REPO_URL;
+  readonly allPricesUrl = `${WEB_URL}fiyatlar/`;
   readonly tl = tl;
   readonly tlWhole = tlWhole;
   readonly ago = ago;
@@ -66,6 +73,15 @@ export class HomeComponent {
   });
 
   readonly series = computed(() => PricesService.series(this.history(), this.settings().fuel));
+
+  /** Grafik aralığı: geçmiş uzadıkça 1 ay / 3 ay / 1 yıl düğmeleri görünür. */
+  readonly range = signal<RangeKey>('all');
+  readonly ranges = computed(() => availableRanges(this.series()));
+  readonly visibleSeries = computed(() => {
+    const days = RANGES.find(r => r.key === this.range())?.days ?? null;
+    return this.ranges().length ? sliceSeries(this.series(), days) : this.series();
+  });
+  readonly rangeChange = computed(() => seriesChange(this.visibleSeries()));
 
   readonly lastMove = computed(() => {
     const s = this.series();

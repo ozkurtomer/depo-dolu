@@ -32,4 +32,12 @@ Source: Petrol Ofisi province list; individual pump prices may differ.
 
 `benzin` is gasoline, `motorin` diesel, `lpg` autogas. Both examples return a nonzero exit code for missing files, unavailable prices, unknown provinces or network errors. Valid province keys come from `latest.json`, not display names. See [API documentation](../docs/API.md) for the contract and hosting limitations.
 
+## Home Assistant
+
+[`home-assistant.yaml`](home-assistant.yaml) adds REST sensors for one province (gasoline, diesel, LPG and last change time) plus an optional notification automation. Change the province key and keep the hourly interval.
+
+## JavaScript package
+
+[`packages/depodolu`](../packages/depodolu/README.md) is a typed, dependency-free client (`getPrice('bursa', 'motorin')`). For websites without code, use the [embeddable price box](../docs/WIDGET.md).
+
 Türkçe: `--file data/latest.json` ile internete çıkmadan deneyebilirsin. `--city` kalıcı il anahtarını, `--fuel` yakıt türünü seçer. Fiyatlar TL/litre ve KDV dahildir.

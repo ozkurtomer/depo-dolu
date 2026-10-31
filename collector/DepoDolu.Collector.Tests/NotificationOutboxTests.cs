@@ -36,6 +36,24 @@ public sealed class NotificationOutboxTests : IDisposable
     }
 
     [Fact]
+    public async Task X_hatasi_kalir_diger_kanallar_tekrarlanmaz()
+    {
+        Store.Enqueue([Bursa]);
+        int telegram = 0, x = 0;
+        Assert.False(await Store.DispatchAsync(_ => Task.CompletedTask, _ => { telegram++; return Task.CompletedTask; },
+            _ => Task.CompletedTask, _ => throw new HttpRequestException("HTTP 503")));
+        var batch = Assert.Single(Store.Load());
+        Assert.True(batch.TelegramDelivered);
+        Assert.False(batch.XDelivered);
+
+        Assert.True(await Store.DispatchAsync(_ => Task.CompletedTask, _ => { telegram++; return Task.CompletedTask; },
+            _ => Task.CompletedTask, _ => { x++; return Task.CompletedTask; }));
+        Assert.Equal(1, telegram);
+        Assert.Equal(1, x);
+        Assert.Empty(Store.Load());
+    }
+
+    [Fact]
     public async Task Telegram_hatasi_fcm_teslimini_geri_almaz()
     {
         Store.Enqueue([Bursa]);

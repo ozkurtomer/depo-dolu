@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Depo Dolu fiyat kutusu</title>
+<!--
+  Gömülebilir fiyat kutusu. Kullanım (iframe):
+    <iframe src="https://ozkurtomer.github.io/depo-dolu/embed.html?il=bursa&yakit=motorin"
+            width="320" height="150" style="border:0" loading="lazy" title="Bursa akaryakıt fiyatı"></iframe>
+  Parametreler: il (zorunlu, ör. bursa, istanbul-avrupa), yakit (benzin|motorin|lpg; yoksa üçü birden),
+  tema (acik|koyu). Veri, repodaki herkese açık latest.json'dan okunur; çerez ve analiz yok.
+-->
+<style>
+  :root { --bg: #ffffff; --ink: #182a2f; --soft: #627378; --line: #e2e8e6; --brand: #0e3b4a; --accent: #f2b705; }
+  :root[data-tema="koyu"] { --bg: #0e3b4a; --ink: #ffffff; --soft: #b7c7cc; --line: #24566a; --brand: #f2b705; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body { background: var(--bg); color: var(--ink); font: 15px/1.35 system-ui, -apple-system, 'Segoe UI', sans-serif; }
+  a.box { display: flex; flex-direction: column; justify-content: space-between; height: 100%; padding: 12px 14px;
+    border: 1px solid var(--line); border-radius: 14px; color: inherit; text-decoration: none; }
+  .head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .city { font-weight: 700; font-size: 16px; }
+  .brand { font-size: 12px; font-weight: 700; color: var(--brand); white-space: nowrap; }
+  .prices { display: flex; gap: 14px; flex-wrap: wrap; margin: 6px 0; }
+  .fuel small { display: block; color: var(--soft); font-size: 12px; }
+  .fuel strong { font-size: 22px; font-variant-numeric: tabular-nums; }
+  .single strong { font-size: 38px; line-height: 1.05; }
+  .foot { color: var(--soft); font-size: 11px; }
+  .err { padding: 12px; color: var(--soft); }
+</style>
+</head>
+<body>
+<div id="root"><p class="err">Fiyat yükleniyor…</p></div>
+<script>
+(() => {
+  const DATA = 'https://raw.githubusercontent.com/ozkurtomer/depo-dolu/main/data/latest.json';
+  const APP = 'https://ozkurtomer.github.io/depo-dolu/';
+  const FUELS = { benzin: 'Benzin', motorin: 'Motorin', lpg: 'LPG' };
+  const params = new URLSearchParams(location.search);
+  const city = (params.get('il') || '').toLowerCase();
+  const fuel = params.get('yakit');
+  if (params.get('tema') === 'koyu') document.documentElement.dataset.tema = 'koyu';
+
+  const root = document.getElementById('root');
+  const money = new Intl.NumberFormat('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const date = new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'long', timeZone: 'Europe/Istanbul' });
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const fail = msg => { root.replaceChildren(el('p', 'err', msg)); };
+
+  fetch(`${DATA}?t=${Math.floor(Date.now() / 600000)}`)
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(data => {
+      const c = data.prices && Object.hasOwn(data.prices, city) ? data.prices[city] : null;
+      if (!c) return fail('İl bulunamadı. Örnek: ?il=bursa&yakit=motorin');
+      const keys = fuel && FUELS[fuel] ? [fuel] : Object.keys(FUELS);
+      const link = el('a', 'box');
+      link.href = APP + city + '/' + keys[0] + '/';
+      link.target = '_blank';
+      link.rel = 'noopener';
+      const head = el('div', 'head');
+      head.append(el('span', 'city', c.name), el('span', 'brand', 'Depo Dolu ⛽'));
+      const prices = el('div', 'prices' + (keys.length === 1 ? ' single' : ''));
+      for (const k of keys) {
+        if (typeof c[k] !== 'number') continue;
+        const f = el('div', 'fuel');
+        f.append(el('small', null, FUELS[k]), el('strong', null, money.format(c[k]) + ' ₺'));
+        prices.append(f);
+      }
+      const foot = el('div', 'foot', `Petrol Ofisi il liste fiyatı, KDV dahil · ${date.format(new Date(c.changedAt))}`);
+      link.append(head, prices, foot);
+      root.replaceChildren(link);
+    })
+    .catch(() => fail('Fiyat şu an alınamadı.'));
+})();
+</script>
+</body>
+</html>

@@ -36,3 +36,30 @@ Try it: https://ozkurtomer.github.io/depo-dolu/
 Source and API: https://github.com/ozkurtomer/depo-dolu
 
 I'd appreciate feedback on the data contract and first-use experience. Small contribution ideas are in the roadmap.
+
+## Türkçe — zam günü paylaşımı (X / WhatsApp kanalı)
+
+⛽ Bu gece motorine zam: litre başına +1,20 ₺ (örnek, gerçek tutarı yaz). İlindeki yeni fiyatı ve 50 litrelik deponun kaça dolduğunu gör:
+https://ozkurtomer.github.io/depo-dolu/
+
+İl bağlantısı paylaşmak daha iyi çalışır; önizlemede o ilin fiyatı görünür: `https://ozkurtomer.github.io/depo-dolu/bursa/motorin/`
+
+## Türkçe — haber siteleri ve bloglar için
+
+Sitende güncel akaryakıt fiyatını göstermek istersen ücretsiz, çerezsiz bir fiyat kutusu var. İki satır HTML yeterli; kutu kaynağı ve tarihi gösterir, Depo Dolu'ya bağlanır: https://github.com/ozkurtomer/depo-dolu/blob/main/docs/WIDGET.md
+
+## public-apis listesi önerisi
+
+github.com/public-apis/public-apis için PR taslağı (Government ya da Open Data bölümü; listenin güncel kurallarını kontrol et):
+
+```
+| [Depo Dolu](https://github.com/ozkurtomer/depo-dolu/blob/main/docs/API.md) | Fuel prices for Turkey's 81 provinces (gasoline, diesel, LPG) with history | No | Yes | Yes |
+```
+
+## WhatsApp kanalı
+
+WhatsApp Kanalları'nın otomatik gönderim için herkese açık bir API'si yok; gönderiler elle yapılır. Kanal açıklaması önerisi:
+
+> Depo Dolu: Türkiye akaryakıt zamları ve indirimleri. Zam günlerinde kısa özet ve ilini seçebileceğin bağlantı. Kaynak: Petrol Ofisi il liste fiyatı. Reklam yok.
+
+Telegram kanalına giden özet, toplayıcı çıktısında da görünür; aynı metni kanala kopyalayabilirsin.

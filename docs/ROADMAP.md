@@ -18,14 +18,19 @@ Depo Dolu aims to make Turkish fuel prices easy to check, share and reuse. An un
 - [x] **Local Chrome extension beta:** Manifest V3 popup, optional alerts, price history, local demo scenarios and dependency-free tests. [Load unpacked](../extension/README.md).
 - [ ] **Chrome Web Store publication:** package, screenshots, listing copy and privacy answers are ready ([release guide](../extension/STORE.md)); waiting for store review.
 - [ ] **iOS:** validate native notification/topic support and distribution requirements before promising availability.
-- [ ] **Installable web app:** an explicit offline policy and install flow, without presenting cached prices as live.
+- [x] **Installable web app:** manifest, service worker that caches only the app shell, install prompt (and iPhone instructions); offline prices are always labelled as last stored.
+- [x] **Search and share previews:** a static page per province and fuel (`/bursa/motorin/`), an all-provinces table and a sitemap, rebuilt four times a day.
+- [x] **Trip and budget tools:** trip cost with estimated distance between province centres, where-to-fill-up advice, monthly budget.
+- [x] **More channels:** optional X (Twitter) summaries. WhatsApp Channels have no public posting API; posts there stay manual.
 
 ## More useful data
 
 - [ ] Add another distributor behind a versioned, backward-compatible schema.
 - [ ] District-level prices where a reliable public source exists.
-- [ ] Pre-change announcements with a separate source and a clear distinction from observed pump list prices.
-- [ ] A small embeddable widget and examples built by the community.
+- [x] Pre-change announcements with a separate source and a clear distinction from observed pump list prices (`data/announcements.json`, added via a manual workflow).
+- [x] A small embeddable widget ([WIDGET.md](WIDGET.md)), a typed JS client and a Home Assistant example.
+- [ ] Publish the JS client to npm and submit the API to public lists (drafts in [LAUNCH_COPY.md](LAUNCH_COPY.md)).
+- [ ] Long-range charts against the exchange rate or inflation once a year of history has accumulated.
 
 ## Good first contributions
 

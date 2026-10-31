@@ -52,6 +52,8 @@
       }
     </section>
 
+    <dd-announcement />
+
     @if (country(); as c) {
     <section class="card compare">
       <p class="compare-main">
@@ -143,9 +145,30 @@
       </div>
     </section>
 
+    <dd-trip />
+
+    <dd-budget />
+
     <section class="card">
       <h2>Fiyat geçmişi</h2>
-      <dd-price-chart [points]="series()" />
+      @if (ranges().length) {
+      <div class="sizes ranges" role="radiogroup" aria-label="Zaman aralığı">
+        @for (r of ranges(); track r.key) {
+        <button type="button" role="radio" [attr.aria-checked]="range() === r.key" [class.on]="range() === r.key"
+          (click)="range.set(r.key)">{{ r.label }}</button>
+        }
+      </div>
+      }
+      <dd-price-chart [points]="visibleSeries()" />
+      @if (rangeChange(); as rc) {
+      <p class="range-change">
+        Bu aralıkta
+        <span [class.up]="rc.delta > 0" [class.down]="rc.delta < 0">
+          {{ rc.delta > 0 ? '+' : rc.delta < 0 ? '−' : '' }}{{ tl(rc.delta < 0 ? -rc.delta : rc.delta) }} ₺
+          ({{ rc.delta > 0 ? '+' : rc.delta < 0 ? '−' : '' }}%{{ tl(rc.percent < 0 ? -rc.percent : rc.percent) }})
+        </span>
+      </p>
+      }
     </section>
 
     @if (cityFeed().length) {
@@ -171,12 +194,15 @@
       kopyala</button>
     @if (shareMessage(); as message) { <p class="share-status" role="status">{{ message }}</p> }
 
+    <dd-install-card />
+
     <footer>
       Fiyatlar Petrol Ofisi'nin il liste fiyatıdır, KDV dahil. İstasyonlar arasında küçük farklar olabilir.
       @if (prices.latest(); as latest) {
       <span class="data-date">Verinin son güncellenmesi: {{ ago(latest.updatedAt) }}. Bu tarih son başarılı kontrolü
         göstermez.</span>
       }
+      <a [href]="allPricesUrl" target="_blank" rel="noopener">81 ilin fiyat tablosu</a>
       <a [href]="sourceUrl()" target="_blank" rel="noopener">Fiyat kaynağını gör</a>
       <a [href]="repoUrl" target="_blank" rel="noopener">Açık kaynak, GitHub'da</a>
     </footer>

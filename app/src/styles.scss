@@ -105,3 +105,28 @@ input[type='checkbox'][role='switch'] {
     animation: none !important;
   }
 }
+
+/* Statik il sayfası özeti: Angular açılana kadar ve arama motorları için görünür. */
+.dd-static {
+  display: block;
+  max-width: 30rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 2rem;
+
+  h1 { font-size: 1.5rem; margin: 0.25rem 0; }
+  h2 { font-size: 1.0625rem; margin: 1.25rem 0 0.5rem; }
+  p, li, td { color: var(--dd-soft); }
+  a { color: var(--dd-brand); }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { padding: 0.35rem 0; text-align: left; border-bottom: 1px solid var(--dd-line); }
+}
+
+.dd-static-nav { font-size: 0.875rem; color: var(--dd-soft); }
+
+.dd-static-price {
+  margin: 0.25rem 0;
+  font: 700 3.5rem/1 var(--dd-num);
+  color: var(--dd-brand) !important;
+
+  small { font-size: 1.25rem; color: var(--dd-soft); }
+}

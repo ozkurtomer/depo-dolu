@@ -50,6 +50,10 @@ export interface Settings {
   fuel: FuelKey;
   notify: boolean;
   liters: number;
+  /** Aracın ortalama tüketimi, L/100 km. Yolculuk ve bütçe hesabında kullanılır. */
+  consumption: number;
+  /** Aylık sürüş, km. */
+  monthlyKm: number;
 }
 
 /** Bildirim konusu — sunucudaki PriceChange.Topic ile aynı olmalı. */

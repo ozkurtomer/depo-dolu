@@ -1,0 +1,44 @@
+# Home Assistant: Depo Dolu fiyat sensörleri
+# configuration.yaml'a ekle (ya da packages/ altına koy), il anahtarını değiştir, Home Assistant'ı yeniden başlat.
+# Veri saatte bir okunur; GitHub'ın kullanım sınırları için daha sık sorgulama.
+# Otomasyon örneği en altta: fiyat değişince telefonuna bildirim.
+
+rest:
+  - resource: https://raw.githubusercontent.com/ozkurtomer/depo-dolu/main/data/latest.json
+    scan_interval: 3600
+    sensor:
+      - name: "Bursa benzin"
+        unique_id: depodolu_bursa_benzin
+        value_template: "{{ value_json.prices.bursa.benzin }}"
+        unit_of_measurement: "TRY/L"
+        state_class: measurement
+        icon: mdi:gas-station
+      - name: "Bursa motorin"
+        unique_id: depodolu_bursa_motorin
+        value_template: "{{ value_json.prices.bursa.motorin }}"
+        unit_of_measurement: "TRY/L"
+        state_class: measurement
+        icon: mdi:gas-station
+      - name: "Bursa LPG"
+        unique_id: depodolu_bursa_lpg
+        value_template: "{{ value_json.prices.bursa.lpg }}"
+        unit_of_measurement: "TRY/L"
+        state_class: measurement
+        icon: mdi:gas-station
+      - name: "Bursa fiyat değişikliği"
+        unique_id: depodolu_bursa_changed_at
+        value_template: "{{ value_json.prices.bursa.changedAt }}"
+        device_class: timestamp
+
+# automation:
+#   - alias: "Motorin fiyatı değişti"
+#     trigger:
+#       - platform: state
+#         entity_id: sensor.bursa_motorin
+#     condition:
+#       - "{{ trigger.from_state.state not in ['unknown', 'unavailable'] }}"
+#     action:
+#       - service: notify.mobile_app_telefonum
+#         data:
+#           title: "⛽ Motorin {{ 'zamlandı' if trigger.to_state.state | float > trigger.from_state.state | float else 'indirildi' }}"
+#           message: "{{ trigger.from_state.state }} → {{ trigger.to_state.state }} ₺/L (Petrol Ofisi il liste fiyatı)"

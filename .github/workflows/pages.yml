@@ -2,12 +2,18 @@ name: Web demo
 
 # Uygulamanın web sürümünü GitHub Pages'e yayınlar:
 #   https://ozkurtomer.github.io/depo-dolu/
-# Fiyatlar her zaman repodaki data/ klasöründen canlı okunur, bu yüzden
-# sadece uygulama kodu değiştiğinde yeniden yayınlamak yeterli.
+# Uygulama fiyatları her açılışta repodaki data/ klasöründen canlı okur.
+# Statik il sayfaları (bursa/motorin/ gibi), tüm iller tablosu ve sitemap ise derleme
+# anında üretilir; arama sonuçları ve paylaşım önizlemeleri güncel kalsın diye
+# günde birkaç kez yeniden yayınlanır. (Toplayıcının GITHUB_TOKEN ile attığı
+# commit'ler başka iş akışlarını tetiklemez, bu yüzden zamanlama gerekiyor.)
 on:
   push:
     branches: [main]
     paths: ['app/**', '.github/workflows/pages.yml']
+  schedule:
+    # Türkiye saatiyle 00:20, 06:20, 12:20, 18:20. Zamlar çoğunlukla gece yarısı gelir.
+    - cron: '20 3,9,15,21 * * *'
   workflow_dispatch:
 
 permissions:
@@ -35,7 +41,10 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - run: npx ng build --base-href /depo-dolu/
       # Tek sayfalık uygulama: bilinmeyen adresler de uygulamayı açsın.
+      # (İl sayfaları üretilmeden önce kopyalanır; 404 sayfası ana sayfa özetini taşımaz.)
       - run: cp dist/browser/index.html dist/browser/404.html
+      - name: İl/yakıt sayfaları, tüm iller tablosu ve sitemap
+        run: node tools/prerender.mjs --dist dist/browser --data ../data --base https://ozkurtomer.github.io/depo-dolu/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: app/dist/browser

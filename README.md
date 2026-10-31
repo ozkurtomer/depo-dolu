@@ -25,7 +25,7 @@ Fuel prices are easier to understand when you can see what they mean for your ow
 2. Compare the price with other regions and choose your tank size.
 3. Use **“Bu fiyatı paylaş”** to share the price and a link that opens the same province and fuel.
 
-Example: [Bursa · diesel](https://ozkurtomer.github.io/depo-dolu/?il=bursa&yakit=motorin). For alerts without installing anything, open [@depodolu_bot](https://t.me/depodolu_bot) on Telegram and type your province: you only hear about your own province and fuel. The [@depodolu](https://t.me/depodolu) channel posts a nationwide summary.
+Example: [Bursa · diesel](https://ozkurtomer.github.io/depo-dolu/bursa/motorin/) · [all provinces table](https://ozkurtomer.github.io/depo-dolu/fiyatlar/). For alerts without installing anything, open [@depodolu_bot](https://t.me/depodolu_bot) on Telegram and type your province: you only hear about your own province and fuel. The [@depodolu](https://t.me/depodolu) channel posts a nationwide summary.
 
 <p align="center"><img src="docs/ekranlar.png" alt="Province selection, fuel selection, tank cost and price history" width="100%"></p>
 <p align="center"><sub>Illustrative app overview; the history shown is sample data. The live demo contains the actual collected history.</sub></p>
@@ -37,6 +37,10 @@ Example: [Bursa · diesel](https://ozkurtomer.github.io/depo-dolu/?il=bursa&yaki
 | Gasoline, diesel and LPG in 81 provinces (82 regions) | Public JSON, no API key or account |
 | Tank cost, region comparison and price history | .NET collector with no production NuGet dependencies |
 | Shareable province and fuel links | Angular + Ionic web client, ready for further native work |
+| Trip cost (distance, consumption, round trip, per person) and where to fill up | A static, indexable page per province and fuel, plus a sitemap |
+| Monthly fuel budget and the cost of a 1 ₺ increase | [Embeddable price box](docs/WIDGET.md) for news sites and blogs |
+| Sourced "price change expected" notices, kept apart from observed prices | Typed JS client ([packages/depodolu](packages/depodolu/README.md)) and a [Home Assistant sensor](examples/home-assistant.yaml) |
+| Installable web app (add to home screen, offline shell) | Optional X (Twitter) summaries next to Telegram and FCM |
 | Personal Telegram alerts for your province ([@depodolu_bot](https://t.me/depodolu_bot)) | FCM topics, Telegram bot on Cloudflare Workers + D1 ([bot/](bot/README.md)), retry queue and tests |
 
 **Current scope:** prices come from Petrol Ofisi province lists. Checks are scheduled every 15 minutes, can be delayed, and do not guarantee instant alerts. The [Chrome extension](#chrome-extension) is ready for the Chrome Web Store. The [Android app](#android-app) builds from this repository; Google Play release is in progress. The web app does not receive push alerts.
