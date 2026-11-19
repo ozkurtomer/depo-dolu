@@ -72,3 +72,7 @@ The Android project lives in `app/android/` (Capacitor 8, API 36) with icons, no
 Do not remove this override without checking the complete build-tool dependency tree. Revisit it with an Angular/build-tool upgrade. Keep `npm ci` in CI; do not bypass dependency validation with `--force` or an unlocked install.
 
 For this fix, the original failure was reproduced on Linux with Node 22.23.3/npm 10.9.9. The corrected lock is generated and checked with the same versions, including `npm ls schema-utils webpack`, the app tests and the production build.
+
+## Refreshing the README demo GIF
+
+`docs/demo.gif` shows the live web app, so prices in it age. After a UI change or a big price move, regenerate it with `pip install pillow` and `python3 tools/make_demo_gif.py` (needs Google Chrome). Use `--lang en-US --out docs/demo-en.gif` for an English version.
