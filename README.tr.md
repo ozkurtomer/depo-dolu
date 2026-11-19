@@ -17,6 +17,9 @@
 
 </div>
 
+<p align="center"><img src="docs/demo.gif" alt="Depo Dolu web uygulaması: il ve yakıt değiştirme, ardından depo maliyeti, yakıt defteri, yolculuk, aylık bütçe ve fiyat geçmişi" width="300"></p>
+<p align="center"><sub>Canlı web uygulaması: il ve yakıtı seç, depo maliyeti, yolculuk, bütçe ve fiyat geçmişine bak.</sub></p>
+
 Litre fiyatının kendi depomuz için ne anlama geldiğini görmek daha faydalı. Depo Dolu; il fiyatını, karşılaştırmayı, geçmişi ve bildirimleri küçük, açık kaynak bir projede birleştirir. Uygulamada hesap açma ve reklam yok.
 
 ## Bir dakikada dene

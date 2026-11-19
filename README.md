@@ -17,6 +17,9 @@
 
 </div>
 
+<p align="center"><img src="docs/demo.gif" alt="Depo Dolu web app: switching province and fuel, then scrolling through tank cost, fuel log, trip cost, monthly budget and price history" width="300"></p>
+<p align="center"><sub>The live web app: pick a province and fuel, then scroll through tank cost, trip cost, budget and price history.</sub></p>
+
 Fuel prices are easier to understand when you can see what they mean for your own tank. Depo Dolu brings province prices, comparisons, history and alerts together in a small, open-source project. No account or advertising in the app.
 
 ## Try it in a minute
