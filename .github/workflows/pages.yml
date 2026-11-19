@@ -44,7 +44,7 @@ jobs:
       # (İl sayfaları üretilmeden önce kopyalanır; 404 sayfası ana sayfa özetini taşımaz.)
       - run: cp dist/browser/index.html dist/browser/404.html
       # Her il/yakıt için paylaşım görseli: WhatsApp ve X önizlemesinde güncel fiyat görünür.
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
       - run: pip install --quiet 'pillow>=11,<13'
