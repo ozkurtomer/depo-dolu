@@ -1,581 +1,581 @@
 {
   "source": "Petrol Ofisi",
   "sourceUrl": "https://www.petrolofisi.com.tr/akaryakit-fiyatlari",
-  "updatedAt": "2026-10-31T22:27:44+00:00",
+  "updatedAt": "2026-11-19T19:17:32+00:00",
   "prices": {
     "adana": {
       "name": "Adana",
-      "benzin": 82.30,
-      "motorin": 102.40,
-      "lpg": 41.61,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.10,
+      "motorin": 97.30,
+      "lpg": 51.11,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "adiyaman": {
       "name": "Adıyaman",
-      "benzin": 82.60,
-      "motorin": 102.70,
-      "lpg": 41.84,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.50,
+      "motorin": 97.70,
+      "lpg": 51.34,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "afyon": {
       "name": "Afyonkarahisar",
-      "benzin": 82.60,
-      "motorin": 102.80,
-      "lpg": 41.20,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.40,
+      "motorin": 97.60,
+      "lpg": 50.70,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "agri": {
       "name": "Ağrı",
-      "benzin": 83.10,
-      "motorin": 103.20,
-      "lpg": 43.19,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.90,
+      "motorin": 98.10,
+      "lpg": 52.69,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "aksaray": {
       "name": "Aksaray",
-      "benzin": 82.40,
-      "motorin": 102.40,
-      "lpg": 41.29,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.20,
+      "motorin": 97.40,
+      "lpg": 50.79,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "amasya": {
       "name": "Amasya",
-      "benzin": 82.00,
-      "motorin": 102.10,
-      "lpg": 41.79,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.90,
+      "motorin": 97.00,
+      "lpg": 51.29,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "ankara": {
       "name": "Ankara",
-      "benzin": 81.40,
-      "motorin": 101.60,
-      "lpg": 41.29,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.30,
+      "motorin": 96.40,
+      "lpg": 50.79,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "antalya": {
       "name": "Antalya",
-      "benzin": 82.70,
-      "motorin": 102.90,
-      "lpg": 41.40,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.50,
+      "motorin": 97.70,
+      "lpg": 50.90,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "ardahan": {
       "name": "Ardahan",
-      "benzin": 82.50,
-      "motorin": 102.70,
-      "lpg": 42.19,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.40,
+      "motorin": 97.60,
+      "lpg": 51.69,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "artvin": {
       "name": "Artvin",
-      "benzin": 82.40,
-      "motorin": 102.50,
-      "lpg": 42.69,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.20,
+      "motorin": 97.40,
+      "lpg": 52.19,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "aydin": {
       "name": "Aydın",
-      "benzin": 82.00,
-      "motorin": 102.20,
-      "lpg": 41.30,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.80,
+      "motorin": 97.00,
+      "lpg": 50.80,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "balikesir": {
       "name": "Balıkesir",
-      "benzin": 82.00,
-      "motorin": 102.20,
-      "lpg": 40.70,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.90,
+      "motorin": 97.10,
+      "lpg": 50.20,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "bartin": {
       "name": "Bartın",
-      "benzin": 81.80,
-      "motorin": 101.70,
-      "lpg": 41.19,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.60,
+      "motorin": 96.60,
+      "lpg": 50.69,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "batman": {
       "name": "Batman",
-      "benzin": 82.90,
-      "motorin": 103.10,
-      "lpg": 42.14,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.70,
+      "motorin": 98.00,
+      "lpg": 51.64,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "bayburt": {
       "name": "Bayburt",
-      "benzin": 82.30,
-      "motorin": 102.40,
-      "lpg": 42.49,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.20,
+      "motorin": 97.40,
+      "lpg": 51.99,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "bilecik": {
       "name": "Bilecik",
-      "benzin": 81.50,
-      "motorin": 101.30,
-      "lpg": 40.60,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.20,
+      "motorin": 96.20,
+      "lpg": 50.10,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "bingol": {
       "name": "Bingöl",
-      "benzin": 83.00,
-      "motorin": 103.20,
-      "lpg": 42.29,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.80,
+      "motorin": 98.10,
+      "lpg": 51.79,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "bitlis": {
       "name": "Bitlis",
-      "benzin": 83.10,
-      "motorin": 103.30,
-      "lpg": 41.91,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.90,
+      "motorin": 98.10,
+      "lpg": 51.41,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "bolu": {
       "name": "Bolu",
-      "benzin": 81.60,
-      "motorin": 101.40,
-      "lpg": 40.99,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.30,
+      "motorin": 96.30,
+      "lpg": 50.49,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "burdur": {
       "name": "Burdur",
-      "benzin": 82.50,
-      "motorin": 102.70,
-      "lpg": 41.40,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.30,
+      "motorin": 97.50,
+      "lpg": 50.90,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "bursa": {
       "name": "Bursa",
-      "benzin": 81.60,
-      "motorin": 101.50,
-      "lpg": 40.60,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.40,
+      "motorin": 96.40,
+      "lpg": 50.10,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "canakkale": {
       "name": "Çanakkale",
-      "benzin": 82.10,
-      "motorin": 102.30,
-      "lpg": 40.80,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.90,
+      "motorin": 97.10,
+      "lpg": 50.30,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "cankiri": {
       "name": "Çankırı",
-      "benzin": 81.90,
-      "motorin": 102.00,
-      "lpg": 41.49,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.70,
+      "motorin": 96.90,
+      "lpg": 50.99,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "corum": {
       "name": "Çorum",
-      "benzin": 82.10,
-      "motorin": 102.20,
-      "lpg": 41.39,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.90,
+      "motorin": 97.10,
+      "lpg": 50.89,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "denizli": {
       "name": "Denizli",
-      "benzin": 82.20,
-      "motorin": 102.40,
-      "lpg": 41.10,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.10,
+      "motorin": 97.30,
+      "lpg": 50.60,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "diyarbakir": {
       "name": "Diyarbakır",
-      "benzin": 82.90,
-      "motorin": 103.10,
-      "lpg": 42.26,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.70,
+      "motorin": 98.00,
+      "lpg": 51.76,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "duzce": {
       "name": "Düzce",
-      "benzin": 81.40,
-      "motorin": 101.30,
-      "lpg": 40.99,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.20,
+      "motorin": 96.20,
+      "lpg": 50.49,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "edirne": {
       "name": "Edirne",
-      "benzin": 81.60,
-      "motorin": 101.70,
-      "lpg": 41.30,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.40,
+      "motorin": 96.50,
+      "lpg": 50.80,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "elazig": {
       "name": "Elazığ",
-      "benzin": 83.10,
-      "motorin": 103.20,
-      "lpg": 41.81,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.90,
+      "motorin": 98.10,
+      "lpg": 51.31,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "erzincan": {
       "name": "Erzincan",
-      "benzin": 82.40,
-      "motorin": 102.50,
-      "lpg": 42.69,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.30,
+      "motorin": 97.50,
+      "lpg": 52.19,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "erzurum": {
       "name": "Erzurum",
-      "benzin": 82.50,
-      "motorin": 102.60,
-      "lpg": 42.39,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.30,
+      "motorin": 97.50,
+      "lpg": 51.89,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "eskisehir": {
       "name": "Eskişehir",
-      "benzin": 81.70,
-      "motorin": 101.60,
-      "lpg": 40.70,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.50,
+      "motorin": 96.50,
+      "lpg": 50.20,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "gaziantep": {
       "name": "Gaziantep",
-      "benzin": 82.40,
-      "motorin": 102.50,
-      "lpg": 41.41,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.20,
+      "motorin": 97.40,
+      "lpg": 50.91,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "giresun": {
       "name": "Giresun",
-      "benzin": 82.20,
-      "motorin": 102.30,
-      "lpg": 41.99,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.10,
+      "motorin": 97.30,
+      "lpg": 51.49,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "gumushane": {
       "name": "Gümüşhane",
-      "benzin": 82.20,
-      "motorin": 102.30,
-      "lpg": 41.99,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.00,
+      "motorin": 97.20,
+      "lpg": 51.49,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "hakkari": {
       "name": "Hakkari",
-      "benzin": 83.10,
-      "motorin": 103.30,
-      "lpg": 42.97,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.90,
+      "motorin": 98.10,
+      "lpg": 52.47,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "hatay": {
       "name": "Hatay",
-      "benzin": 82.20,
-      "motorin": 102.30,
-      "lpg": 41.51,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.00,
+      "motorin": 97.20,
+      "lpg": 51.01,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "igdir": {
       "name": "Iğdır",
-      "benzin": 83.10,
-      "motorin": 103.20,
-      "lpg": 43.19,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.90,
+      "motorin": 98.10,
+      "lpg": 52.69,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "isparta": {
       "name": "Isparta",
-      "benzin": 82.60,
-      "motorin": 102.80,
-      "lpg": 41.30,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.40,
+      "motorin": 97.60,
+      "lpg": 50.80,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "istanbul-anadolu": {
       "name": "İstanbul (Anadolu)",
-      "benzin": 80.30,
-      "motorin": 100.30,
-      "lpg": 40.60,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 71.10,
+      "motorin": 95.20,
+      "lpg": 50.10,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "istanbul-avrupa": {
       "name": "İstanbul (Avrupa)",
-      "benzin": 80.40,
-      "motorin": 100.50,
-      "lpg": 41.20,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 71.30,
+      "motorin": 95.30,
+      "lpg": 50.70,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "izmir": {
       "name": "İzmir",
-      "benzin": 81.70,
-      "motorin": 101.90,
-      "lpg": 41.20,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.50,
+      "motorin": 96.70,
+      "lpg": 50.70,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "kahramanmaras": {
       "name": "Kahramanmaraş",
-      "benzin": 82.40,
-      "motorin": 102.50,
-      "lpg": 41.54,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.30,
+      "motorin": 97.50,
+      "lpg": 51.04,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "karabuk": {
       "name": "Karabük",
-      "benzin": 81.80,
-      "motorin": 101.70,
-      "lpg": 40.99,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.60,
+      "motorin": 96.60,
+      "lpg": 50.49,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "karaman": {
       "name": "Karaman",
-      "benzin": 82.40,
-      "motorin": 102.40,
-      "lpg": 41.81,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.20,
+      "motorin": 97.40,
+      "lpg": 51.31,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "kars": {
       "name": "Kars",
-      "benzin": 82.50,
-      "motorin": 102.70,
-      "lpg": 42.29,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.40,
+      "motorin": 97.60,
+      "lpg": 51.79,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "kastamonu": {
       "name": "Kastamonu",
-      "benzin": 82.20,
-      "motorin": 102.20,
-      "lpg": 41.99,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.00,
+      "motorin": 97.20,
+      "lpg": 51.49,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "kayseri": {
       "name": "Kayseri",
-      "benzin": 82.40,
-      "motorin": 102.50,
-      "lpg": 41.29,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.30,
+      "motorin": 97.50,
+      "lpg": 50.79,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "kilis": {
       "name": "Kilis",
-      "benzin": 82.20,
-      "motorin": 102.30,
-      "lpg": 41.81,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.00,
+      "motorin": 97.20,
+      "lpg": 51.31,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "kirikkale": {
       "name": "Kırıkkale",
-      "benzin": 81.70,
-      "motorin": 101.80,
-      "lpg": 41.19,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.60,
+      "motorin": 96.80,
+      "lpg": 50.69,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "kirklareli": {
       "name": "Kırklareli",
-      "benzin": 81.60,
-      "motorin": 101.70,
-      "lpg": 41.20,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.40,
+      "motorin": 96.50,
+      "lpg": 50.70,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "kirsehir": {
       "name": "Kırşehir",
-      "benzin": 81.80,
-      "motorin": 101.90,
-      "lpg": 41.19,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.60,
+      "motorin": 96.80,
+      "lpg": 50.69,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "kocaeli": {
       "name": "Kocaeli",
-      "benzin": 80.90,
-      "motorin": 100.80,
-      "lpg": 40.40,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 71.70,
+      "motorin": 95.70,
+      "lpg": 49.90,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "konya": {
       "name": "Konya",
-      "benzin": 82.50,
-      "motorin": 102.70,
-      "lpg": 41.29,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.30,
+      "motorin": 97.50,
+      "lpg": 50.79,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "kutahya": {
       "name": "Kütahya",
-      "benzin": 82.40,
-      "motorin": 102.30,
-      "lpg": 41.30,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.20,
+      "motorin": 97.20,
+      "lpg": 50.80,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "malatya": {
       "name": "Malatya",
-      "benzin": 82.70,
-      "motorin": 102.80,
-      "lpg": 41.77,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.50,
+      "motorin": 97.70,
+      "lpg": 51.27,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "manisa": {
       "name": "Manisa",
-      "benzin": 81.80,
-      "motorin": 102.00,
-      "lpg": 41.20,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.60,
+      "motorin": 96.80,
+      "lpg": 50.70,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "mardin": {
       "name": "Mardin",
-      "benzin": 82.90,
-      "motorin": 103.10,
-      "lpg": 41.94,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.70,
+      "motorin": 98.00,
+      "lpg": 51.44,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "mersin": {
       "name": "Mersin",
-      "benzin": 82.30,
-      "motorin": 102.40,
-      "lpg": 41.91,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.10,
+      "motorin": 97.30,
+      "lpg": 51.41,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "mugla": {
       "name": "Muğla",
-      "benzin": 82.20,
-      "motorin": 102.40,
-      "lpg": 41.20,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.10,
+      "motorin": 97.30,
+      "lpg": 50.70,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "mus": {
       "name": "Muş",
-      "benzin": 83.10,
-      "motorin": 103.30,
-      "lpg": 42.28,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.90,
+      "motorin": 98.10,
+      "lpg": 51.78,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "nevsehir": {
       "name": "Nevşehir",
-      "benzin": 82.30,
-      "motorin": 102.40,
-      "lpg": 41.29,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.20,
+      "motorin": 97.40,
+      "lpg": 50.79,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "nigde": {
       "name": "Niğde",
-      "benzin": 82.30,
-      "motorin": 102.40,
-      "lpg": 40.99,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.10,
+      "motorin": 97.30,
+      "lpg": 50.49,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "ordu": {
       "name": "Ordu",
-      "benzin": 82.00,
-      "motorin": 102.10,
-      "lpg": 41.59,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.90,
+      "motorin": 97.00,
+      "lpg": 51.09,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "osmaniye": {
       "name": "Osmaniye",
-      "benzin": 82.20,
-      "motorin": 102.30,
-      "lpg": 42.04,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.00,
+      "motorin": 97.20,
+      "lpg": 51.54,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "rize": {
       "name": "Rize",
-      "benzin": 82.20,
-      "motorin": 102.30,
-      "lpg": 41.99,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.00,
+      "motorin": 97.20,
+      "lpg": 51.49,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "sakarya": {
       "name": "Sakarya",
-      "benzin": 81.20,
-      "motorin": 101.10,
-      "lpg": 40.50,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.00,
+      "motorin": 96.00,
+      "lpg": 50.00,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "samsun": {
       "name": "Samsun",
-      "benzin": 82.00,
-      "motorin": 102.10,
-      "lpg": 41.59,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.90,
+      "motorin": 97.00,
+      "lpg": 51.09,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "sanliurfa": {
       "name": "Şanlıurfa",
-      "benzin": 82.60,
-      "motorin": 102.70,
-      "lpg": 41.79,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.40,
+      "motorin": 97.60,
+      "lpg": 51.29,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "siirt": {
       "name": "Siirt",
-      "benzin": 83.00,
-      "motorin": 103.20,
-      "lpg": 42.04,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.80,
+      "motorin": 98.10,
+      "lpg": 51.54,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "sinop": {
       "name": "Sinop",
-      "benzin": 82.10,
-      "motorin": 102.20,
-      "lpg": 41.89,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.00,
+      "motorin": 97.10,
+      "lpg": 51.39,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "sirnak": {
       "name": "Şırnak",
-      "benzin": 83.00,
-      "motorin": 103.20,
-      "lpg": 42.35,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.80,
+      "motorin": 98.10,
+      "lpg": 51.85,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "sivas": {
       "name": "Sivas",
-      "benzin": 82.40,
-      "motorin": 102.50,
-      "lpg": 41.69,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.30,
+      "motorin": 97.50,
+      "lpg": 51.19,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "tekirdag": {
       "name": "Tekirdağ",
-      "benzin": 81.20,
-      "motorin": 101.30,
-      "lpg": 41.10,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.00,
+      "motorin": 96.10,
+      "lpg": 50.60,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "tokat": {
       "name": "Tokat",
-      "benzin": 82.00,
-      "motorin": 102.10,
-      "lpg": 41.99,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.90,
+      "motorin": 97.00,
+      "lpg": 51.49,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "trabzon": {
       "name": "Trabzon",
-      "benzin": 82.20,
-      "motorin": 102.30,
-      "lpg": 41.99,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.00,
+      "motorin": 97.20,
+      "lpg": 51.49,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "tunceli": {
       "name": "Tunceli",
-      "benzin": 83.10,
-      "motorin": 103.30,
-      "lpg": 42.71,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.90,
+      "motorin": 98.10,
+      "lpg": 52.21,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "usak": {
       "name": "Uşak",
-      "benzin": 82.20,
-      "motorin": 102.40,
-      "lpg": 41.30,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.10,
+      "motorin": 97.30,
+      "lpg": 50.80,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "van": {
       "name": "Van",
-      "benzin": 83.10,
-      "motorin": 103.20,
-      "lpg": 42.31,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 73.90,
+      "motorin": 98.10,
+      "lpg": 51.81,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "yalova": {
       "name": "Yalova",
-      "benzin": 81.20,
-      "motorin": 101.10,
-      "lpg": 40.50,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.00,
+      "motorin": 96.00,
+      "lpg": 50.00,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "yozgat": {
       "name": "Yozgat",
-      "benzin": 82.10,
-      "motorin": 102.20,
-      "lpg": 41.39,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.90,
+      "motorin": 97.10,
+      "lpg": 50.89,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     },
     "zonguldak": {
       "name": "Zonguldak",
-      "benzin": 81.70,
-      "motorin": 101.60,
-      "lpg": 41.29,
-      "changedAt": "2026-10-31T22:27:44+00:00"
+      "benzin": 72.50,
+      "motorin": 96.50,
+      "lpg": 50.79,
+      "changedAt": "2026-11-19T19:17:32+00:00"
     }
   }
 }
