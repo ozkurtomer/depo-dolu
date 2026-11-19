@@ -94,7 +94,7 @@ jobs:
       - name: Debug APK derle
         working-directory: app/android
         run: bash ./gradlew assembleDebug --no-daemon
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: depo-dolu-android-debug
           path: app/android/app/build/outputs/apk/debug/app-debug.apk
