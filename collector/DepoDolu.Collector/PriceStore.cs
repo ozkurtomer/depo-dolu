@@ -56,6 +56,19 @@ public sealed class PriceStore(string dataDir)
             if (c.Benzin is < 5 or > 1000 || c.Motorin is < 5 or > 1000 || c.Lpg is < 2 or > 1000)
                 throw new ValidationException($"{c.Name} için mantıksız fiyat: {c}");
         }
+
+        // KDV hariç fiyat varsa oran ~1,20 olmalı; değilse sütunlar/sıra kaymış olabilir.
+        foreach (var c in current)
+            foreach (var fuel in Enum.GetValues<Fuel>())
+            {
+                var gross = c.Get(fuel);
+                var net = c.GetNet(fuel);
+                if (gross is null || net is null || net == 0) continue;
+                var ratio = gross.Value / net.Value;
+                if (ratio is < 1.15m or > 1.25m)
+                    throw new ValidationException($"{c.Name} {fuel.DisplayName()}: KDV dahil/hariç oranı beklenmedik ({gross} / {net}). Kaynak sayfa düzeni değişmiş olabilir.");
+            }
+
         // Not: Büyük fiyat sıçramaları (örn. %20+) artık reddedilmiyor; piyasada böyle zamlar/indirimler olabiliyor.
     }
 
@@ -94,6 +107,9 @@ public sealed class PriceStore(string dataDir)
                 Benzin = city.Benzin,
                 Motorin = city.Motorin,
                 Lpg = city.Lpg,
+                BenzinNet = city.BenzinNet,
+                MotorinNet = city.MotorinNet,
+                LpgNet = city.LpgNet,
                 ChangedAt = changedAt
             };
 
@@ -122,6 +138,29 @@ public sealed class PriceStore(string dataDir)
         }
 
         return true;
+    }
+
+    public const decimal AnomalyPercent = 20m;
+    public const int MaxAnomalies = 200;
+
+    /// <summary>Tek seferde %20'den büyük değişimleri bulur (reddetmez; sadece işaretler).</summary>
+    public static List<PriceChange> FindAnomalies(IEnumerable<PriceChange> changes) =>
+        changes.Where(c => Math.Abs(c.Percent) > AnomalyPercent).ToList();
+
+    /// <summary>Anormal değişimleri data/anomalies.json'a ekler. Kaç kayıt eklendiğini döndürür.</summary>
+    public int RecordAnomalies(IEnumerable<PriceChange> changes, DateTimeOffset now)
+    {
+        var found = FindAnomalies(changes);
+        if (found.Count == 0) return 0;
+        var path = Path.Combine(dataDir, "anomalies.json");
+        var list = Read<List<AnomalyEntry>>(path) ?? [];
+        list.InsertRange(0, found.Select(c => new AnomalyEntry
+        {
+            At = now, City = c.Slug, Name = c.CityName, Fuel = c.Fuel.Key(),
+            Old = c.OldPrice, New = c.NewPrice, Percent = Math.Round(c.Percent, 1)
+        }));
+        Write(path, list.Take(MaxAnomalies).ToList());
+        return found.Count;
     }
 
     private void AppendHistory(CityPrices city, DateTimeOffset now)

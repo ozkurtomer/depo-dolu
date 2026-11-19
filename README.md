@@ -161,7 +161,7 @@ flowchart LR
     Q --> F[FCM topics for native clients]
 ```
 
-Validation rejects missing fuel values, duplicate or unknown province rows, too few rows and implausible absolute prices. Large price moves are accepted, since real hikes and cuts happen. Failed configured notification deliveries stay queued for retry. This reduces errors; it is not a guarantee of price accuracy or exactly-once delivery. [Operation and fork setup](docs/OPERATIONS.md).
+Validation rejects missing fuel values, duplicate or unknown province rows, too few rows and implausible absolute prices. Large price moves are accepted, since real hikes and cuts happen; moves above 20% are flagged in `data/anomalies.json` and open a review issue. Failed configured notification deliveries stay queued for retry. This reduces errors; it is not a guarantee of price accuracy or exactly-once delivery. [Operation and fork setup](docs/OPERATIONS.md).
 
 The app stores selections and a last-price cache on the device. This repository does not collect user accounts; Firebase and Telegram process their own service data. The Telegram bot stores only the chat ID and the chosen province and fuel in Cloudflare D1, never in this repository; `/durdur` deletes the record. [Security notes](SECURITY.md).
 

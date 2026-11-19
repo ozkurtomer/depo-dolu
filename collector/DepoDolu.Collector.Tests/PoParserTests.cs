@@ -82,4 +82,14 @@ public class PoParserTests
     {
         Assert.Equal("Kurşunsuz 95 TL/LT", PoParser.Text("<b>Kur&#351;unsuz</b>&nbsp;95 <i>TL/LT</i>"));
     }
+
+    [Fact]
+    public void Kdv_haric_fiyat_ayri_okunur_ve_oran_tutarlidir()
+    {
+        var bursa = PoParser.Parse(Fixture("po-2026-10-25.html")).Single(p => p.Slug == "bursa");
+
+        Assert.NotNull(bursa.BenzinNet);
+        Assert.InRange(bursa.Benzin!.Value / bursa.BenzinNet!.Value, 1.19m, 1.21m);
+        Assert.InRange(bursa.Lpg!.Value / bursa.LpgNet!.Value, 1.19m, 1.21m);
+    }
 }

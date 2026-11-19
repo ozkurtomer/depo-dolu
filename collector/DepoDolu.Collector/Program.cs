@@ -74,6 +74,12 @@ try
 
     var now = DateTimeOffset.FromUnixTimeSeconds(DateTimeOffset.UtcNow.ToUnixTimeSeconds()); // saniyeye yuvarla
     bool wrote = store.Save(previous, current, changes, now);
+    int anomalies = previous is null ? 0 : store.RecordAnomalies(changes, now);
+    if (anomalies > 0)
+    {
+        Console.WriteLine($"⚠ {anomalies} değişim %{PriceStore.AnomalyPercent:0} üzerinde: kabul edildi, data/anomalies.json'a işlendi.");
+        wrote = true;
+    }
 
     if (readmePath is not null && (wrote || args.Contains("--force-readme")))
     {
@@ -109,7 +115,7 @@ try
     }
 
     if (Environment.GetEnvironmentVariable("GITHUB_OUTPUT") is { } output)
-        await File.AppendAllTextAsync(output, $"changed={(wrote ? "true" : "false")}\nchange_count={changes.Count}\n");
+        await File.AppendAllTextAsync(output, $"changed={(wrote ? "true" : "false")}\nchange_count={changes.Count}\nanomaly_count={anomalies}\n");
 
     return 0;
 }

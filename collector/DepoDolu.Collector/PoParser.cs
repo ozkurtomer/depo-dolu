@@ -52,7 +52,10 @@ public static partial class PoParser
                 name,
                 FirstPrice(cells, benzinCol),
                 FirstPrice(cells, motorinCol),
-                lpgCol >= 0 ? FirstPrice(cells, lpgCol) : null));
+                lpgCol >= 0 ? FirstPrice(cells, lpgCol) : null,
+                SecondPrice(cells, benzinCol),
+                SecondPrice(cells, motorinCol),
+                lpgCol >= 0 ? SecondPrice(cells, lpgCol) : null));
         }
 
         return result;
@@ -67,6 +70,15 @@ public static partial class PoParser
         var match = PriceRegex().Match(cells[col].Text);
         if (!match.Success) return null;
         return decimal.Parse(match.Value.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>Hücrede ikinci bir fiyat varsa (kaynak "KDV dahil KDV hariç" yazar) KDV hariç fiyattır.</summary>
+    private static decimal? SecondPrice(List<(bool IsHeader, string Text)> cells, int col)
+    {
+        if (col < 0 || col >= cells.Count) return null;
+        var matches = PriceRegex().Matches(cells[col].Text);
+        if (matches.Count < 2) return null;
+        return decimal.Parse(matches[1].Value.Replace(',', '.'), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture);
     }
 
     internal static string Text(string html)

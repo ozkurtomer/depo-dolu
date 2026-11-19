@@ -4,7 +4,7 @@ The collector is scheduled every 15 minutes. It is a best-effort service: source
 
 ## Data checks
 
-The parser accepts known provinces only. Validation requires at least 75 distinct region rows, all three fuel prices in each row, and reasonable absolute prices. Large price moves are accepted (a former 20% jump guard stalled collection for weeks). A missing province retains its previous entry. These checks reduce obvious bad data; they cannot prove that an upstream price is correct.
+The parser accepts known provinces only. Validation requires at least 75 distinct region rows, all three fuel prices in each row, reasonable absolute prices, and a VAT-included/VAT-excluded ratio of about 1.20 whenever both are published (a shifted column would break it). Large price moves are accepted: a former hard 20% jump guard stalled collection for weeks during a real LPG hike. Moves above 20% are now written to `data/anomalies.json` and the collector opens a `veri-anomalisi` issue so you can review them. A missing province retains its previous entry. These checks reduce obvious bad data; they cannot prove that an upstream price is correct.
 
 No-price-change runs leave price timestamps alone. The collector can also repair a previously stored missing value without calling it a price change. `updatedAt` is therefore the last stored data update, not a collection heartbeat.
 

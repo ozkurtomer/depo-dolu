@@ -15,6 +15,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: collect
@@ -49,6 +50,16 @@ jobs:
           git add data README.md README.tr.md
           git commit -m "⛽ Fiyatlar güncellendi: ${{ steps.collect.outputs.change_count }} değişiklik"
           git push
+
+      - name: Büyük fiyat değişimini bildir
+        if: steps.collect.outputs.anomaly_count != '' && steps.collect.outputs.anomaly_count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create veri-anomalisi --color d93f0b --description "Tek seferde %20'den büyük fiyat değişimi" 2>/dev/null || true
+          gh issue create --label veri-anomalisi \
+            --title "Büyük fiyat değişimi: ${{ steps.collect.outputs.anomaly_count }} kayıt" \
+            --body "Collector %20'den büyük bir fiyat değişimi kabul etti. Ayrıntılar: data/anomalies.json. Gerçek bir zam/indirim ise kapatabilirsin; kaynak veri bozuksa son commit'i geri al."
 
       - name: Bildirimleri gönder
         if: hashFiles('data/notifications.pending.json') != ''

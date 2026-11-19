@@ -166,4 +166,27 @@ public class PriceStoreTests : IDisposable
         void storeWithNull() => new PriceStore(_dir).Save(null,
             Country((slug, c) => slug == "bursa" ? c with { Lpg = null } : c), [], T0);
     }
+
+    [Fact]
+    public void Buyuk_sicrama_anomali_olarak_kaydedilir()
+    {
+        var store = new PriceStore(_dir);
+        var big = new PriceChange("istanbul-avrupa", "İstanbul (Avrupa)", Fuel.Lpg, 41.20m, 50.70m);
+        var small = new PriceChange("bursa", "Bursa", Fuel.Benzin, 77.40m, 78.00m);
+
+        Assert.Equal(1, store.RecordAnomalies([big, small], T0));
+        var list = JsonSerializer.Deserialize<List<AnomalyEntry>>(File.ReadAllText(Path.Combine(_dir, "anomalies.json")))!;
+        var entry = Assert.Single(list);
+        Assert.Equal("lpg", entry.Fuel);
+        Assert.Equal(23.1m, entry.Percent);
+
+        Assert.Equal(0, store.RecordAnomalies([small], T0));
+    }
+
+    [Fact]
+    public void Kdv_orani_bozuksa_reddedilir()
+    {
+        var bad = Country((slug, c) => slug == "bursa" ? c with { BenzinNet = c.Benzin } : c);
+        Assert.Throws<ValidationException>(() => PriceStore.Validate(bad, []));
+    }
 }

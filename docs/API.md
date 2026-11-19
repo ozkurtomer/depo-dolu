@@ -26,7 +26,7 @@ console.log(data.prices.bursa.motorin); // TRY per litre
 console.log(data.updatedAt);           // Last stored data update, not last successful check
 ```
 
-Fuel fields: `benzin` = gasoline (95 octane), `motorin` = diesel, `lpg` = autogas. Prices are numbers in Turkish lira per litre, VAT included. Consumers should handle `null` for older or incomplete records. The collector now rejects new snapshots with missing fuel values.
+Fuel fields: `benzin` = gasoline (95 octane), `motorin` = diesel, `lpg` = autogas. Prices are numbers in Turkish lira per litre, VAT included. Consumers should handle `null` for older or incomplete records. Since 2026-11 records may also carry optional `benzinNet`, `motorinNet` and `lpgNet`: the same prices without VAT, as published by the source. The collector now rejects new snapshots with missing fuel values.
 
 `prices` is keyed by stable ASCII province slugs, including `istanbul-avrupa`, `istanbul-anadolu`, `sanliurfa` and `afyon`. Read all keys from `latest.json`; do not derive them from display names.
 
