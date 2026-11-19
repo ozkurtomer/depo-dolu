@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Fixed
+- Collector no longer rejects a run when a price moves by more than 20%; the guard blocked every scheduled run once a real LPG hike happened.
+
 ### Added
 - Fuel log: record fill-ups (litres, amount, optional odometer, full tank), see this and last month's spend and real full-to-full consumption, export as CSV. Stored on the device only.
 - Several vehicles, each with its own fuel and consumption; choosing one switches the home screen fuel and the trip/budget consumption.

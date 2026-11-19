@@ -161,7 +161,7 @@ flowchart LR
     Q --> F[Mobil istemciler için FCM konuları]
 ```
 
-Eksik yakıt fiyatı, tekrarlanan veya tanınmayan il satırı, az sayıda satır ve büyük fiyat sıçraması reddedilir. Ayarlanmış kanallarda başarısız olan bildirimler sonraki çalıştırmada tekrar denenir. Bu önlemler fiyat doğruluğunu veya bir mesajın yalnızca bir kez teslimini garanti etmez. [İşletim ve fork kurulumu](docs/OPERATIONS.md).
+Eksik yakıt fiyatı, tekrarlanan veya tanınmayan il satırı, az sayıda satır ve mantıksız mutlak fiyatlar reddedilir. Gerçek zam ve indirimler olabildiği için büyük fiyat değişimleri kabul edilir. Ayarlanmış kanallarda başarısız olan bildirimler sonraki çalıştırmada tekrar denenir. Bu önlemler fiyat doğruluğunu veya bir mesajın yalnızca bir kez teslimini garanti etmez. [İşletim ve fork kurulumu](docs/OPERATIONS.md).
 
 Seçimler ve son fiyat önbelleği cihazda tutulur. Bu repo kullanıcı hesabı toplamaz; Firebase ve Telegram kendi hizmet verilerini işler. Telegram botu yalnızca sohbet kimliğini ve seçilen il ile yakıtı Cloudflare D1'de tutar, bu repoya asla yazmaz; `/durdur` kaydı siler. [Güvenlik notları](SECURITY.md).
 
