@@ -56,11 +56,7 @@ public sealed class PriceStore(string dataDir)
             if (c.Benzin is < 5 or > 1000 || c.Motorin is < 5 or > 1000 || c.Lpg is < 2 or > 1000)
                 throw new ValidationException($"{c.Name} için mantıksız fiyat: {c}");
         }
-
-        var absurd = changes.FirstOrDefault(ch => Math.Abs(ch.Percent) > 20m);
-        if (absurd is not null)
-            throw new ValidationException(
-                $"{absurd.CityName} {absurd.Fuel.DisplayName()}: {absurd.OldPrice} → {absurd.NewPrice} (%{absurd.Percent:F1}). Elle kontrol edin.");
+        // Not: Büyük fiyat sıçramaları (örn. %20+) artık reddedilmiyor; piyasada böyle zamlar/indirimler olabiliyor.
     }
 
     public bool Save(LatestFile? previous, IReadOnlyList<CityPrices> current, IReadOnlyList<PriceChange> changes, DateTimeOffset now)

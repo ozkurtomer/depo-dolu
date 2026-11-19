@@ -110,10 +110,10 @@ public class PriceStoreTests : IDisposable
     }
 
     [Fact]
-    public void Mantiksiz_sicrama_reddedilir()
+    public void Buyuk_sicrama_reddedilmez()
     {
         var change = new PriceChange("bursa", "Bursa", Fuel.Benzin, 77.40m, 120m);
-        Assert.Throws<ValidationException>(() => PriceStore.Validate(Country(), [change]));
+        PriceStore.Validate(Country(), [change]);
     }
 
     [Fact]
