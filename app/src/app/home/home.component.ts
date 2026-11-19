@@ -7,7 +7,10 @@ import { PricesService } from '../services/prices.service';
 import { PushService } from '../services/push.service';
 import { SettingsService } from '../services/settings.service';
 import { REPO_URL, TELEGRAM_BOT_URL, TELEGRAM_URL, WEB_URL } from '../config';
-import { ago, tl, tlWhole } from '../format';
+import { ago, decimalSeparator, pct, tl, tlWhole } from '../format';
+import { locale, t } from '../i18n';
+import { LangService } from '../services/lang.service';
+import { LangSwitchComponent } from '../lang-switch.component';
 import { PriceChartComponent } from './price-chart.component';
 import { priceShareUrl } from '../share';
 import { RangeKey, RANGES, availableRanges, seriesChange, sliceSeries } from '../trip';
@@ -23,7 +26,7 @@ const TANK_SIZES = [30, 40, 50, 60, 70];
 @Component({
   selector: 'dd-home',
   imports: [IonContent, IonRefresher, IonRefresherContent, PriceChartComponent, TripComponent, BudgetComponent,
-    AnnouncementComponent, InstallCardComponent, FuelLogComponent, AlarmComponent],
+    AnnouncementComponent, InstallCardComponent, FuelLogComponent, AlarmComponent, LangSwitchComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   host: { class: 'ion-page' },
@@ -32,6 +35,7 @@ export class HomeComponent {
   readonly prices = inject(PricesService);
   readonly push = inject(PushService);
   private settingsService = inject(SettingsService);
+  private lang = inject(LangService);
 
   readonly pickCity = output<void>();
 
@@ -53,6 +57,11 @@ export class HomeComponent {
   readonly tlWhole = tlWhole;
   readonly ago = ago;
   readonly fuelLabel = fuelLabel;
+  readonly t = t;
+  readonly decimalSeparator = decimalSeparator;
+  readonly pct = pct;
+  /** Cümle içinde küçük harfle kullanılan yakıt adı (LPG hariç). */
+  readonly fuelLower = (key: FuelKey) => (key === 'lpg' ? fuelLabel(key) : fuelLabel(key).toLocaleLowerCase(locale()));
 
   readonly settings = this.settingsService.settings;
   readonly history = signal<HistoryEntry[]>([]);
@@ -71,8 +80,9 @@ export class HomeComponent {
 
   /** "97,80" → ["97", "80"] */
   readonly digits = computed(() => {
+    this.lang.lang(); // dil değişince ayraç da değişir
     const p = this.price();
-    return p == null ? null : tl(p).split(',');
+    return p == null ? null : tl(p).split(decimalSeparator());
   });
 
   readonly series = computed(() => PricesService.series(this.history(), this.settings().fuel));
@@ -162,9 +172,7 @@ export class HomeComponent {
     try {
       const result = await this.settingsService.setNotify(!this.settings().notify);
       this.pushMessage.set(
-        result === 'denied' ? 'Bildirim izni kapalı. Telefonun ayarlarından Depo Dolu için bildirimlere izin ver.'
-          : result === 'error' ? 'Bildirim ayarı değiştirilemedi. Bağlantını kontrol edip tekrar dene.'
-            : null,
+        result === 'denied' ? 'home.pushDenied' : result === 'error' ? 'home.pushError' : null,
       );
     } finally {
       this.busy.set(false);
@@ -177,22 +185,22 @@ export class HomeComponent {
     const price = this.price();
     if (!s.city || !city || price == null) return;
     const url = priceShareUrl(WEB_URL, s.city, s.fuel);
-    const text = `${city.name} ${fuelLabel(s.fuel)}: ${tl(price)} ₺/L. Kaynak: Petrol Ofisi il liste fiyatı. Depo Dolu ile takip et.`;
+    const text = t('home.shareText', { city: city.name, fuel: fuelLabel(s.fuel), price: tl(price) });
     try {
       if (!copyOnly && Capacitor.isNativePlatform()) {
         // Telefonda Android/iOS'un kendi paylaşım menüsü (WhatsApp, Telegram...)
-        await Share.share({ title: 'Depo Dolu', text, url, dialogTitle: 'Fiyatı paylaş' });
+        await Share.share({ title: 'Depo Dolu', text, url, dialogTitle: t('home.shareDialog') });
       } else if (!copyOnly && navigator.share) {
         await navigator.share({ title: 'Depo Dolu', text, url });
       } else {
         await navigator.clipboard.writeText(`${text}\n${url}`);
-        this.shareMessage.set('Fiyat ve bağlantı kopyalandı. İstediğin yerde paylaşabilirsin.');
+        this.shareMessage.set('home.copied');
       }
     } catch (error) {
       const cancelled = (error instanceof DOMException && error.name === 'AbortError')
         || (error instanceof Error && /cancel/i.test(error.message));
       if (!cancelled)
-        this.shareMessage.set('Paylaşılamadı. Tarayıcının paylaş menüsünü deneyebilirsin.');
+        this.shareMessage.set('home.shareFail');
     }
   }
 }

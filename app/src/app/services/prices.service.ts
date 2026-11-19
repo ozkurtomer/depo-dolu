@@ -1,3 +1,4 @@
+import { t } from '../i18n';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Preferences } from '@capacitor/preferences';
@@ -39,7 +40,7 @@ export class PricesService {
         this.offline.set(true);
         this.error.set(null);
       } else {
-        this.error.set('Fiyatlar alınamadı. Bağlantını kontrol edip tekrar dene.');
+        this.error.set(t('err.prices'));
       }
     } finally {
       this.loading.set(false);

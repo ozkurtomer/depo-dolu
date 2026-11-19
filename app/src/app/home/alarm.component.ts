@@ -6,56 +6,58 @@ import { PushService } from '../services/push.service';
 import { SettingsService } from '../services/settings.service';
 import { WidgetService } from '../services/widget.service';
 import { tl } from '../format';
+import { locale, t } from '../i18n';
+import { LangService } from '../services/lang.service';
 
 /** "Motorin 45 ₺'nin altına inince haber ver." Android'de arka planda saatte bir kontrol edilir. */
 @Component({
   selector: 'dd-alarm',
   template: `
     <section class="card">
-      <h2>Fiyat alarmı</h2>
+      <h2>{{ t('alarm.title') }}</h2>
       @switch (state().kind) {
         @case ('reached') {
-          <p class="big good">Hedefin geldi</p>
-          <p class="sub">{{ cityName() }} {{ fuelName() }} şu an {{ tl(price()!) }} ₺; hedefin {{ tl(alarm()!.below) }} ₺ idi.</p>
+          <p class="big good">{{ t('alarm.reached') }}</p>
+          <p class="sub">{{ t('alarm.reachedSub', { city: cityName(), fuel: fuelName(), price: tl(price()!), target: tl(alarm()!.below) }) }}</p>
         }
         @case ('waiting') {
-          <p class="sub">{{ cityName() }} {{ fuelName() }} <strong>{{ tl(alarm()!.below) }} ₺</strong> ya da altına inince haber vereceğiz.
-            Şu an {{ tl(price()!) }} ₺, hedefe {{ tl(gap()) }} ₺ var.</p>
+          <p class="sub">{{ t('alarm.waitPre', { city: cityName(), fuel: fuelName() }) }} <strong>{{ tl(alarm()!.below) }} ₺</strong>
+            {{ t('alarm.waitPost', { price: tl(price()!), gap: tl(gap()) }) }}</p>
         }
         @case ('unknown') {
-          <p class="sub">Hedefin {{ tl(alarm()!.below) }} ₺. Fiyat bilgisi gelince durumu göreceksin.</p>
+          <p class="sub">{{ t('alarm.unknown', { target: tl(alarm()!.below) }) }}</p>
         }
         @default {
-          <p class="sub">{{ fuelTitle() }} fiyatı istediğin seviyeye inince haber verelim.</p>
+          <p class="sub">{{ t('alarm.intro', { fuel: introFuel() }) }}</p>
           <div class="fields form">
-            <label>Hedef fiyat (₺/L)
+            <label>{{ t('alarm.target') }}
               <input type="number" inputmode="decimal" min="1" max="999" step="0.01" [value]="target() ?? ''"
                 (input)="target.set(numOrNull($any($event.target).valueAsNumber))"
-                [placeholder]="price() != null ? tl(price()! - 1) : 'ör. 45,50'" />
+                [placeholder]="price() != null ? tl(price()! - 1) : t('alarm.example')" />
             </label>
             <div class="actions" style="align-self: end">
-              <button type="button" class="btn" (click)="save()">Alarmı kur</button>
+              <button type="button" class="btn" (click)="save()">{{ t('alarm.set') }}</button>
             </div>
           </div>
           @if (error(); as e) { <p class="note bad" role="alert">{{ e }}</p> }
           @if (state().kind === 'elsewhere') {
-            <p class="note">Şu anki alarmın başka bir il ya da yakıt için ({{ tl(alarm()!.below) }} ₺). Yenisi onun yerine geçer.</p>
+            <p class="note">{{ t('alarm.elsewhere', { target: tl(alarm()!.below) }) }}</p>
           }
         }
       }
       @if (alarm() && state().kind !== 'elsewhere' && state().kind !== 'none') {
         <div class="actions" style="margin-top: 0.75rem">
-          <button type="button" class="btn ghost small" (click)="clear()">Alarmı kaldır</button>
+          <button type="button" class="btn ghost small" (click)="clear()">{{ t('alarm.remove') }}</button>
         </div>
       }
       <p class="note">
         @if (widget.supported) {
-          Telefonun fiyatı saatte bir kontrol eder, hedefe inince bildirim gönderir.
+          {{ t('alarm.native') }}
         } @else {
-          Uygulamayı açtığında burada görürsün. Arka planda bildirim Android uygulamasında.
+          {{ t('alarm.web') }}
         }
       </p>
-      @if (permissionNote()) { <p class="note bad" role="status">{{ permissionNote() }}</p> }
+      @if (permissionNote()) { <p class="note bad" role="status">{{ t(permissionNote()!) }}</p> }
     </section>
   `,
   styleUrl: './tools.scss',
@@ -65,6 +67,8 @@ export class AlarmComponent {
   private push = inject(PushService);
   private settingsService = inject(SettingsService);
   readonly widget = inject(WidgetService);
+  private lang = inject(LangService);
+  readonly t = t;
 
   readonly tl = tl;
   readonly target = signal<number | null>(null);
@@ -86,10 +90,13 @@ export class AlarmComponent {
     const slug = this.settings().city;
     return slug ? this.prices.latest()?.prices[slug]?.name ?? '' : '';
   });
-  readonly fuelTitle = computed(() => fuelLabel(this.settings().fuel));
+  /** Türkçede cümle başında büyük harf, İngilizcede cümle içinde küçük harf. */
+  readonly introFuel = computed(() => (this.lang.lang() === 'tr' ? this.fuelTitle() : this.fuelName()));
+  readonly fuelTitle = computed(() => { this.lang.lang(); return fuelLabel(this.settings().fuel); });
   readonly fuelName = computed(() => {
+    this.lang.lang();
     const label = fuelLabel(this.settings().fuel);
-    return label === 'LPG' ? label : label.toLocaleLowerCase('tr-TR');
+    return label === 'LPG' ? label : label.toLocaleLowerCase(locale());
   });
 
   numOrNull = (v: number) => (Number.isFinite(v) ? v : null);
@@ -98,14 +105,13 @@ export class AlarmComponent {
     const s = this.settings();
     const below = this.target();
     const problem = validateTarget(below, this.price());
-    if (problem || !s.city || below == null) return this.error.set(problem ?? 'Önce il seç.');
+    if (problem || !s.city || below == null) return this.error.set(problem ?? t('alarm.pickCityFirst'));
     this.error.set(null);
     await this.settingsService.update({ alarm: { city: s.city, fuel: s.fuel, below: Math.round(below * 100) / 100 } });
     this.target.set(null);
     if (this.widget.supported) {
       const granted = await this.push.requestPermission();
-      this.permissionNote.set(granted ? null
-        : 'Bildirim izni kapalı. Alarm yine de burada görünür; telefon ayarlarından Depo Dolu bildirimlerine izin verebilirsin.');
+      this.permissionNote.set(granted ? null : 'alarm.permission');
     }
   }
 

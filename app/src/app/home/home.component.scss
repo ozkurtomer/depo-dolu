@@ -47,6 +47,12 @@ ion-content {
   }
 }
 
+.top-right {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 .logo {
   font: 700 1rem var(--dd-num);
   color: var(--dd-brand);

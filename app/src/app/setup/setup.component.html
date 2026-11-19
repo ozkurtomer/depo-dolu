@@ -3,20 +3,21 @@
     @if (step() === 'city') {
     <header class="head">
       @if (mode() === 'city') {
-      <button class="link" type="button" (click)="done.emit()">‹ Geri</button>
-      <h1>İlini değiştir</h1>
+      <button class="link" type="button" (click)="done.emit()">{{ t('setup.back') }}</button>
+      <h1>{{ t('setup.change') }}</h1>
       } @else {
-      <p class="hello">Merhaba 👋</p>
-      <h1>Hangi ilde yakıt alıyorsun?</h1>
-      <p class="lede">Benzin, motorin ve LPG fiyatını takip et. Hesap açmadan, ücretsiz.</p>
+      <p class="hello">{{ t('setup.hello') }}</p>
+      <h1>{{ t('setup.which') }}</h1>
+      <p class="lede">{{ t('setup.lede') }}</p>
       }
+      <dd-lang-switch class="lang-corner" />
       <label class="search">
-        <span class="visually-hidden">İl ara</span>
+        <span class="visually-hidden">{{ t('setup.search') }}</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="11" cy="11" r="6.5" />
           <path d="m16 16 4 4" />
         </svg>
-        <input type="search" inputmode="search" autocomplete="off" placeholder="İl ara" [value]="query()"
+        <input type="search" inputmode="search" autocomplete="off" [placeholder]="t('setup.search')" [value]="query()"
           (input)="query.set($any($event.target).value)" />
       </label>
     </header>
@@ -24,22 +25,21 @@
     @if (prices.error(); as error) {
     <div class="load-error" role="alert">
       <p>{{ error }}</p>
-      <button class="primary" type="button" [disabled]="prices.loading()" (click)="prices.loadLatest()">Tekrar
-        dene</button>
+      <button class="primary" type="button" [disabled]="prices.loading()" (click)="prices.loadLatest()">{{ t('home.retry') }}</button>
     </div>
     } @else if (cities().length === 0) {
-    <p class="empty" role="status">İller yükleniyor…</p>
+    <p class="empty" role="status">{{ t('setup.loading') }}</p>
     }
 
     @if (!query() && popular().length) {
-    <h2>Sık seçilenler</h2>
+    <h2>{{ t('setup.popular') }}</h2>
     <div class="chips">
       @for (c of popular(); track c!.slug) {
       <button type="button" class="chip" [class.on]="c!.slug === city()" (click)="pickCity(c!.slug)">{{ c!.name
         }}</button>
       }
     </div>
-    <h2>Tüm iller</h2>
+    <h2>{{ t('setup.all') }}</h2>
     }
 
     <ul class="cities">
@@ -47,23 +47,23 @@
       <li>
         <button type="button" [class.on]="c.slug === city()" (click)="pickCity(c.slug)">
           {{ c.name }}
-          @if (c.slug === city()) { <span class="tick" aria-label="seçili">✓</span> }
+          @if (c.slug === city()) { <span class="tick" [attr.aria-label]="t('setup.selected')">✓</span> }
         </button>
       </li>
       } @empty {
       @if (cities().length) {
-      <li class="empty">"{{ query() }}" diye bir il bulamadık. Yazımı kontrol eder misin?</li>
+      <li class="empty">{{ t('setup.notFound', { q: query() }) }}</li>
       }
       }
     </ul>
     } @else {
     <header class="head">
       <button class="link" type="button" (click)="step.set('city')">‹ {{ cityPrices()?.name }}</button>
-      <h1>Aracın ne yakıyor?</h1>
-      <p class="lede">{{ cityPrices()?.name }} için bugünkü litre fiyatları.</p>
+      <h1>{{ t('setup.whatFuel') }}</h1>
+      <p class="lede">{{ t('setup.todayPrices', { city: cityPrices()?.name ?? '' }) }}</p>
     </header>
 
-    <div class="fuels" role="radiogroup" aria-label="Yakıt tipi">
+    <div class="fuels" role="radiogroup" [attr.aria-label]="t('setup.fuelType')">
       @for (f of fuels; track f.key) {
       <button type="button" role="radio" class="fuel" [attr.aria-checked]="fuel() === f.key"
         [class.on]="fuel() === f.key" (click)="fuel.set(f.key)">
@@ -82,15 +82,15 @@
     @if (push.supported) {
     <label class="switch-row">
       <span>
-        <strong>Fiyat değişince haber ver</strong>
-        <small>Zam ve indirimler, 15 dakikalık kontrollerle.</small>
+        <strong>{{ t('setup.notify') }}</strong>
+        <small>{{ t('setup.notifySub') }}</small>
       </span>
       <input type="checkbox" role="switch" [checked]="notify()" (change)="notify.set($any($event.target).checked)" />
     </label>
     }
 
     <button class="primary" type="button" [disabled]="saving()" (click)="start()">
-      {{ saving() ? 'Hazırlanıyor…' : 'Başla' }}
+      {{ saving() ? t('setup.preparing') : t('setup.start') }}
     </button>
     }
   </div>

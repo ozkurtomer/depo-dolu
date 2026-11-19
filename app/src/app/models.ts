@@ -1,12 +1,15 @@
 export type FuelKey = 'benzin' | 'motorin' | 'lpg';
 
-export const FUELS: { key: FuelKey; label: string; hint: string }[] = [
-  { key: 'benzin', label: 'Benzin', hint: 'Kurşunsuz 95' },
-  { key: 'motorin', label: 'Motorin', hint: 'Dizel' },
-  { key: 'lpg', label: 'LPG', hint: 'Otogaz' },
-];
+import { t } from './i18n';
 
-export const fuelLabel = (key: FuelKey) => FUELS.find(f => f.key === key)!.label;
+/** `label` ve `hint` her okunduğunda geçerli dile göre çevrilir. */
+export const FUELS: { key: FuelKey; readonly label: string; readonly hint: string }[] = (['benzin', 'motorin', 'lpg'] as const).map(key => ({
+  key,
+  get label() { return t(`fuel.${key}`); },
+  get hint() { return t(`fuel.${key}.hint`); },
+}));
+
+export const fuelLabel = (key: FuelKey) => t(`fuel.${key}`);
 
 export interface LatestCity {
   name: string;

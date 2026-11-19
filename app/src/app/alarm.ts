@@ -1,4 +1,5 @@
 import type { FuelKey, PriceAlarm } from './models';
+import { t, locale as getLocale } from './i18n';
 
 export type AlarmState =
   | { kind: 'none' }
@@ -18,7 +19,7 @@ export function alarmState(alarm: PriceAlarm | null, city: string | null, fuel: 
 
 /** Kullanıcının yazdığı hedefi doğrular. Hata metni ya da null döner. */
 export function validateTarget(below: number | null, price: number | null): string | null {
-  if (below == null || !Number.isFinite(below) || below <= 0 || below >= 1000) return 'Hedef fiyatı yaz (ör. 45,50).';
-  if (price != null && below >= price) return `Fiyat zaten ${below.toLocaleString('tr-TR')} ₺ ya da altında. Daha düşük bir hedef yaz.`;
+  if (below == null || !Number.isFinite(below) || below <= 0 || below >= 1000) return t('alarm.enterTarget');
+  if (price != null && below >= price) return t('alarm.alreadyBelow', { target: below.toLocaleString(getLocale()) });
   return null;
 }

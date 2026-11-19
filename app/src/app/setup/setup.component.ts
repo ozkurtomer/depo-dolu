@@ -5,6 +5,8 @@ import { PricesService } from '../services/prices.service';
 import { PushService } from '../services/push.service';
 import { SettingsService } from '../services/settings.service';
 import { fold, tl, trCompare } from '../format';
+import { t } from '../i18n';
+import { LangSwitchComponent } from '../lang-switch.component';
 
 const POPULAR = ['istanbul-avrupa', 'istanbul-anadolu', 'ankara', 'izmir', 'bursa', 'antalya'];
 
@@ -14,7 +16,7 @@ const POPULAR = ['istanbul-avrupa', 'istanbul-anadolu', 'ankara', 'izmir', 'burs
  */
 @Component({
   selector: 'dd-setup',
-  imports: [IonContent],
+  imports: [IonContent, LangSwitchComponent],
   templateUrl: './setup.component.html',
   styleUrl: './setup.component.scss',
   host: { class: 'ion-page' },
@@ -29,6 +31,7 @@ export class SetupComponent {
 
   readonly fuels = FUELS;
   readonly tl = tl;
+  readonly t = t;
 
   readonly query = signal('');
   readonly city = signal<string | null>(this.settings.settings().city);

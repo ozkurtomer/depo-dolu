@@ -4,8 +4,8 @@ import { fuelLabel } from '../models';
 import { PricesService } from '../services/prices.service';
 import { SettingsService } from '../services/settings.service';
 import { tl } from '../format';
+import { locale, t } from '../i18n';
 
-const when = new Intl.DateTimeFormat('tr-TR', { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
 
 /**
  * Seçili yakıt için yaklaşan zam/indirim duyurusu. Duyuru gözlenen fiyat değildir:
@@ -16,19 +16,19 @@ const when = new Intl.DateTimeFormat('tr-TR', { weekday: 'long', day: 'numeric',
   template: `
     @for (a of mine(); track a.id) {
       <section class="card notice" [class.up]="a.change > 0" role="status">
-        <h2>{{ a.change > 0 ? 'Zam bekleniyor' : 'İndirim bekleniyor' }}</h2>
+        <h2>{{ a.change > 0 ? t('ann.up') : t('ann.down') }}</h2>
         <p class="sub">
-          <strong>{{ fuel(a) }}</strong> litre fiyatına
+          <strong>{{ fuel(a) }}</strong> {{ t('ann.perLitre') }}
           <strong [class.bad]="a.change > 0" [class.good]="a.change < 0">{{ a.change > 0 ? '+' : '−' }}{{ tl(abs(a.change)) }} ₺</strong>,
-          {{ format(a.effectiveAt) }} itibarıyla.
+          {{ t('ann.effective', { when: format(a.effectiveAt) }) }}
         </p>
         @if (estimate(a); as e) {
-          <p class="sub">{{ cityName() }} için tahmini yeni fiyat: <strong>{{ tl(e) }} ₺</strong></p>
+          <p class="sub">{{ t('ann.estimate', { city: cityName() }) }} <strong>{{ tl(e) }} ₺</strong></p>
         }
         <p class="note">
-          Kaynak:
+          {{ t('ann.source') }}
           @if (a.sourceUrl) { <a [href]="a.sourceUrl" target="_blank" rel="noopener">{{ a.source }}</a> } @else { {{ a.source }} }.
-          Bu bir duyurudur; Petrol Ofisi fiyatına yansıyınca yukarıdaki fiyat güncellenir. İl bazında tutar farklı olabilir.
+          {{ t('ann.disclaimer') }}
         </p>
       </section>
     }
@@ -45,6 +45,7 @@ export class AnnouncementComponent {
   private settings = inject(SettingsService).settings;
 
   readonly tl = tl;
+  readonly t = t;
   readonly abs = Math.abs;
   private readonly all = signal<Announcement[]>([]);
 
@@ -69,7 +70,7 @@ export class AnnouncementComponent {
   }
 
   format(iso: string) {
-    return when.format(new Date(iso));
+    return new Intl.DateTimeFormat(locale(), { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
   }
 
   estimate(a: Announcement): number | null {

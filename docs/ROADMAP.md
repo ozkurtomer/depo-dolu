@@ -38,7 +38,7 @@ Depo Dolu aims to make Turkish fuel prices easy to check, share and reuse. An un
 - [ ] Long-range charts against the exchange rate or inflation once a year of history has accumulated.
 - [ ] "Why did the price change?" card (Brent, USD/TRY); needs a keyed data source (TCMB EVDS) and accumulated history.
 - [ ] Electric vehicle charging prices once a reliable public source exists.
-- [ ] English interface.
+- [x] English interface: the web app and Android app switch between Turkish and English from the header (the browser's first language picks the default). Static SEO pages, Telegram messages and push notifications stay Turkish for now.
 
 ## Good first contributions
 

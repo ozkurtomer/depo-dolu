@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+- English interface: a TR/EN switch in the header of the web and Android app. The default follows the browser's first language and the choice is kept on the device. Numbers, dates, the CSV export and share texts follow the language. Static SEO pages, Telegram and push notifications are still Turkish.
 - `data/anomalies.json` and an automatic `veri-anomalisi` issue for price moves above 20% (accepted, but flagged for review).
 - Optional VAT-excluded prices (`benzinNet`, `motorinNet`, `lpgNet`) in `latest.json`; the collector rejects a snapshot whose VAT ratio is far from 1.20.
 - Dependabot (Actions, NuGet, npm) and a weekly CodeQL scan for C# and JavaScript/TypeScript.

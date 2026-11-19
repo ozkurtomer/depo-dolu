@@ -2,6 +2,7 @@ import { Component, OnInit, computed, effect, inject, signal } from '@angular/co
 import { IonApp } from '@ionic/angular/standalone';
 import { HomeComponent } from './home/home.component';
 import { InstallService } from './services/install.service';
+import { LangService } from './services/lang.service';
 import { PricesService } from './services/prices.service';
 import { SettingsService } from './services/settings.service';
 import { SetupComponent } from './setup/setup.component';
@@ -28,6 +29,8 @@ export class AppComponent implements OnInit {
   private prices = inject(PricesService);
   // Tarayıcının kurulum olayı sayfa açılır açılmaz gelir; servis şimdiden dinlemeli.
   private install = inject(InstallService);
+  // Dil, ilk ekran çizilmeden önce seçilmeli.
+  private lang = inject(LangService);
 
   readonly pickingCity = signal(false);
   readonly showSetup = computed(() => this.pickingCity() || !this.settings.settings().city);

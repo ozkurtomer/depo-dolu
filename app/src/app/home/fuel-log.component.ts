@@ -7,8 +7,8 @@ import { FuelLogService } from '../services/fuel-log.service';
 import { PricesService } from '../services/prices.service';
 import { SettingsService } from '../services/settings.service';
 import { tl, tlWhole } from '../format';
+import { locale, t } from '../i18n';
 
-const shortDate = new Intl.DateTimeFormat('tr-TR', { day: 'numeric', month: 'short' });
 const today = () => {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -22,69 +22,69 @@ interface VehicleDraft { id: string | null; name: string; fuel: FuelKey; consump
   template: `
     <section class="card">
       <div class="head">
-        <h2>Yakıt defteri</h2>
+        <h2>{{ t('log.title') }}</h2>
         @if (log().fills.length) {
-          <button type="button" class="btn ghost small" (click)="exportCsv()">Dışa aktar</button>
+          <button type="button" class="btn ghost small" (click)="exportCsv()">{{ t('log.export') }}</button>
         }
       </div>
 
       @if (log().vehicles.length) {
-        <div class="chips" role="radiogroup" aria-label="Araç">
+        <div class="chips" role="radiogroup" [attr.aria-label]="t('log.vehicle')">
           @for (v of log().vehicles; track v.id) {
             <button type="button" role="radio" class="chip" [class.on]="v.id === log().activeId"
               [attr.aria-checked]="v.id === log().activeId" (click)="service.activate(v.id)">
               {{ v.name }} <small>{{ fuelLabel(v.fuel) }}</small>
             </button>
           }
-          <button type="button" class="chip add" (click)="openVehicle(null)">+ Araç</button>
+          <button type="button" class="chip add" (click)="openVehicle(null)">{{ t('log.addVehicle') }}</button>
           @if (service.active(); as a) {
-            <button type="button" class="chip add" (click)="openVehicle(a)">Düzenle</button>
+            <button type="button" class="chip add" (click)="openVehicle(a)">{{ t('log.edit') }}</button>
           }
         </div>
       }
 
       @if (vehicle(); as v) {
         <div class="fields form">
-          <label class="wide">Araç adı
+          <label class="wide">{{ t('log.vehicleName') }}
             <input type="text" maxlength="40" [value]="v.name" (input)="patchVehicle({ name: $any($event.target).value })"
-              placeholder="ör. Aile arabası" />
+              [placeholder]="t('log.vehicleExample')" />
           </label>
-          <label>Yakıt
+          <label>{{ t('log.fuel') }}
             <select (change)="patchVehicle({ fuel: $any($event.target).value })">
               @for (f of fuels; track f.key) {
                 <option [value]="f.key" [selected]="f.key === v.fuel">{{ f.label }}</option>
               }
             </select>
           </label>
-          <label>Tüketim (L/100 km)
+          <label>{{ t('log.consumption') }}
             <input type="number" inputmode="decimal" min="1" max="40" step="0.1" [value]="v.consumption"
               (input)="patchVehicle({ consumption: $any($event.target).valueAsNumber })" />
           </label>
           <div class="actions wide">
-            <button type="button" class="btn" (click)="saveVehicle()">Kaydet</button>
-            <button type="button" class="btn ghost" (click)="vehicle.set(null)">Vazgeç</button>
+            <button type="button" class="btn" (click)="saveVehicle()">{{ t('log.save') }}</button>
+            <button type="button" class="btn ghost" (click)="vehicle.set(null)">{{ t('log.cancel') }}</button>
             @if (v.id) {
-              <button type="button" class="btn ghost bad" (click)="deleteVehicle(v.id)">Aracı sil</button>
+              <button type="button" class="btn ghost bad" (click)="deleteVehicle(v.id)">{{ t('log.deleteVehicle') }}</button>
             }
           </div>
-          @if (formError(); as e) { <p class="note bad wide" role="alert">{{ e }}</p> }
+          @if (formError(); as e) { <p class="note bad wide" role="alert">{{ t(e) }}</p> }
         </div>
       } @else if (!log().vehicles.length && !filling()) {
-        <p class="sub">Her dolumu kaydet; gerçek tüketimini ve aylık harcamanı gör. Kayıtlar sadece bu cihazda kalır.</p>
+        <p class="sub">{{ t('log.intro') }}</p>
       }
 
       @if (service.active() && service.activeFills().length && !vehicle()) {
         <div class="stats">
-          <div><small>Bu ay</small><strong>{{ tlWhole(service.spend().thisMonth) }} ₺</strong>
+          <div><small>{{ t('log.thisMonth') }}</small><strong>{{ tlWhole(service.spend().thisMonth) }} ₺</strong>
             <span>{{ tl(service.spend().thisLiters) }} L</span></div>
-          <div><small>Geçen ay</small><strong>{{ tlWhole(service.spend().lastMonth) }} ₺</strong>
-            @if (monthDelta(); as d) { <span [class.bad]="d > 0" [class.good]="d < 0">{{ d > 0 ? '+' : '−' }}{{ tlWhole(d < 0 ? -d : d) }} ₺ fark</span> }
+          <div><small>{{ t('log.lastMonth') }}</small><strong>{{ tlWhole(service.spend().lastMonth) }} ₺</strong>
+            @if (monthDelta(); as d) { <span [class.bad]="d > 0" [class.good]="d < 0">{{ d > 0 ? '+' : '−' }}{{ t('log.diff', { delta: tlWhole(d < 0 ? -d : d) }) }}</span> }
           </div>
-          <div><small>Gerçek tüketim</small>
+          <div><small>{{ t('log.real') }}</small>
             @if (service.real(); as r) {
-              <strong>{{ tl(r.per100) }}</strong><span>L/100 km · {{ tlWhole(r.km) }} km</span>
+              <strong>{{ tl(r.per100) }}</strong><span>{{ t('log.realSub', { km: tlWhole(r.km) }) }}</span>
             } @else {
-              <strong>–</strong><span>2 tam dolum + km gerekir</span>
+              <strong>–</strong><span>{{ t('log.realNeeds') }}</span>
             }
           </div>
         </div>
@@ -92,37 +92,37 @@ interface VehicleDraft { id: string | null; name: string; fuel: FuelKey; consump
 
       @if (filling()) {
         <div class="fields form">
-          <label>Litre
+          <label>{{ t('log.liters') }}
             <input type="number" inputmode="decimal" min="0.1" max="500" step="0.01" [value]="liters() ?? ''"
-              (input)="liters.set(numOrNull($any($event.target).valueAsNumber))" placeholder="ör. 42,5" />
+              (input)="liters.set(numOrNull($any($event.target).valueAsNumber))" [placeholder]="t('log.litersExample')" />
           </label>
-          <label>Tutar (₺)
+          <label>{{ t('log.total') }}
             <input type="number" inputmode="decimal" min="0.01" max="100000" step="0.01" [value]="total() ?? ''"
               (input)="total.set(numOrNull($any($event.target).valueAsNumber))"
-              [placeholder]="suggested() ? tl(suggested()!) : 'ör. 2.000'" />
+              [placeholder]="suggested() ? tl(suggested()!) : t('log.totalExample')" />
           </label>
-          <label>Km sayacı <small>(isteğe bağlı)</small>
+          <label>{{ t('log.odometer') }} <small>{{ t('log.optional') }}</small>
             <input type="number" inputmode="numeric" min="0" max="5000000" [value]="odometer() ?? ''"
-              (input)="odometer.set(numOrNull($any($event.target).valueAsNumber))" placeholder="ör. 84250" />
+              (input)="odometer.set(numOrNull($any($event.target).valueAsNumber))" [placeholder]="t('log.odoExample')" />
           </label>
-          <label>Tarih
+          <label>{{ t('log.date') }}
             <input type="date" [max]="maxDate" [value]="date()" (input)="date.set($any($event.target).value)" />
           </label>
           <label class="check wide">
             <input type="checkbox" [checked]="full()" (change)="full.set($any($event.target).checked)" />
-            Depoyu tam doldurdum
+            {{ t('log.fullTank') }}
           </label>
           @if (suggested() && total() == null) {
-            <p class="note wide">Tutarı boş bırakırsan bugünkü fiyatla {{ tl(suggested()!) }} ₺ yazılır.</p>
+            <p class="note wide">{{ t('log.suggest', { total: tl(suggested()!) }) }}</p>
           }
           <div class="actions wide">
-            <button type="button" class="btn" (click)="saveFill()">Kaydet</button>
-            <button type="button" class="btn ghost" (click)="filling.set(false)">Vazgeç</button>
+            <button type="button" class="btn" (click)="saveFill()">{{ t('log.save') }}</button>
+            <button type="button" class="btn ghost" (click)="filling.set(false)">{{ t('log.cancel') }}</button>
           </div>
           @if (formError(); as e) { <p class="note bad wide" role="alert">{{ e }}</p> }
         </div>
       } @else if (!vehicle()) {
-        <button type="button" class="btn" (click)="openFill()">⛽ Yakıt aldım</button>
+        <button type="button" class="btn" (click)="openFill()">{{ t('log.filled') }}</button>
       }
 
       @if (recent().length && !filling() && !vehicle()) {
@@ -133,13 +133,13 @@ interface VehicleDraft { id: string | null; name: string; fuel: FuelKey; consump
               <span>{{ tl(f.liters) }} L{{ f.full ? '' : '*' }}</span>
               <strong>{{ tlWhole(f.total) }} ₺</strong>
               <span class="soft">{{ tl(f.total / f.liters) }} ₺/L</span>
-              <button type="button" class="x" (click)="service.deleteFill(f.id)" [attr.aria-label]="day(f.at) + ' dolumunu sil'">×</button>
+              <button type="button" class="x" (click)="service.deleteFill(f.id)" [attr.aria-label]="t('log.deleteFill', { day: day(f.at) })">×</button>
             </li>
           }
         </ul>
-        @if (hasPartial()) { <p class="note">* Depo tam doldurulmadı.</p> }
+        @if (hasPartial()) { <p class="note">{{ t('log.partial') }}</p> }
       }
-      @if (message(); as m) { <p class="note" role="status">{{ m }}</p> }
+      @if (message(); as m) { <p class="note" role="status">{{ t(m) }}</p> }
     </section>
   `,
   styleUrl: './tools.scss',
@@ -151,6 +151,7 @@ export class FuelLogComponent {
 
   readonly fuels = FUELS;
   readonly fuelLabel = fuelLabel;
+  readonly t = t;
   readonly tl = tl;
   readonly tlWhole = tlWhole;
   readonly maxDate = today();
@@ -187,14 +188,14 @@ export class FuelLogComponent {
   }
 
   numOrNull = (v: number) => (Number.isFinite(v) ? v : null);
-  day = (iso: string) => shortDate.format(new Date(iso));
+  day = (iso: string) => new Intl.DateTimeFormat(locale(), { day: 'numeric', month: 'short' }).format(new Date(iso));
 
   openVehicle(v: Vehicle | null) {
     const s = this.settingsService.settings();
     this.filling.set(false);
     this.formError.set(null);
     this.vehicle.set(v ? { ...v } : {
-      id: null, name: this.log().vehicles.length ? '' : 'Aracım', fuel: s.fuel, consumption: s.consumption,
+      id: null, name: this.log().vehicles.length ? '' : t('log.defaultName'), fuel: s.fuel, consumption: s.consumption,
     });
   }
 
@@ -207,9 +208,9 @@ export class FuelLogComponent {
     const v = this.vehicle();
     if (!v) return;
     const name = v.name.trim();
-    if (!name) return this.formError.set('Araca bir ad ver.');
+    if (!name) return this.formError.set('log.errName');
     if (!Number.isFinite(v.consumption) || v.consumption < 1 || v.consumption > 40)
-      return this.formError.set('Tüketim 1 ile 40 L/100 km arasında olmalı.');
+      return this.formError.set('log.errConsumption');
     await this.service.saveVehicle({ id: v.id ?? newId(), name, fuel: v.fuel, consumption: v.consumption });
     this.vehicle.set(null);
     this.formError.set(null);
@@ -218,7 +219,7 @@ export class FuelLogComponent {
   async deleteVehicle(id: string) {
     const v = this.log().vehicles.find(x => x.id === id);
     const count = this.log().fills.filter(f => f.vehicleId === id).length;
-    if (!v || !confirm(`${v.name} ve ${count} dolum kaydı silinsin mi?`)) return;
+    if (!v || !confirm(t('log.confirmDelete', { name: v.name, count }))) return;
     await this.service.deleteVehicle(id);
     this.vehicle.set(null);
   }
@@ -239,18 +240,18 @@ export class FuelLogComponent {
     const liters = this.liters();
     const total = this.total() ?? this.suggested();
     const odometer = this.odometer();
-    if (!liters || liters < 0.1 || liters > 500) return this.formError.set('Litreyi yaz (0,1 – 500).');
-    if (!total || total <= 0 || total > 100_000) return this.formError.set('Ödediğin tutarı yaz.');
-    if (odometer != null && (odometer < 0 || odometer > 5_000_000)) return this.formError.set('Km sayacı geçersiz.');
+    if (!liters || liters < 0.1 || liters > 500) return this.formError.set('log.errLiters');
+    if (!total || total <= 0 || total > 100_000) return this.formError.set('log.errTotal');
+    if (odometer != null && (odometer < 0 || odometer > 5_000_000)) return this.formError.set('log.errOdo');
     const d = this.date();
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || d > today()) return this.formError.set('Tarih bugünden ileri olamaz.');
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(d) || d > today()) return this.formError.set('log.errDate');
     const at = d === today() ? new Date().toISOString() : new Date(`${d}T12:00:00`).toISOString();
 
     // İlk dolumda araç yoksa seçili yakıtla varsayılan bir araç açılır.
     let vehicle = this.service.active();
     if (!vehicle) {
       const s = this.settingsService.settings();
-      vehicle = { id: newId(), name: 'Aracım', fuel: s.fuel, consumption: s.consumption };
+      vehicle = { id: newId(), name: t('log.defaultName'), fuel: s.fuel, consumption: s.consumption };
       await this.service.saveVehicle(vehicle);
     }
     const fill: FillUp = { id: newId(), vehicleId: vehicle.id, at, liters, total, odometer, full: this.full() };
@@ -258,14 +259,14 @@ export class FuelLogComponent {
     this.filling.set(false);
     this.formError.set(null);
     this.message.set(this.service.real() ? null : odometer == null && this.full()
-      ? 'Kaydedildi. Gerçek tüketimi görmek için dolumlarda km sayacını da yaz.' : 'Kaydedildi.');
+      ? 'log.savedHint' : 'log.saved');
   }
 
   async exportCsv() {
     const csv = toCsv(this.log());
     try {
       if (Capacitor.isNativePlatform()) {
-        await Share.share({ title: 'Depo Dolu yakıt defteri', text: csv, dialogTitle: 'Yakıt defterini paylaş' });
+        await Share.share({ title: t('log.shareTitle'), text: csv, dialogTitle: t('log.shareDialog') });
         return;
       }
       const url = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
@@ -275,7 +276,7 @@ export class FuelLogComponent {
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
     } catch {
-      this.message.set('Dışa aktarılamadı.');
+      this.message.set('log.exportFail');
     }
   }
 }

@@ -2,7 +2,7 @@
   "name": "depo-dolu",
   "version": "0.1.0",
   "scripts": {
-    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test": "node --experimental-strip-types --import ./tests/register.mjs --test tests/*.test.mjs",
     "start": "ng serve",
     "build": "ng build",
     "build:dev": "ng build --configuration development",

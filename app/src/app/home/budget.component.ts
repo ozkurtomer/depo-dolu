@@ -3,31 +3,32 @@ import { PricesService } from '../services/prices.service';
 import { SettingsService } from '../services/settings.service';
 import { tl, tlWhole } from '../format';
 import { monthlyBudget } from '../trip';
+import { t } from '../i18n';
 
 /** Aylık yakıt bütçesi. Km ve tüketim cihazda saklanır, hiçbir yere gönderilmez. */
 @Component({
   selector: 'dd-budget',
   template: `
     <section class="card">
-      <h2>Aylık yakıt bütçen</h2>
+      <h2>{{ t('budget.title') }}</h2>
       <div class="fields">
-        <label>Ayda kaç km?
+        <label>{{ t('budget.km') }}
           <input type="number" inputmode="numeric" min="1" max="20000" step="50" [value]="settings().monthlyKm"
             (change)="setMonthlyKm($any($event.target).valueAsNumber)" />
         </label>
-        <label>Tüketim (L/100 km)
+        <label>{{ t('trip.consumption') }}
           <input type="number" inputmode="decimal" min="1" max="40" step="0.1" [value]="settings().consumption"
             (change)="setConsumption($any($event.target).valueAsNumber)" />
         </label>
       </div>
       @if (budget(); as b) {
         <div class="result" aria-live="polite">
-          <p class="big">{{ tlWhole(b.monthly) }} <small>₺/ay</small></p>
-          <p class="sub">{{ tlWhole(b.liters) }} L · yılda {{ tlWhole(b.yearly) }} ₺</p>
+          <p class="big">{{ tlWhole(b.monthly) }} <small>{{ t('budget.unit') }}</small></p>
+          <p class="sub">{{ t('budget.sub', { liters: tlWhole(b.liters), yearly: tlWhole(b.yearly) }) }}</p>
         </div>
-        <p class="note">Litreye 1 ₺ zam bütçene ayda <span class="bad">+{{ tlWhole(b.perLiraHike) }} ₺</span> ekler.</p>
+        <p class="note">{{ t('budget.hikeA') }} <span class="bad">+{{ tlWhole(b.perLiraHike) }} ₺</span> {{ t('budget.hikeB') }}</p>
       } @else {
-        <p class="note">Hesaplamak için fiyat bilgisi gerekiyor.</p>
+        <p class="note">{{ t('home.needPrice') }}</p>
       }
     </section>
   `,
@@ -39,6 +40,7 @@ export class BudgetComponent {
 
   readonly settings = this.settingsService.settings;
   readonly tl = tl;
+  readonly t = t;
   readonly tlWhole = tlWhole;
 
   readonly budget = computed(() => {

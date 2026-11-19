@@ -1,6 +1,8 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { PricePoint } from '../models';
 import { shortDate, tl } from '../format';
+import { t } from '../i18n';
+import { LangService } from '../services/lang.service';
 
 const W = 340;
 const H = 150;
@@ -23,10 +25,10 @@ const PAD = { top: 14, right: 58, bottom: 26, left: 4 };
         <text class="val" [attr.x]="W - PAD.right + 8" [attr.y]="m.yMax + 4">{{ m.maxText }}</text>
         <text class="val" [attr.x]="W - PAD.right + 8" [attr.y]="m.yMin + 4">{{ m.minText }}</text>
         <text class="date" [attr.x]="PAD.left" [attr.y]="H - 6">{{ m.startText }}</text>
-        <text class="date end" [attr.x]="W - PAD.right" [attr.y]="H - 6">bugün</text>
+        <text class="date end" [attr.x]="W - PAD.right" [attr.y]="H - 6">{{ t('chart.today') }}</text>
       </svg>
     } @else {
-      <p class="empty">Henüz değişiklik yok. İlk zam ya da indirimde grafik burada çizilecek.</p>
+      <p class="empty">{{ t('chart.empty') }}</p>
     }
   `,
   styles: `
@@ -43,12 +45,15 @@ const PAD = { top: 14, right: 58, bottom: 26, left: 4 };
   `,
 })
 export class PriceChartComponent {
+  private lang = inject(LangService);
+  readonly t = t;
   readonly points = input.required<PricePoint[]>();
   readonly W = W;
   readonly H = H;
   readonly PAD = PAD;
 
   readonly model = computed(() => {
+    this.lang.lang();
     const pts = this.points();
     if (pts.length < 2) return null;
 
@@ -84,7 +89,7 @@ export class PriceChartComponent {
       minText: tl(min),
       maxText: tl(max),
       startText: shortDate(pts[0].at),
-      label: `${shortDate(pts[0].at)} ile bugün arasında fiyat ${tl(min)} ile ${tl(max)} TL arasında değişti`,
+      label: t('chart.label', { start: shortDate(pts[0].at), min: tl(min), max: tl(max) }),
     };
   });
 }

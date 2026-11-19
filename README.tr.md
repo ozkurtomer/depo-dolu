@@ -43,7 +43,7 @@ Litre fiyatının kendi depomuz için ne anlama geldiğini görmek daha faydalı
 | Yolculuk maliyeti (km, tüketim, gidiş-dönüş, kişi başı) ve nerede doldurmalı | Her il ve yakıt için arama motorlarına açık statik sayfa ve sitemap |
 | Aylık yakıt bütçesi ve 1 ₺ zamın aylık etkisi | Haber siteleri ve bloglar için [gömülebilir fiyat kutusu](docs/WIDGET.md) |
 | Kaynağı belli "zam bekleniyor" duyuruları, gözlenen fiyattan ayrı | Tipli JS istemcisi ([packages/depodolu](packages/depodolu/README.md)) ve [Home Assistant sensörü](examples/home-assistant.yaml) |
-| Ana ekrana eklenebilen web uygulaması (çevrimdışı açılır) | Telegram ve FCM'nin yanında isteğe bağlı X (Twitter) özeti |
+| Türkçe ve İngilizce arayüz (başlıktaki düğmeyle), ana ekrana eklenebilen web uygulaması (çevrimdışı açılır) | Telegram ve FCM'nin yanında isteğe bağlı X (Twitter) özeti |
 | Yakıt defteri: gerçek tüketim, aylık harcama, birden fazla araç, CSV | Her il için güncel fiyatlı paylaşım görseli ve [fiyat haritası](https://ozkurtomer.github.io/depo-dolu/harita/) |
 | Fiyat alarmı ve Android ana ekran kutusu | Saatlik veri sağlığı kontrolü, isteğe bağlı çerezsiz ziyaret sayacı |
 | İline özel Telegram bildirimi ([@depodolu_bot](https://t.me/depodolu_bot)); gruplarda `/fiyat izmir` | FCM konuları, Cloudflare Workers + D1 üzerinde Telegram botu ([bot/](bot/README.md)), kalıcı kuyruk ve testler |

@@ -1,4 +1,5 @@
 import type { FuelKey } from './models';
+import { getLang, t } from './i18n';
 
 /**
  * Yakıt defteri: kullanıcının araçları ve dolumları. Sadece cihazda saklanır.
@@ -143,10 +144,10 @@ export function monthlySpend(fills: FillUp[], now = new Date()) {
 export function toCsv(log: FuelLog): string {
   const name = new Map(log.vehicles.map(v => [v.id, v.name]));
   const cell = (s: string) => (/[;"\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s);
-  const dec = (n: number) => String(Math.round(n * 100) / 100).replace('.', ',');
+  const dec = (n: number) => String(Math.round(n * 100) / 100).replace('.', getLang() === 'en' ? '.' : ',');
   const rows = log.fills.map(f => [
     f.at.slice(0, 10), cell(name.get(f.vehicleId) ?? ''), dec(f.liters), dec(f.total), dec(f.total / f.liters),
-    f.odometer == null ? '' : String(f.odometer), f.full ? 'evet' : 'hayır',
+    f.odometer == null ? '' : String(f.odometer), f.full ? t('log.yes') : t('log.no'),
   ].join(';'));
-  return ['tarih;arac;litre;tutar_tl;litre_fiyati_tl;km_sayaci;tam_dolum', ...rows].join('\n') + '\n';
+  return [t('log.csvHeader'), ...rows].join('\n') + '\n';
 }

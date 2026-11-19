@@ -4,37 +4,39 @@ import { PricesService } from '../services/prices.service';
 import { SettingsService } from '../services/settings.service';
 import { tl, tlWhole, trCompare } from '../format';
 import { estimateRoadKm, fillAdvice, tripCost } from '../trip';
+import { locale, t } from '../i18n';
+import { LangService } from '../services/lang.service';
 
 /** "İstanbul–Ankara kaç TL tutar?": seçili ilin fiyatıyla yolculuğun yakıt maliyeti. */
 @Component({
   selector: 'dd-trip',
   template: `
     <section class="card">
-      <h2>Yolculuk ne tutar?</h2>
+      <h2>{{ t('trip.title') }}</h2>
       <div class="fields">
-        <label class="wide">Nereye?
+        <label class="wide">{{ t('trip.where') }}
           <select (change)="chooseDestination($any($event.target).value)">
-            <option value="">İl seç (isteğe bağlı)</option>
+            <option value="">{{ t('trip.optional') }}</option>
             @for (c of destinations(); track c.slug) {
               <option [value]="c.slug" [selected]="c.slug === destination()">{{ c.name }}</option>
             }
           </select>
         </label>
-        <label>Mesafe (km)
+        <label>{{ t('trip.distance') }}
           <input type="number" inputmode="numeric" min="1" max="5000" [value]="km() ?? ''"
-            (input)="setKm($any($event.target).valueAsNumber)" placeholder="ör. 450" />
+            (input)="setKm($any($event.target).valueAsNumber)" [placeholder]="t('trip.example')" />
         </label>
-        <label>Tüketim (L/100 km)
+        <label>{{ t('trip.consumption') }}
           <input type="number" inputmode="decimal" min="1" max="40" step="0.1" [value]="settings().consumption"
             (change)="setConsumption($any($event.target).valueAsNumber)" />
         </label>
-        <label>Kişi sayısı
+        <label>{{ t('trip.people') }}
           <input type="number" inputmode="numeric" min="1" max="9" [value]="people()"
             (input)="people.set($any($event.target).valueAsNumber || 1)" />
         </label>
         <label class="check">
           <input type="checkbox" [checked]="roundTrip()" (change)="roundTrip.set($any($event.target).checked)" />
-          Gidiş-dönüş
+          {{ t('trip.round') }}
         </label>
       </div>
 
@@ -42,27 +44,27 @@ import { estimateRoadKm, fillAdvice, tripCost } from '../trip';
         <div class="result" aria-live="polite">
           <p class="big">{{ tlWhole(r.cost) }} <small>₺</small></p>
           <p class="sub">
-            {{ tlWhole(r.km) }} km · {{ tl(r.liters) }} L {{ fuelName() }} · km başına {{ tl(r.perKm) }} ₺
-            @if (people() > 1) { · kişi başı {{ tlWhole(r.perPerson) }} ₺ }
+            {{ t('trip.sub', { km: tlWhole(r.km), liters: tl(r.liters), fuel: fuelName(), perKm: tl(r.perKm) }) }}
+            @if (people() > 1) { {{ t('trip.perPerson', { n: tlWhole(r.perPerson) }) }} }
           </p>
         </div>
       } @else {
-        <p class="note">Mesafeyi yaz ya da varış ilini seç.</p>
+        <p class="note">{{ t('trip.hint') }}</p>
       }
 
       @if (advice(); as a) {
         <p class="note">
           @if (a.where === 'same') {
-            {{ originName() }} ve {{ destinationName() }} fiyatı aynı.
+            {{ t('trip.same', { a: originName(), b: destinationName() }) }}
           } @else if (a.where === 'destination') {
-            <span class="good">{{ destinationName() }} daha ucuz: varınca doldurursan {{ settings().liters }} L depoda {{ tlWhole(a.saving) }} ₺ kazanırsın.</span>
+            <span class="good">{{ t('trip.destCheaper', { place: destinationName(), liters: settings().liters, saving: tlWhole(a.saving) }) }}</span>
           } @else {
-            <span class="good">{{ originName() }} daha ucuz: yola çıkmadan doldurursan {{ settings().liters }} L depoda {{ tlWhole(a.saving) }} ₺ kazanırsın.</span>
+            <span class="good">{{ t('trip.originCheaper', { place: originName(), liters: settings().liters, saving: tlWhole(a.saving) }) }}</span>
           }
         </p>
       }
       @if (estimated()) {
-        <p class="note">Mesafe il merkezleri arasından tahmin edildi (kuş uçuşu × 1,3). Gerçek güzergâh km'sini yazabilirsin.</p>
+        <p class="note">{{ t('trip.estimated') }}</p>
       }
     </section>
   `,
@@ -71,6 +73,8 @@ import { estimateRoadKm, fillAdvice, tripCost } from '../trip';
 export class TripComponent {
   private prices = inject(PricesService);
   private settingsService = inject(SettingsService);
+  private lang = inject(LangService);
+  readonly t = t;
 
   readonly settings = this.settingsService.settings;
   readonly tl = tl;
@@ -82,7 +86,11 @@ export class TripComponent {
   readonly people = signal(1);
   readonly roundTrip = signal(false);
 
-  readonly fuelName = computed(() => fuelLabel(this.settings().fuel).toLocaleLowerCase('tr-TR'));
+  readonly fuelName = computed(() => {
+    this.lang.lang();
+    const label = fuelLabel(this.settings().fuel);
+    return label === 'LPG' ? label : label.toLocaleLowerCase(locale());
+  });
   readonly originName = computed(() => this.cityName(this.settings().city));
   readonly destinationName = computed(() => this.cityName(this.destination()));
 
