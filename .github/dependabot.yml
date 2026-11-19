@@ -2,17 +2,59 @@ version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
-    schedule: { interval: weekly }
+    schedule: { interval: monthly }
+    groups:
+      actions:
+        patterns: ["*"]
+
   - package-ecosystem: nuget
     directory: /collector
-    schedule: { interval: weekly }
+    schedule: { interval: monthly }
+    groups:
+      nuget-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+    ignore:
+      # Test altyapısının major sürümleri birlikte ve elle yükseltilir.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+
   - package-ecosystem: npm
     directory: /app
-    schedule: { interval: weekly }
-    open-pull-requests-limit: 5
+    schedule: { interval: monthly }
+    open-pull-requests-limit: 3
+    groups:
+      app-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+    ignore:
+      # Angular, Ionic ve Capacitor paketleri birbirine bağlıdır; tek tek major yükseltmek
+      # derlemeyi bozar. Bunlar `ng update` ile bir bütün olarak, elle yükseltilir.
+      - dependency-name: "@angular/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@angular-devkit/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@ionic/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@capacitor/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@capacitor-firebase/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "zone.js"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "rxjs"
+        update-types: ["version-update:semver-major"]
+
   - package-ecosystem: npm
     directory: /bot
-    schedule: { interval: weekly }
+    schedule: { interval: monthly }
+    groups:
+      bot-minor-patch:
+        patterns: ["*"]
+        update-types: [minor, patch]
+
   - package-ecosystem: npm
     directory: /packages/depodolu
     schedule: { interval: monthly }
