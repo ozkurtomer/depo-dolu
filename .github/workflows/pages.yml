@@ -55,7 +55,7 @@ jobs:
           # İsteğe bağlı çerezsiz ziyaret sayacı: Settings → Variables → GOATCOUNTER_CODE (ör. depodolu).
           GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
         run: node tools/prerender.mjs --dist dist/browser --data ../data --base https://ozkurtomer.github.io/depo-dolu/
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: app/dist/browser
 
