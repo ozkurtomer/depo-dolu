@@ -77,26 +77,26 @@ This table is maintained by the collector. Its date is the last stored update, n
 <!-- FIYATLAR:BASLA -->
 | Province | Gasoline | Diesel | LPG |
 |:---|---:|---:|---:|
-| **İstanbul (Avrupa)** | 🔻 71.30 | 🔻 88.80 | 🔺 50.70 |
-| **İstanbul (Anadolu)** | 🔻 71.10 | 🔻 88.70 | 🔺 50.10 |
-| **Ankara** | 🔻 72.30 | 🔻 89.90 | 🔺 50.79 |
-| **İzmir** | 🔻 72.50 | 🔻 90.20 | 🔺 50.70 |
-| **Bursa** | 🔺 72.50 | 🔻 89.90 | 🔺 50.10 |
-| **Antalya** | 🔻 73.50 | 🔻 91.30 | 🔺 50.90 |
-| **Adana** | 🔻 73.10 | 🔻 90.80 | 🔺 51.11 |
-| **Konya** | 🔺 73.40 | 🔻 91.10 | 🔺 50.79 |
-| **Gaziantep** | 🔻 73.20 | 🔻 90.90 | 🔺 50.91 |
-| **Kocaeli** | 🔺 71.80 | 🔻 89.20 | 🔺 49.90 |
+| **İstanbul (Avrupa)** | 🔻 68.40 | 🔺 88.90 | 🔺 50.70 |
+| **İstanbul (Anadolu)** | 🔻 68.20 | 🔻 88.70 | 🔺 50.10 |
+| **Ankara** | 🔻 69.40 | 🔺 90.00 | 🔺 50.79 |
+| **İzmir** | 🔻 69.60 | 🔻 90.20 | 🔺 50.70 |
+| **Bursa** | 🔻 69.60 | 🔻 89.90 | 🔺 50.10 |
+| **Antalya** | 🔻 70.60 | 🔺 91.40 | 🔺 50.90 |
+| **Adana** | 🔻 70.20 | 🔻 90.80 | 🔺 51.11 |
+| **Konya** | 🔻 70.60 | 🔺 91.20 | 50.79 |
+| **Gaziantep** | 🔻 70.30 | 🔻 90.90 | 50.91 |
+| **Kocaeli** | 🔻 68.90 | 🔻 89.20 | 49.90 |
 
-<sub>Price per liter in Turkish lira (₺), VAT included. 🔺 increase / 🔻 decrease in the last 36 hours. Last update: Nov 20, 2026, 02:33 (Turkey time). [All 81 provinces](data/latest.json)</sub>
+<sub>Price per liter in Turkish lira (₺), VAT included. 🔺 increase / 🔻 decrease in the last 36 hours. Last update: Nov 21, 2026, 00:24 (Turkey time). [All 81 provinces](data/latest.json)</sub>
 
 **Latest price changes**
 
-- 🔻 Nov 20, 2026, 02:33: **İstanbul (Avrupa)** diesel 95.30 → 88.80 ₺ (−6.50)
-- 🔻 Nov 20, 2026, 02:33: **İstanbul (Anadolu)** diesel 95.20 → 88.70 ₺ (−6.50)
-- 🔻 Nov 20, 2026, 02:33: **Ankara** diesel 96.40 → 89.90 ₺ (−6.50)
-- 🔻 Nov 20, 2026, 02:33: **İzmir** diesel 96.70 → 90.20 ₺ (−6.50)
-- 🔻 Nov 20, 2026, 02:33: **Adana** diesel 97.30 → 90.80 ₺ (−6.50)
+- 🔻 Nov 21, 2026, 00:24: **İstanbul (Avrupa)** gasoline 71.30 → 68.40 ₺ (−2.90)
+- 🔺 Nov 21, 2026, 00:24: **İstanbul (Avrupa)** diesel 88.80 → 88.90 ₺ (+0.10)
+- 🔻 Nov 21, 2026, 00:24: **İstanbul (Anadolu)** gasoline 71.10 → 68.20 ₺ (−2.90)
+- 🔻 Nov 21, 2026, 00:24: **Ankara** gasoline 72.30 → 69.40 ₺ (−2.90)
+- 🔺 Nov 21, 2026, 00:24: **Ankara** diesel 89.90 → 90.00 ₺ (+0.10)
 <!-- FIYATLAR:BITIR -->
 
 ## Build with the data

@@ -77,26 +77,26 @@ Bu tabloyu toplayıcı günceller. Tarih, son veri güncellemesini gösterir; so
 <!-- FIYATLAR:BASLA -->
 | İl | Benzin | Motorin | LPG |
 |:---|---:|---:|---:|
-| **İstanbul (Avrupa)** | 🔻 71,30 | 🔻 88,80 | 🔺 50,70 |
-| **İstanbul (Anadolu)** | 🔻 71,10 | 🔻 88,70 | 🔺 50,10 |
-| **Ankara** | 🔻 72,30 | 🔻 89,90 | 🔺 50,79 |
-| **İzmir** | 🔻 72,50 | 🔻 90,20 | 🔺 50,70 |
-| **Bursa** | 🔺 72,50 | 🔻 89,90 | 🔺 50,10 |
-| **Antalya** | 🔻 73,50 | 🔻 91,30 | 🔺 50,90 |
-| **Adana** | 🔻 73,10 | 🔻 90,80 | 🔺 51,11 |
-| **Konya** | 🔺 73,40 | 🔻 91,10 | 🔺 50,79 |
-| **Gaziantep** | 🔻 73,20 | 🔻 90,90 | 🔺 50,91 |
-| **Kocaeli** | 🔺 71,80 | 🔻 89,20 | 🔺 49,90 |
+| **İstanbul (Avrupa)** | 🔻 68,40 | 🔺 88,90 | 🔺 50,70 |
+| **İstanbul (Anadolu)** | 🔻 68,20 | 🔻 88,70 | 🔺 50,10 |
+| **Ankara** | 🔻 69,40 | 🔺 90,00 | 🔺 50,79 |
+| **İzmir** | 🔻 69,60 | 🔻 90,20 | 🔺 50,70 |
+| **Bursa** | 🔻 69,60 | 🔻 89,90 | 🔺 50,10 |
+| **Antalya** | 🔻 70,60 | 🔺 91,40 | 🔺 50,90 |
+| **Adana** | 🔻 70,20 | 🔻 90,80 | 🔺 51,11 |
+| **Konya** | 🔻 70,60 | 🔺 91,20 | 50,79 |
+| **Gaziantep** | 🔻 70,30 | 🔻 90,90 | 50,91 |
+| **Kocaeli** | 🔻 68,90 | 🔻 89,20 | 49,90 |
 
-<sub>Litre fiyatı, KDV dahil, ₺. 🔺 zam / 🔻 indirim: son 36 saat. Son güncelleme: 20 Kasım 2026, 02:33. [81 ilin tamamı](data/latest.json)</sub>
+<sub>Litre fiyatı, KDV dahil, ₺. 🔺 zam / 🔻 indirim: son 36 saat. Son güncelleme: 21 Kasım 2026, 00:24. [81 ilin tamamı](data/latest.json)</sub>
 
 **Son fiyat değişiklikleri**
 
-- 🔻 20 Kasım 2026, 02:33: **İstanbul (Avrupa)** motorin 95,30 → 88,80 ₺ (−6,50)
-- 🔻 20 Kasım 2026, 02:33: **İstanbul (Anadolu)** motorin 95,20 → 88,70 ₺ (−6,50)
-- 🔻 20 Kasım 2026, 02:33: **Ankara** motorin 96,40 → 89,90 ₺ (−6,50)
-- 🔻 20 Kasım 2026, 02:33: **İzmir** motorin 96,70 → 90,20 ₺ (−6,50)
-- 🔻 20 Kasım 2026, 02:33: **Adana** motorin 97,30 → 90,80 ₺ (−6,50)
+- 🔻 21 Kasım 2026, 00:24: **İstanbul (Avrupa)** benzin 71,30 → 68,40 ₺ (−2,90)
+- 🔺 21 Kasım 2026, 00:24: **İstanbul (Avrupa)** motorin 88,80 → 88,90 ₺ (+0,10)
+- 🔻 21 Kasım 2026, 00:24: **İstanbul (Anadolu)** benzin 71,10 → 68,20 ₺ (−2,90)
+- 🔻 21 Kasım 2026, 00:24: **Ankara** benzin 72,30 → 69,40 ₺ (−2,90)
+- 🔺 21 Kasım 2026, 00:24: **Ankara** motorin 89,90 → 90,00 ₺ (+0,10)
 <!-- FIYATLAR:BITIR -->
 
 ## Veriyi kendi projende kullan
