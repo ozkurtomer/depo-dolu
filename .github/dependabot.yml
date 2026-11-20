@@ -44,6 +44,8 @@ updates:
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
       - dependency-name: "zone.js"
         update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "firebase"
+        update-types: ["version-update:semver-major"]
       - dependency-name: "rxjs"
         update-types: ["version-update:semver-major"]
 
