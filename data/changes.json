@@ -1,5 +1,1109 @@
 [
   {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "istanbul-avrupa",
+    "name": "İstanbul (Avrupa)",
+    "fuel": "motorin",
+    "old": 88.90,
+    "new": 84.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "istanbul-anadolu",
+    "name": "İstanbul (Anadolu)",
+    "fuel": "benzin",
+    "old": 68.20,
+    "new": 68.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "istanbul-anadolu",
+    "name": "İstanbul (Anadolu)",
+    "fuel": "motorin",
+    "old": 88.70,
+    "new": 84.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "ankara",
+    "name": "Ankara",
+    "fuel": "motorin",
+    "old": 90.00,
+    "new": 85.70
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "izmir",
+    "name": "İzmir",
+    "fuel": "benzin",
+    "old": 69.60,
+    "new": 69.70
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "izmir",
+    "name": "İzmir",
+    "fuel": "motorin",
+    "old": 90.20,
+    "new": 86.00
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "adana",
+    "name": "Adana",
+    "fuel": "benzin",
+    "old": 70.20,
+    "new": 70.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "adana",
+    "name": "Adana",
+    "fuel": "motorin",
+    "old": 90.80,
+    "new": 86.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "adiyaman",
+    "name": "Adıyaman",
+    "fuel": "benzin",
+    "old": 70.60,
+    "new": 70.70
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "adiyaman",
+    "name": "Adıyaman",
+    "fuel": "motorin",
+    "old": 91.20,
+    "new": 87.00
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "afyon",
+    "name": "Afyonkarahisar",
+    "fuel": "benzin",
+    "old": 70.50,
+    "new": 70.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "afyon",
+    "name": "Afyonkarahisar",
+    "fuel": "motorin",
+    "old": 91.30,
+    "new": 87.00
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "agri",
+    "name": "Ağrı",
+    "fuel": "benzin",
+    "old": 71.00,
+    "new": 71.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "agri",
+    "name": "Ağrı",
+    "fuel": "motorin",
+    "old": 91.60,
+    "new": 87.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "aksaray",
+    "name": "Aksaray",
+    "fuel": "benzin",
+    "old": 70.30,
+    "new": 70.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "aksaray",
+    "name": "Aksaray",
+    "fuel": "motorin",
+    "old": 90.90,
+    "new": 86.70
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "amasya",
+    "name": "Amasya",
+    "fuel": "benzin",
+    "old": 70.00,
+    "new": 70.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "amasya",
+    "name": "Amasya",
+    "fuel": "motorin",
+    "old": 90.50,
+    "new": 86.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "antalya",
+    "name": "Antalya",
+    "fuel": "benzin",
+    "old": 70.60,
+    "new": 70.70
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "antalya",
+    "name": "Antalya",
+    "fuel": "motorin",
+    "old": 91.40,
+    "new": 87.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "ardahan",
+    "name": "Ardahan",
+    "fuel": "benzin",
+    "old": 70.50,
+    "new": 70.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "ardahan",
+    "name": "Ardahan",
+    "fuel": "motorin",
+    "old": 91.10,
+    "new": 86.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "artvin",
+    "name": "Artvin",
+    "fuel": "benzin",
+    "old": 70.30,
+    "new": 70.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "artvin",
+    "name": "Artvin",
+    "fuel": "motorin",
+    "old": 90.90,
+    "new": 86.70
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "aydin",
+    "name": "Aydın",
+    "fuel": "benzin",
+    "old": 69.90,
+    "new": 70.00
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "aydin",
+    "name": "Aydın",
+    "fuel": "motorin",
+    "old": 90.50,
+    "new": 86.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "balikesir",
+    "name": "Balıkesir",
+    "fuel": "motorin",
+    "old": 90.60,
+    "new": 86.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "bartin",
+    "name": "Bartın",
+    "fuel": "motorin",
+    "old": 90.10,
+    "new": 85.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "batman",
+    "name": "Batman",
+    "fuel": "benzin",
+    "old": 70.80,
+    "new": 70.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "batman",
+    "name": "Batman",
+    "fuel": "motorin",
+    "old": 91.50,
+    "new": 87.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "bayburt",
+    "name": "Bayburt",
+    "fuel": "benzin",
+    "old": 70.30,
+    "new": 70.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "bayburt",
+    "name": "Bayburt",
+    "fuel": "motorin",
+    "old": 90.90,
+    "new": 86.70
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "bilecik",
+    "name": "Bilecik",
+    "fuel": "motorin",
+    "old": 89.80,
+    "new": 85.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "bingol",
+    "name": "Bingöl",
+    "fuel": "benzin",
+    "old": 70.90,
+    "new": 71.00
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "bingol",
+    "name": "Bingöl",
+    "fuel": "motorin",
+    "old": 91.60,
+    "new": 87.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "bitlis",
+    "name": "Bitlis",
+    "fuel": "motorin",
+    "old": 91.70,
+    "new": 87.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "bolu",
+    "name": "Bolu",
+    "fuel": "motorin",
+    "old": 89.90,
+    "new": 85.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "burdur",
+    "name": "Burdur",
+    "fuel": "benzin",
+    "old": 70.40,
+    "new": 70.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "burdur",
+    "name": "Burdur",
+    "fuel": "motorin",
+    "old": 91.20,
+    "new": 86.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "bursa",
+    "name": "Bursa",
+    "fuel": "motorin",
+    "old": 89.90,
+    "new": 85.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "canakkale",
+    "name": "Çanakkale",
+    "fuel": "benzin",
+    "old": 70.00,
+    "new": 70.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "canakkale",
+    "name": "Çanakkale",
+    "fuel": "motorin",
+    "old": 90.60,
+    "new": 86.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "cankiri",
+    "name": "Çankırı",
+    "fuel": "benzin",
+    "old": 69.80,
+    "new": 69.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "cankiri",
+    "name": "Çankırı",
+    "fuel": "motorin",
+    "old": 90.40,
+    "new": 86.20
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "corum",
+    "name": "Çorum",
+    "fuel": "benzin",
+    "old": 70.00,
+    "new": 70.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "corum",
+    "name": "Çorum",
+    "fuel": "motorin",
+    "old": 90.60,
+    "new": 86.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "denizli",
+    "name": "Denizli",
+    "fuel": "benzin",
+    "old": 70.20,
+    "new": 70.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "denizli",
+    "name": "Denizli",
+    "fuel": "motorin",
+    "old": 90.80,
+    "new": 86.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "diyarbakir",
+    "name": "Diyarbakır",
+    "fuel": "benzin",
+    "old": 70.80,
+    "new": 70.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "diyarbakir",
+    "name": "Diyarbakır",
+    "fuel": "motorin",
+    "old": 91.50,
+    "new": 87.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "duzce",
+    "name": "Düzce",
+    "fuel": "motorin",
+    "old": 89.70,
+    "new": 85.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "edirne",
+    "name": "Edirne",
+    "fuel": "benzin",
+    "old": 69.50,
+    "new": 69.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "edirne",
+    "name": "Edirne",
+    "fuel": "motorin",
+    "old": 90.20,
+    "new": 85.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "elazig",
+    "name": "Elazığ",
+    "fuel": "motorin",
+    "old": 91.70,
+    "new": 87.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "erzincan",
+    "name": "Erzincan",
+    "fuel": "motorin",
+    "old": 91.00,
+    "new": 86.70
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "erzurum",
+    "name": "Erzurum",
+    "fuel": "benzin",
+    "old": 70.40,
+    "new": 70.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "erzurum",
+    "name": "Erzurum",
+    "fuel": "motorin",
+    "old": 91.00,
+    "new": 86.80
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "eskisehir",
+    "name": "Eskişehir",
+    "fuel": "motorin",
+    "old": 90.00,
+    "new": 85.80
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "gaziantep",
+    "name": "Gaziantep",
+    "fuel": "benzin",
+    "old": 70.30,
+    "new": 70.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "gaziantep",
+    "name": "Gaziantep",
+    "fuel": "motorin",
+    "old": 90.90,
+    "new": 86.70
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "giresun",
+    "name": "Giresun",
+    "fuel": "benzin",
+    "old": 70.20,
+    "new": 70.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "giresun",
+    "name": "Giresun",
+    "fuel": "motorin",
+    "old": 90.80,
+    "new": 86.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "gumushane",
+    "name": "Gümüşhane",
+    "fuel": "benzin",
+    "old": 70.10,
+    "new": 70.20
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "gumushane",
+    "name": "Gümüşhane",
+    "fuel": "motorin",
+    "old": 90.70,
+    "new": 86.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "hakkari",
+    "name": "Hakkari",
+    "fuel": "motorin",
+    "old": 91.70,
+    "new": 87.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "hatay",
+    "name": "Hatay",
+    "fuel": "benzin",
+    "old": 70.10,
+    "new": 70.20
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "hatay",
+    "name": "Hatay",
+    "fuel": "motorin",
+    "old": 90.70,
+    "new": 86.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "igdir",
+    "name": "Iğdır",
+    "fuel": "benzin",
+    "old": 71.00,
+    "new": 71.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "igdir",
+    "name": "Iğdır",
+    "fuel": "motorin",
+    "old": 91.60,
+    "new": 87.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "isparta",
+    "name": "Isparta",
+    "fuel": "benzin",
+    "old": 70.50,
+    "new": 70.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "isparta",
+    "name": "Isparta",
+    "fuel": "motorin",
+    "old": 91.30,
+    "new": 87.00
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kahramanmaras",
+    "name": "Kahramanmaraş",
+    "fuel": "benzin",
+    "old": 70.40,
+    "new": 70.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kahramanmaras",
+    "name": "Kahramanmaraş",
+    "fuel": "motorin",
+    "old": 91.00,
+    "new": 86.80
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "karabuk",
+    "name": "Karabük",
+    "fuel": "motorin",
+    "old": 90.20,
+    "new": 85.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "karaman",
+    "name": "Karaman",
+    "fuel": "benzin",
+    "old": 70.30,
+    "new": 70.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "karaman",
+    "name": "Karaman",
+    "fuel": "motorin",
+    "old": 90.90,
+    "new": 86.70
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kars",
+    "name": "Kars",
+    "fuel": "benzin",
+    "old": 70.50,
+    "new": 70.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kars",
+    "name": "Kars",
+    "fuel": "motorin",
+    "old": 91.10,
+    "new": 86.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kastamonu",
+    "name": "Kastamonu",
+    "fuel": "benzin",
+    "old": 70.10,
+    "new": 70.20
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kastamonu",
+    "name": "Kastamonu",
+    "fuel": "motorin",
+    "old": 90.70,
+    "new": 86.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kayseri",
+    "name": "Kayseri",
+    "fuel": "motorin",
+    "old": 91.00,
+    "new": 86.70
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kilis",
+    "name": "Kilis",
+    "fuel": "benzin",
+    "old": 70.10,
+    "new": 70.20
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kilis",
+    "name": "Kilis",
+    "fuel": "motorin",
+    "old": 90.70,
+    "new": 86.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kirikkale",
+    "name": "Kırıkkale",
+    "fuel": "benzin",
+    "old": 69.70,
+    "new": 69.80
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kirikkale",
+    "name": "Kırıkkale",
+    "fuel": "motorin",
+    "old": 90.30,
+    "new": 86.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kirklareli",
+    "name": "Kırklareli",
+    "fuel": "benzin",
+    "old": 69.50,
+    "new": 69.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kirklareli",
+    "name": "Kırklareli",
+    "fuel": "motorin",
+    "old": 90.20,
+    "new": 85.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kirsehir",
+    "name": "Kırşehir",
+    "fuel": "benzin",
+    "old": 69.70,
+    "new": 69.80
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kirsehir",
+    "name": "Kırşehir",
+    "fuel": "motorin",
+    "old": 90.30,
+    "new": 86.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kocaeli",
+    "name": "Kocaeli",
+    "fuel": "motorin",
+    "old": 89.20,
+    "new": 85.00
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "konya",
+    "name": "Konya",
+    "fuel": "motorin",
+    "old": 91.20,
+    "new": 86.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "kutahya",
+    "name": "Kütahya",
+    "fuel": "motorin",
+    "old": 90.70,
+    "new": 86.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "malatya",
+    "name": "Malatya",
+    "fuel": "motorin",
+    "old": 91.20,
+    "new": 86.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "manisa",
+    "name": "Manisa",
+    "fuel": "benzin",
+    "old": 69.70,
+    "new": 69.80
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "manisa",
+    "name": "Manisa",
+    "fuel": "motorin",
+    "old": 90.30,
+    "new": 86.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "mardin",
+    "name": "Mardin",
+    "fuel": "benzin",
+    "old": 70.80,
+    "new": 70.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "mardin",
+    "name": "Mardin",
+    "fuel": "motorin",
+    "old": 91.50,
+    "new": 87.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "mersin",
+    "name": "Mersin",
+    "fuel": "benzin",
+    "old": 70.20,
+    "new": 70.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "mersin",
+    "name": "Mersin",
+    "fuel": "motorin",
+    "old": 90.80,
+    "new": 86.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "mugla",
+    "name": "Muğla",
+    "fuel": "benzin",
+    "old": 70.20,
+    "new": 70.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "mugla",
+    "name": "Muğla",
+    "fuel": "motorin",
+    "old": 90.80,
+    "new": 86.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "mus",
+    "name": "Muş",
+    "fuel": "benzin",
+    "old": 71.00,
+    "new": 71.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "mus",
+    "name": "Muş",
+    "fuel": "motorin",
+    "old": 91.60,
+    "new": 87.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "nevsehir",
+    "name": "Nevşehir",
+    "fuel": "motorin",
+    "old": 90.90,
+    "new": 86.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "nigde",
+    "name": "Niğde",
+    "fuel": "benzin",
+    "old": 70.20,
+    "new": 70.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "nigde",
+    "name": "Niğde",
+    "fuel": "motorin",
+    "old": 90.80,
+    "new": 86.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "ordu",
+    "name": "Ordu",
+    "fuel": "benzin",
+    "old": 70.00,
+    "new": 70.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "ordu",
+    "name": "Ordu",
+    "fuel": "motorin",
+    "old": 90.50,
+    "new": 86.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "osmaniye",
+    "name": "Osmaniye",
+    "fuel": "benzin",
+    "old": 70.10,
+    "new": 70.20
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "osmaniye",
+    "name": "Osmaniye",
+    "fuel": "motorin",
+    "old": 90.70,
+    "new": 86.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "rize",
+    "name": "Rize",
+    "fuel": "benzin",
+    "old": 70.10,
+    "new": 70.20
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "rize",
+    "name": "Rize",
+    "fuel": "motorin",
+    "old": 90.70,
+    "new": 86.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "sakarya",
+    "name": "Sakarya",
+    "fuel": "motorin",
+    "old": 89.50,
+    "new": 85.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "samsun",
+    "name": "Samsun",
+    "fuel": "benzin",
+    "old": 70.00,
+    "new": 70.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "samsun",
+    "name": "Samsun",
+    "fuel": "motorin",
+    "old": 90.50,
+    "new": 86.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "sanliurfa",
+    "name": "Şanlıurfa",
+    "fuel": "benzin",
+    "old": 70.50,
+    "new": 70.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "sanliurfa",
+    "name": "Şanlıurfa",
+    "fuel": "motorin",
+    "old": 91.10,
+    "new": 86.90
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "siirt",
+    "name": "Siirt",
+    "fuel": "motorin",
+    "old": 91.60,
+    "new": 87.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "sinop",
+    "name": "Sinop",
+    "fuel": "motorin",
+    "old": 90.60,
+    "new": 86.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "sirnak",
+    "name": "Şırnak",
+    "fuel": "benzin",
+    "old": 70.90,
+    "new": 71.00
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "sirnak",
+    "name": "Şırnak",
+    "fuel": "motorin",
+    "old": 91.60,
+    "new": 87.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "sivas",
+    "name": "Sivas",
+    "fuel": "benzin",
+    "old": 70.40,
+    "new": 70.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "sivas",
+    "name": "Sivas",
+    "fuel": "motorin",
+    "old": 91.00,
+    "new": 86.80
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "tekirdag",
+    "name": "Tekirdağ",
+    "fuel": "benzin",
+    "old": 69.10,
+    "new": 69.20
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "tekirdag",
+    "name": "Tekirdağ",
+    "fuel": "motorin",
+    "old": 89.80,
+    "new": 85.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "tokat",
+    "name": "Tokat",
+    "fuel": "motorin",
+    "old": 90.60,
+    "new": 86.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "trabzon",
+    "name": "Trabzon",
+    "fuel": "benzin",
+    "old": 70.10,
+    "new": 70.20
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "trabzon",
+    "name": "Trabzon",
+    "fuel": "motorin",
+    "old": 90.70,
+    "new": 86.50
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "tunceli",
+    "name": "Tunceli",
+    "fuel": "benzin",
+    "old": 71.00,
+    "new": 71.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "tunceli",
+    "name": "Tunceli",
+    "fuel": "motorin",
+    "old": 91.60,
+    "new": 87.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "usak",
+    "name": "Uşak",
+    "fuel": "benzin",
+    "old": 70.20,
+    "new": 70.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "usak",
+    "name": "Uşak",
+    "fuel": "motorin",
+    "old": 90.80,
+    "new": 86.60
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "van",
+    "name": "Van",
+    "fuel": "benzin",
+    "old": 71.00,
+    "new": 71.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "van",
+    "name": "Van",
+    "fuel": "motorin",
+    "old": 91.60,
+    "new": 87.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "yalova",
+    "name": "Yalova",
+    "fuel": "motorin",
+    "old": 89.50,
+    "new": 85.30
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "yozgat",
+    "name": "Yozgat",
+    "fuel": "benzin",
+    "old": 70.00,
+    "new": 70.10
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "yozgat",
+    "name": "Yozgat",
+    "fuel": "motorin",
+    "old": 90.60,
+    "new": 86.40
+  },
+  {
+    "at": "2026-11-25T23:04:26+00:00",
+    "city": "zonguldak",
+    "name": "Zonguldak",
+    "fuel": "motorin",
+    "old": 90.00,
+    "new": 85.80
+  },
+  {
     "at": "2026-11-20T21:24:28+00:00",
     "city": "istanbul-avrupa",
     "name": "İstanbul (Avrupa)",
@@ -1294,1109 +2398,5 @@
     "fuel": "benzin",
     "old": 73.20,
     "new": 73.30
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "kutahya",
-    "name": "Kütahya",
-    "fuel": "motorin",
-    "old": 97.20,
-    "new": 90.70
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "malatya",
-    "name": "Malatya",
-    "fuel": "motorin",
-    "old": 97.70,
-    "new": 91.20
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "manisa",
-    "name": "Manisa",
-    "fuel": "motorin",
-    "old": 96.80,
-    "new": 90.30
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "mardin",
-    "name": "Mardin",
-    "fuel": "motorin",
-    "old": 98.00,
-    "new": 91.50
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "mersin",
-    "name": "Mersin",
-    "fuel": "motorin",
-    "old": 97.30,
-    "new": 90.80
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "mugla",
-    "name": "Muğla",
-    "fuel": "motorin",
-    "old": 97.30,
-    "new": 90.80
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "mus",
-    "name": "Muş",
-    "fuel": "motorin",
-    "old": 98.10,
-    "new": 91.60
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "nevsehir",
-    "name": "Nevşehir",
-    "fuel": "motorin",
-    "old": 97.40,
-    "new": 90.90
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "nigde",
-    "name": "Niğde",
-    "fuel": "motorin",
-    "old": 97.30,
-    "new": 90.80
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "ordu",
-    "name": "Ordu",
-    "fuel": "motorin",
-    "old": 97.00,
-    "new": 90.50
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "osmaniye",
-    "name": "Osmaniye",
-    "fuel": "motorin",
-    "old": 97.20,
-    "new": 90.70
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "rize",
-    "name": "Rize",
-    "fuel": "motorin",
-    "old": 97.20,
-    "new": 90.70
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "sakarya",
-    "name": "Sakarya",
-    "fuel": "benzin",
-    "old": 72.00,
-    "new": 72.10
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "sakarya",
-    "name": "Sakarya",
-    "fuel": "motorin",
-    "old": 96.00,
-    "new": 89.50
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "samsun",
-    "name": "Samsun",
-    "fuel": "motorin",
-    "old": 97.00,
-    "new": 90.50
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "sanliurfa",
-    "name": "Şanlıurfa",
-    "fuel": "motorin",
-    "old": 97.60,
-    "new": 91.10
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "siirt",
-    "name": "Siirt",
-    "fuel": "motorin",
-    "old": 98.10,
-    "new": 91.60
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "sinop",
-    "name": "Sinop",
-    "fuel": "motorin",
-    "old": 97.10,
-    "new": 90.60
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "sirnak",
-    "name": "Şırnak",
-    "fuel": "motorin",
-    "old": 98.10,
-    "new": 91.60
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "sivas",
-    "name": "Sivas",
-    "fuel": "motorin",
-    "old": 97.50,
-    "new": 91.00
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "tekirdag",
-    "name": "Tekirdağ",
-    "fuel": "motorin",
-    "old": 96.10,
-    "new": 89.70
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "tokat",
-    "name": "Tokat",
-    "fuel": "benzin",
-    "old": 72.90,
-    "new": 73.00
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "tokat",
-    "name": "Tokat",
-    "fuel": "motorin",
-    "old": 97.00,
-    "new": 90.60
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "trabzon",
-    "name": "Trabzon",
-    "fuel": "motorin",
-    "old": 97.20,
-    "new": 90.70
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "tunceli",
-    "name": "Tunceli",
-    "fuel": "motorin",
-    "old": 98.10,
-    "new": 91.60
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "usak",
-    "name": "Uşak",
-    "fuel": "motorin",
-    "old": 97.30,
-    "new": 90.80
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "van",
-    "name": "Van",
-    "fuel": "motorin",
-    "old": 98.10,
-    "new": 91.60
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "yalova",
-    "name": "Yalova",
-    "fuel": "benzin",
-    "old": 72.00,
-    "new": 72.10
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "yalova",
-    "name": "Yalova",
-    "fuel": "motorin",
-    "old": 96.00,
-    "new": 89.50
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "yozgat",
-    "name": "Yozgat",
-    "fuel": "motorin",
-    "old": 97.10,
-    "new": 90.60
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "zonguldak",
-    "name": "Zonguldak",
-    "fuel": "benzin",
-    "old": 72.50,
-    "new": 72.60
-  },
-  {
-    "at": "2026-11-19T23:33:53+00:00",
-    "city": "zonguldak",
-    "name": "Zonguldak",
-    "fuel": "motorin",
-    "old": 96.50,
-    "new": 90.00
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "istanbul-avrupa",
-    "name": "İstanbul (Avrupa)",
-    "fuel": "benzin",
-    "old": 80.40,
-    "new": 71.30
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "istanbul-avrupa",
-    "name": "İstanbul (Avrupa)",
-    "fuel": "motorin",
-    "old": 100.50,
-    "new": 95.30
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "istanbul-avrupa",
-    "name": "İstanbul (Avrupa)",
-    "fuel": "lpg",
-    "old": 41.20,
-    "new": 50.70
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "istanbul-anadolu",
-    "name": "İstanbul (Anadolu)",
-    "fuel": "benzin",
-    "old": 80.30,
-    "new": 71.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "istanbul-anadolu",
-    "name": "İstanbul (Anadolu)",
-    "fuel": "motorin",
-    "old": 100.30,
-    "new": 95.20
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "istanbul-anadolu",
-    "name": "İstanbul (Anadolu)",
-    "fuel": "lpg",
-    "old": 40.60,
-    "new": 50.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "ankara",
-    "name": "Ankara",
-    "fuel": "benzin",
-    "old": 81.40,
-    "new": 72.30
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "ankara",
-    "name": "Ankara",
-    "fuel": "motorin",
-    "old": 101.60,
-    "new": 96.40
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "ankara",
-    "name": "Ankara",
-    "fuel": "lpg",
-    "old": 41.29,
-    "new": 50.79
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "izmir",
-    "name": "İzmir",
-    "fuel": "benzin",
-    "old": 81.70,
-    "new": 72.50
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "izmir",
-    "name": "İzmir",
-    "fuel": "motorin",
-    "old": 101.90,
-    "new": 96.70
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "izmir",
-    "name": "İzmir",
-    "fuel": "lpg",
-    "old": 41.20,
-    "new": 50.70
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "adana",
-    "name": "Adana",
-    "fuel": "benzin",
-    "old": 82.30,
-    "new": 73.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "adana",
-    "name": "Adana",
-    "fuel": "motorin",
-    "old": 102.40,
-    "new": 97.30
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "adana",
-    "name": "Adana",
-    "fuel": "lpg",
-    "old": 41.61,
-    "new": 51.11
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "adiyaman",
-    "name": "Adıyaman",
-    "fuel": "benzin",
-    "old": 82.60,
-    "new": 73.50
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "adiyaman",
-    "name": "Adıyaman",
-    "fuel": "motorin",
-    "old": 102.70,
-    "new": 97.70
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "adiyaman",
-    "name": "Adıyaman",
-    "fuel": "lpg",
-    "old": 41.84,
-    "new": 51.34
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "afyon",
-    "name": "Afyonkarahisar",
-    "fuel": "benzin",
-    "old": 82.60,
-    "new": 73.40
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "afyon",
-    "name": "Afyonkarahisar",
-    "fuel": "motorin",
-    "old": 102.80,
-    "new": 97.60
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "afyon",
-    "name": "Afyonkarahisar",
-    "fuel": "lpg",
-    "old": 41.20,
-    "new": 50.70
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "agri",
-    "name": "Ağrı",
-    "fuel": "benzin",
-    "old": 83.10,
-    "new": 73.90
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "agri",
-    "name": "Ağrı",
-    "fuel": "motorin",
-    "old": 103.20,
-    "new": 98.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "agri",
-    "name": "Ağrı",
-    "fuel": "lpg",
-    "old": 43.19,
-    "new": 52.69
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "aksaray",
-    "name": "Aksaray",
-    "fuel": "benzin",
-    "old": 82.40,
-    "new": 73.20
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "aksaray",
-    "name": "Aksaray",
-    "fuel": "motorin",
-    "old": 102.40,
-    "new": 97.40
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "aksaray",
-    "name": "Aksaray",
-    "fuel": "lpg",
-    "old": 41.29,
-    "new": 50.79
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "amasya",
-    "name": "Amasya",
-    "fuel": "benzin",
-    "old": 82.00,
-    "new": 72.90
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "amasya",
-    "name": "Amasya",
-    "fuel": "motorin",
-    "old": 102.10,
-    "new": 97.00
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "amasya",
-    "name": "Amasya",
-    "fuel": "lpg",
-    "old": 41.79,
-    "new": 51.29
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "antalya",
-    "name": "Antalya",
-    "fuel": "benzin",
-    "old": 82.70,
-    "new": 73.50
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "antalya",
-    "name": "Antalya",
-    "fuel": "motorin",
-    "old": 102.90,
-    "new": 97.70
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "antalya",
-    "name": "Antalya",
-    "fuel": "lpg",
-    "old": 41.40,
-    "new": 50.90
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "ardahan",
-    "name": "Ardahan",
-    "fuel": "benzin",
-    "old": 82.50,
-    "new": 73.40
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "ardahan",
-    "name": "Ardahan",
-    "fuel": "motorin",
-    "old": 102.70,
-    "new": 97.60
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "ardahan",
-    "name": "Ardahan",
-    "fuel": "lpg",
-    "old": 42.19,
-    "new": 51.69
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "artvin",
-    "name": "Artvin",
-    "fuel": "benzin",
-    "old": 82.40,
-    "new": 73.20
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "artvin",
-    "name": "Artvin",
-    "fuel": "motorin",
-    "old": 102.50,
-    "new": 97.40
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "artvin",
-    "name": "Artvin",
-    "fuel": "lpg",
-    "old": 42.69,
-    "new": 52.19
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "aydin",
-    "name": "Aydın",
-    "fuel": "benzin",
-    "old": 82.00,
-    "new": 72.80
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "aydin",
-    "name": "Aydın",
-    "fuel": "motorin",
-    "old": 102.20,
-    "new": 97.00
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "aydin",
-    "name": "Aydın",
-    "fuel": "lpg",
-    "old": 41.30,
-    "new": 50.80
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "balikesir",
-    "name": "Balıkesir",
-    "fuel": "benzin",
-    "old": 82.00,
-    "new": 72.90
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "balikesir",
-    "name": "Balıkesir",
-    "fuel": "motorin",
-    "old": 102.20,
-    "new": 97.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "balikesir",
-    "name": "Balıkesir",
-    "fuel": "lpg",
-    "old": 40.70,
-    "new": 50.20
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bartin",
-    "name": "Bartın",
-    "fuel": "benzin",
-    "old": 81.80,
-    "new": 72.60
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bartin",
-    "name": "Bartın",
-    "fuel": "motorin",
-    "old": 101.70,
-    "new": 96.60
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bartin",
-    "name": "Bartın",
-    "fuel": "lpg",
-    "old": 41.19,
-    "new": 50.69
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "batman",
-    "name": "Batman",
-    "fuel": "benzin",
-    "old": 82.90,
-    "new": 73.70
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "batman",
-    "name": "Batman",
-    "fuel": "motorin",
-    "old": 103.10,
-    "new": 98.00
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "batman",
-    "name": "Batman",
-    "fuel": "lpg",
-    "old": 42.14,
-    "new": 51.64
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bayburt",
-    "name": "Bayburt",
-    "fuel": "benzin",
-    "old": 82.30,
-    "new": 73.20
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bayburt",
-    "name": "Bayburt",
-    "fuel": "motorin",
-    "old": 102.40,
-    "new": 97.40
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bayburt",
-    "name": "Bayburt",
-    "fuel": "lpg",
-    "old": 42.49,
-    "new": 51.99
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bilecik",
-    "name": "Bilecik",
-    "fuel": "benzin",
-    "old": 81.50,
-    "new": 72.20
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bilecik",
-    "name": "Bilecik",
-    "fuel": "motorin",
-    "old": 101.30,
-    "new": 96.20
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bilecik",
-    "name": "Bilecik",
-    "fuel": "lpg",
-    "old": 40.60,
-    "new": 50.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bingol",
-    "name": "Bingöl",
-    "fuel": "benzin",
-    "old": 83.00,
-    "new": 73.80
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bingol",
-    "name": "Bingöl",
-    "fuel": "motorin",
-    "old": 103.20,
-    "new": 98.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bingol",
-    "name": "Bingöl",
-    "fuel": "lpg",
-    "old": 42.29,
-    "new": 51.79
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bitlis",
-    "name": "Bitlis",
-    "fuel": "benzin",
-    "old": 83.10,
-    "new": 73.90
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bitlis",
-    "name": "Bitlis",
-    "fuel": "motorin",
-    "old": 103.30,
-    "new": 98.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bitlis",
-    "name": "Bitlis",
-    "fuel": "lpg",
-    "old": 41.91,
-    "new": 51.41
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bolu",
-    "name": "Bolu",
-    "fuel": "benzin",
-    "old": 81.60,
-    "new": 72.30
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bolu",
-    "name": "Bolu",
-    "fuel": "motorin",
-    "old": 101.40,
-    "new": 96.30
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bolu",
-    "name": "Bolu",
-    "fuel": "lpg",
-    "old": 40.99,
-    "new": 50.49
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "burdur",
-    "name": "Burdur",
-    "fuel": "benzin",
-    "old": 82.50,
-    "new": 73.30
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "burdur",
-    "name": "Burdur",
-    "fuel": "motorin",
-    "old": 102.70,
-    "new": 97.50
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "burdur",
-    "name": "Burdur",
-    "fuel": "lpg",
-    "old": 41.40,
-    "new": 50.90
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bursa",
-    "name": "Bursa",
-    "fuel": "benzin",
-    "old": 81.60,
-    "new": 72.40
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bursa",
-    "name": "Bursa",
-    "fuel": "motorin",
-    "old": 101.50,
-    "new": 96.40
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "bursa",
-    "name": "Bursa",
-    "fuel": "lpg",
-    "old": 40.60,
-    "new": 50.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "canakkale",
-    "name": "Çanakkale",
-    "fuel": "benzin",
-    "old": 82.10,
-    "new": 72.90
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "canakkale",
-    "name": "Çanakkale",
-    "fuel": "motorin",
-    "old": 102.30,
-    "new": 97.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "canakkale",
-    "name": "Çanakkale",
-    "fuel": "lpg",
-    "old": 40.80,
-    "new": 50.30
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "cankiri",
-    "name": "Çankırı",
-    "fuel": "benzin",
-    "old": 81.90,
-    "new": 72.70
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "cankiri",
-    "name": "Çankırı",
-    "fuel": "motorin",
-    "old": 102.00,
-    "new": 96.90
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "cankiri",
-    "name": "Çankırı",
-    "fuel": "lpg",
-    "old": 41.49,
-    "new": 50.99
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "corum",
-    "name": "Çorum",
-    "fuel": "benzin",
-    "old": 82.10,
-    "new": 72.90
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "corum",
-    "name": "Çorum",
-    "fuel": "motorin",
-    "old": 102.20,
-    "new": 97.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "corum",
-    "name": "Çorum",
-    "fuel": "lpg",
-    "old": 41.39,
-    "new": 50.89
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "denizli",
-    "name": "Denizli",
-    "fuel": "benzin",
-    "old": 82.20,
-    "new": 73.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "denizli",
-    "name": "Denizli",
-    "fuel": "motorin",
-    "old": 102.40,
-    "new": 97.30
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "denizli",
-    "name": "Denizli",
-    "fuel": "lpg",
-    "old": 41.10,
-    "new": 50.60
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "diyarbakir",
-    "name": "Diyarbakır",
-    "fuel": "benzin",
-    "old": 82.90,
-    "new": 73.70
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "diyarbakir",
-    "name": "Diyarbakır",
-    "fuel": "motorin",
-    "old": 103.10,
-    "new": 98.00
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "diyarbakir",
-    "name": "Diyarbakır",
-    "fuel": "lpg",
-    "old": 42.26,
-    "new": 51.76
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "duzce",
-    "name": "Düzce",
-    "fuel": "benzin",
-    "old": 81.40,
-    "new": 72.20
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "duzce",
-    "name": "Düzce",
-    "fuel": "motorin",
-    "old": 101.30,
-    "new": 96.20
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "duzce",
-    "name": "Düzce",
-    "fuel": "lpg",
-    "old": 40.99,
-    "new": 50.49
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "edirne",
-    "name": "Edirne",
-    "fuel": "benzin",
-    "old": 81.60,
-    "new": 72.40
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "edirne",
-    "name": "Edirne",
-    "fuel": "motorin",
-    "old": 101.70,
-    "new": 96.50
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "edirne",
-    "name": "Edirne",
-    "fuel": "lpg",
-    "old": 41.30,
-    "new": 50.80
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "elazig",
-    "name": "Elazığ",
-    "fuel": "benzin",
-    "old": 83.10,
-    "new": 73.90
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "elazig",
-    "name": "Elazığ",
-    "fuel": "motorin",
-    "old": 103.20,
-    "new": 98.10
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "elazig",
-    "name": "Elazığ",
-    "fuel": "lpg",
-    "old": 41.81,
-    "new": 51.31
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "erzincan",
-    "name": "Erzincan",
-    "fuel": "benzin",
-    "old": 82.40,
-    "new": 73.30
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "erzincan",
-    "name": "Erzincan",
-    "fuel": "motorin",
-    "old": 102.50,
-    "new": 97.50
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "erzincan",
-    "name": "Erzincan",
-    "fuel": "lpg",
-    "old": 42.69,
-    "new": 52.19
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "erzurum",
-    "name": "Erzurum",
-    "fuel": "benzin",
-    "old": 82.50,
-    "new": 73.30
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "erzurum",
-    "name": "Erzurum",
-    "fuel": "motorin",
-    "old": 102.60,
-    "new": 97.50
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "erzurum",
-    "name": "Erzurum",
-    "fuel": "lpg",
-    "old": 42.39,
-    "new": 51.89
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "eskisehir",
-    "name": "Eskişehir",
-    "fuel": "benzin",
-    "old": 81.70,
-    "new": 72.50
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "eskisehir",
-    "name": "Eskişehir",
-    "fuel": "motorin",
-    "old": 101.60,
-    "new": 96.50
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "eskisehir",
-    "name": "Eskişehir",
-    "fuel": "lpg",
-    "old": 40.70,
-    "new": 50.20
-  },
-  {
-    "at": "2026-11-19T19:17:32+00:00",
-    "city": "gaziantep",
-    "name": "Gaziantep",
-    "fuel": "benzin",
-    "old": 82.40,
-    "new": 73.20
   }
 ]
